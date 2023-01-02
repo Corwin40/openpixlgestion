@@ -20,12 +20,6 @@ class Service
     private ?string $name = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $email = null;
-
-    #[ORM\Column(length: 50)]
-    private ?string $password = null;
-
-    #[ORM\Column(length: 50)]
     private ?string $archives = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -35,7 +29,7 @@ class Service
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'service')]
-    private ?member $members = null;
+    private ?Member $members = null;
 
     #[ORM\ManyToMany(targetEntity: Client::class, mappedBy: 'service')]
     private Collection $clients;
@@ -62,30 +56,6 @@ class Service
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
 
         return $this;
     }

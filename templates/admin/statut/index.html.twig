@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statut index{% endblock %}
+
+{% block body %}
+    <h1>Statut index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Notes</th>
+                <th>Price</th>
+                <th>Hours</th>
+                <th>Author</th>
+                <th>StartedAt</th>
+                <th>FinishedAt</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for statut in statuts %}
+            <tr>
+                <td>{{ statut.id }}</td>
+                <td>{{ statut.name }}</td>
+                <td>{{ statut.notes }}</td>
+                <td>{{ statut.price }}</td>
+                <td>{{ statut.hours }}</td>
+                <td>{{ statut.author }}</td>
+                <td>{{ statut.startedAt }}</td>
+                <td>{{ statut.finishedAt }}</td>
+                <td>{{ statut.createdAt ? statut.createdAt|date('Y-m-d') : '' }}</td>
+                <td>{{ statut.updatedAt ? statut.updatedAt|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_statut_show', {'id': statut.id}) }}">show</a>
+                    <a href="{{ path('app_admin_statut_edit', {'id': statut.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_statut_new') }}">Create new</a>
+{% endblock %}

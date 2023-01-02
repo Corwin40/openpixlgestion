@@ -45,7 +45,7 @@ class Client
 
     #[ORM\ManyToOne(inversedBy: 'client')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?member $members = null;
+    private ?Member $members = null;
 
     #[ORM\ManyToMany(targetEntity: Service::class, inversedBy: 'clients')]
     private Collection $service;
