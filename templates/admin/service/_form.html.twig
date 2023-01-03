@@ -14,47 +14,13 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group row mb-1">
-                        {{ form_label(form.email, "Email", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
-                        <div class="col-sm-9">
-                            {{ form_widget(form.email, {'attr': {'class': 'form-control form-control-sm'}}) }}
-                            <small>{{ form_help(form.email) }}</small>
-                            <div class="form-error">
-                                {{ form_errors(form.email) }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-1">
-                        <div class="col-sm-9 offset-sm-3">
-                            {{ form_widget(form.password, "Mot de passe", {'attr': {'class': 'form-control form-control-sm'}}) }}
-                            <small>{{ form_help(form.password) }}</small>
-                            <div class="form-error">
-                                {{ form_errors(form.password) }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-1">
+                    <div class="form-group row mt-1 mb-1">
                         {{ form_label(form.archives, "Archives", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
-                        <div class="col-sm-3">
+                        <div class="col-sm-9">
                             {{ form_widget(form.archives, {'attr': {'class': 'form-control form-control-sm'}}) }}
                             <small>{{ form_help(form.archives) }}</small>
                             <div class="form-error">
                                 {{ form_errors(form.archives) }}
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="form-group row mb-1">
-                        {{ form_label(form.statut, "Notes de mise à jour", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
-                        <div class="col-sm-9">
-                            {{ form_widget(form.statut, {'attr': {'class': 'form-control form-control-sm'}}) }}
-                            <small>{{ form_help(form.statut) }}</small>
-                            <div class="form-error">
-                                {{ form_errors(form.statut) }}
                             </div>
                         </div>
                     </div>
@@ -62,9 +28,4 @@
             </div>
         </div>
     </div>
-    <div id="bouton_form">
-        <button class="btn btn-sm btn-outline-warning">{{ button_label|default('Enregistrer') }}</button>
-    </div>
-    {{ form_rest(form) }}
-    {{ form_end(form) }}
 </div>

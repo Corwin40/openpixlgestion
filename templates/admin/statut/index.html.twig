@@ -16,9 +16,6 @@
                 <th>Author</th>
                 <th>StartedAt</th>
                 <th>FinishedAt</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -35,17 +32,17 @@
                 <td>{{ statut.createdAt ? statut.createdAt|date('Y-m-d') : '' }}</td>
                 <td>{{ statut.updatedAt ? statut.updatedAt|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_admin_statut_show', {'id': statut.id}) }}">show</a>
-                    <a href="{{ path('app_admin_statut_edit', {'id': statut.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_statut_show', {'id': statut.id}) }}">Voir</a>
+                    <a href="{{ path('app_admin_statut_edit', {'id': statut.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="11">no records found</td>
+                <td colspan="11">Enregistrement</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_statut_new') }}">Create new</a>
+    <a href="{{ path('app_admin_statut_new') }}">Crée un statut</a>
 {% endblock %}

@@ -1,4 +1,92 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="container">
+    <div class="row">
+        <div class="form-group row mb-1">
+            {{ form_label(form.name, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.name) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.name) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="editor">
+        <div class="form-group row mb-1">
+            {{ form_label(form.notes, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.notes, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.notes) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.notes) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group row mb-1">
+            {{ form_label(form.price, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.price, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.price) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.price) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group row mb-1">
+            {{ form_label(form.hours, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.hours, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.hours) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.hours) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group row mb-1">
+            {{ form_label(form.author, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.author, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.author) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.author) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group row mb-1">
+            {{ form_label(form.startedAt, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.startedAt, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.startedAt) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.startedAt) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group row mb-1">
+            {{ form_label(form.finishedAt, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.finishedAt, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.finishedAt) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.finishedAt) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <button class="btn btn-outline-success">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

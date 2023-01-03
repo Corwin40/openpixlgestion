@@ -13,8 +13,13 @@
                     {{ include('admin/service/_form.html.twig') }}
                 </div>
             </div>
-            </div>
+        </div>
     </section>
+
+        <div id="bouton_form">
+            <button class="btn btn-sm btn-outline-success">{{ button_label|default('Enregistrer') }}</button>
+        </div>
     {% endblock %}
 
+    <a href="{{ path('app_admin_statut_index') }}">Retour à la liste</a>
 {% endblock %}

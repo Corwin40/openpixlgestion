@@ -13,14 +13,7 @@ class ServiceType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('email')
-            ->add('password')
             ->add('archives')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('members')
-            ->add('clients')
-            ->add('statut')
         ;
     }
 
