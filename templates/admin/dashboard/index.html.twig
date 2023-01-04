@@ -1,18 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Op service administration{% endblock %}
-
-
-{% block header %}
-
-{% endblock %}
-
+{% block title %}Tableau de bord{% endblock %}
 
 {% block body %}
+    <div class="container title">
+        <div class="row">
+            <div class="col-12">
+                <h1>Panneau d'administration</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-4">
+            <a class="titre_h2" href="{{ path('app_admin_statut_index') }}">Client</a>
+        </div>
+        <div class="col-md-4">
+            <a class="titre_h2" href="{{ path('app_admin_statut_index') }}">Client</a>
+        </div>
+        <div class="col-md-4">
+            <a class="titre_h2" href="{{ path('app_admin_statut_index') }}">Client</a>
 
-{% endblock %}
-
-
-{% block footer %}
-
+        </div>
+    </div>
 {% endblock %}

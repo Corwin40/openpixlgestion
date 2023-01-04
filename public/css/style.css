@@ -1,3 +1,17 @@
-.navigation{
-    background-color: #b5b3cb ;
+.barre_navigation {
+    background-color: #2E373C;
+    color: white;
+}
+.title{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.titre_h2{
+    color: black;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 1.2;
+    text-decoration: none;
 }
