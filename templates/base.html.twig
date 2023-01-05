@@ -15,13 +15,13 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
-        <header class="barre_navigation">
+    <body class="font">
+        <header>
             {% block header %}
                 {{ include('includes/navbar_admin.html.twig') }}
             {% endblock %}
         </header>
-        <main class="container">
+        <main id="mainfont" class="container title">
             {% block body %}
             {% endblock %}
         </main>

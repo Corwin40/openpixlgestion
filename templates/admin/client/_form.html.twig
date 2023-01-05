@@ -1,0 +1,126 @@
+{{ form_start(form) }}
+<div class="container form_border">
+    <div class="row form_space">
+        <div class="col-md-6">
+            {{ form_label(form.name, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.name) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.name) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            {{ form_label(form.surname, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.surname, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.surname) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.surname) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="form-group row mb-1">
+            {{ form_label(form.address, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.address, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.address) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.address) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group row mb-1">
+            {{ form_label(form.city, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.city, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.city) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.city) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group row mb-1">
+            {{ form_label(form.postalCode, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.postalCode, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.postalCode) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.postalCode) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group row mb-1">
+            {{ form_label(form.phone, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.phone, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.phone) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.phone) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group row mb-1">
+            {{ form_label(form.email, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.email, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.email) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group row mb-1">
+            {{ form_label(form.members, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.members, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.members) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.members) }}
+                </div>
+            </div>
+        </div>
+    </div><div class="row">
+        <div class="form-group row mb-1">
+            {{ form_label(form.service, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                {{ form_widget(form.service, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.service) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.service) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    <div class="form-group row mb-1">
+        {{ form_label(form.typeclient, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.typeclient, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            <small>{{ form_help(form.typeclient) }}</small>
+            <div class="form-error">
+                {{ form_errors(form.typeclient) }}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<button class="btn btn-outline-success">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

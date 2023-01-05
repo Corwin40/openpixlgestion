@@ -8,8 +8,8 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
+                <th>Identifiant</th>
+                <th>Nom</th>
                 <th>Notes</th>
                 <th>Prix</th>
                 <th>Heures</th>
@@ -44,5 +44,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_statut_new') }}">Crée un statut</a>
+    <button type="button" class="btn button"><a class="titre_h4" href="{{ path('app_admin_statut_new') }}">Crée un statut</a></button>
 {% endblock %}

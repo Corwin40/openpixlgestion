@@ -12,14 +12,37 @@
     </div>
     <div class="row text-center">
         <div class="col-md-4">
-            <a class="titre_h2" href="{{ path('app_admin_statut_index') }}">Client</a>
+            <a class="titre_h2" href="{{ path('app_admin_service_index') }}">Services</a>
+            <ul class="start_li">
+                <li>
+                    <a class="titre_h4" href="{{ path('app_admin_service_index') }}">Afficher les services</a>
+                </li>
+                <li>
+                    <a class="titre_h4" href="{{ path('app_admin_service_new') }}">Crée un service</a>
+                </li>
+            </ul>
         </div>
         <div class="col-md-4">
-            <a class="titre_h2" href="{{ path('app_admin_statut_index') }}">Client</a>
+            <a class="titre_h2" href="{{ path('app_admin_statut_index') }}">Statuts</a>
+            <ul class="start_li">
+                <li>
+                    <a class="titre_h4" href="{{ path('app_admin_statut_index') }}">Afficher les services</a>
+                </li>
+                <li>
+                    <a class="titre_h4" href="{{ path('app_admin_statut_new') }}">Crée un service</a>
+                </li>
+            </ul>
         </div>
         <div class="col-md-4">
-            <a class="titre_h2" href="{{ path('app_admin_statut_index') }}">Client</a>
-
+            <a class="titre_h2" href="{{ path('app_admin_client_index') }}">Clients</a>
+            <ul class="start_li">
+                <li>
+                    <a class="titre_h4" href="{{ path('app_admin_client_index') }}">Afficher les services</a>
+                </li>
+                <li>
+                    <a class="titre_h4" href="{{ path('app_admin_client_new') }}">Crée un service</a>
+                </li>
+            </ul>
         </div>
     </div>
 {% endblock %}

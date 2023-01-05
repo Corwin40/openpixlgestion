@@ -1,17 +1,55 @@
 .barre_navigation {
-    background-color: #2E373C;
+    background-color: #0F7480;
     color: white;
+    margin-bottom: 75px;
 }
 .title{
-    margin-top: 25px;
-    margin-bottom: 25px;
 }
 .titre_h2{
-    color: black;
-    margin-top: 0;
+    color: white;
+    margin-top: 10rem;
     margin-bottom: 0.5rem;
     font-weight: 500;
     font-size: 1.8rem;
     line-height: 1.2;
     text-decoration: none;
+}
+.titre_h4{
+    color: white;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    text-decoration: none;
+}
+.Logo_nav {
+    margin-right: 2rem;
+
+}
+#mainfont{
+    background-color: #0F7480;
+
+}
+
+.start_li{
+    margin-top: 2rem;
+}
+.font{
+    background-color: #efefef;
+}
+body ul{
+    color: white;
+}
+
+.button{
+    background-color: #4f97af;
+    color: black;
+}
+
+.form_space{
+    margin-bottom: 2rem;
+}
+.form_border{
+    padding-left: 2rem;
 }
