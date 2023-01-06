@@ -1,31 +1,25 @@
-<div class="card-body">
-    {{ form_start(form) }}
-    <div class="tab-content">
-        <div class="tab-pane fade show active" id="service" role="tabpanel" aria-labelledby="service-tab">
-            <div class="form-row">
-                <div class="col">
-                    <div class="form-group row mt-1 mb-1">
-                        {{ form_label(form.name, "Service", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
-                        <div class="col-sm-9">
-                            {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-sm'}}) }}
-                            <small>{{ form_help(form.name) }}</small>
-                            <div class="form-error">
-                                {{ form_errors(form.name) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row mt-1 mb-1">
-                        {{ form_label(form.archives, "Archives", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
-                        <div class="col-sm-9">
-                            {{ form_widget(form.archives, {'attr': {'class': 'form-control form-control-sm'}}) }}
-                            <small>{{ form_help(form.archives) }}</small>
-                            <div class="form-error">
-                                {{ form_errors(form.archives) }}
-                            </div>
-                        </div>
-                    </div>
+{{ form_start(form) }}
+<div class="card">
+    <div class="card-body">
+        <div class="row g-2">
+            {{ form_label(form.name, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-5">
+                {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.name) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.name) }}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                {{ form_widget(form.archives, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <small>{{ form_help(form.archives) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.archives) }}
                 </div>
             </div>
         </div>
+        <button class="btn btn-outline-success">{{ button_label|default('Enregistrer') }}</button>&nbsp;&nbsp;<a class="btn btn-outline-dark" href="{{ path('app_admin_service_index') }}">Retour à la liste</a>
     </div>
 </div>
+</div>
+{{ form_end(form) }}

@@ -14,25 +14,53 @@ class StatutType extends AbstractType
     {
         $builder
             ->add('name', TextType::class,[
-                'label'=>'Nom'
+                'label'=>'Nom',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => "Nom de l'archives"
+                ]
             ])
             ->add('notes', TextType::class,[
-                'label'=>'Notes'
+                'label'=>'Notes',
+                'required' => false,
+                'attr' => [
+        'placeholder' => "Notes de mise à jour"
+    ]
             ])
             ->add('price', TextType::class,[
-        'label'=>'Prix'
-    ])
+                'label'=>'Prix',
+                'required' => true,
+                'attr' => [
+        'placeholder' => "Prix de la tâche"
+    ]
+            ])
             ->add('hours', TextType::class,[
-        'label'=>'Heures'
-    ])
+                'label'=>'Heures',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => "Heures passées"
+                ]
+            ])
             ->add('author', TextType::class,[
-        'label'=>'Auteur'
-    ])
+                'label'=>'Auteur',
+                'required' => true,
+                'attr' => [
+        'placeholder' => "Nom de l'auteur"
+    ]
+            ])
             ->add('startedAt', TextType::class,[
-                'label'=>'Début le'
+                'label'=>'Début le',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => "Date de début"
+                ]
             ])
             ->add('finishedAt', TextType::class,[
-                'label'=>'Fini le'
+                'label'=>'Fini le',
+                'required' => false,
+                'attr' => [
+        'placeholder' => "Date de fin"
+    ]
             ])
         ;
     }

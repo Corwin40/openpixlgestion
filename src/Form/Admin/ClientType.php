@@ -14,34 +14,53 @@ class ClientType extends AbstractType
     {
         $builder
             ->add('name', TextType::class,[
-                'label'=>'Nom'
+                'label'=>'Nom & prénom',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Entrez le nom'
+                ]
             ])
             ->add('surname', TextType::class,[
-                'label'=>'Prénom'
+                'label'=>'Prénom',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Entrez le prénom'
+                ]
             ])
             ->add('address', TextType::class,[
-                'label'=>'Adresse'
+                'label'=>'Adresse',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Adresse'
+                ]
             ])
             ->add('city', TextType::class,[
-                'label'=>'Ville'
+                'label'=>'Ville',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Ville'
+                ]
             ])
             ->add('postalCode', TextType::class,[
-                'label'=>'Code postal'
+                'label'=>'CP / Ville',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Code postal'
+                ]
             ])
             ->add('phone', TextType::class,[
-                'label'=>'Téléphone'
+                'label'=>'Téléphone',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Numéro de téléphone'
+                ]
             ])
             ->add('email', TextType::class,[
-                'label'=>'Email'
-            ])
-            ->add('members', TextType::class,[
-                'label'=>'membre'
-            ])
-            ->add('service', TextType::class,[
-                'label'=>'Service'
-            ])
-            ->add('typeclient', TextType::class,[
-                'label'=>'Prix'
+                'label'=>'Email',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Email'
+                ]
             ])
         ;
     }

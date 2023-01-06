@@ -1,0 +1,59 @@
+body{
+    background-color: #ececec;
+}
+#dashboard{
+    h1{
+        color:$color-primary;
+    }
+    a{
+        color:$font-color;
+    }
+    .titre_h2{
+        color: $font-color;
+        margin-top: 10rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        font-size: 1.8rem;
+        line-height: 1.2;
+        text-decoration: none;
+    }
+    .titre_h4{
+        color: $font-color;
+        margin-top: 2rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        font-size: 1.2rem;
+        line-height: 1.2;
+        text-decoration: none;
+    }
+}
+nav{
+    background-color: white;
+    color: $color-primary;
+    .Logo_nav {
+        margin-right: 2rem;
+    }
+}
+
+
+.start_li{
+    margin-top: 2rem;
+}
+.font{
+    background-color: #efefef;
+}
+body ul{
+    color: white;
+}
+
+.button{
+    background-color: #4f97af;
+    color: black;
+}
+
+.form_space{
+    margin-bottom: 0.1rem;
+}
+.form_border{
+    padding-left: 2rem;
+}
