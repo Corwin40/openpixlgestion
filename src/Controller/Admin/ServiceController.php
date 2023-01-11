@@ -24,7 +24,10 @@ class ServiceController extends AbstractController
     #[Route('/new', name: 'app_admin_service_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ServiceRepository $serviceRepository): Response
     {
+        $user = $this->getUser();
+        //dd($user);
         $service = new Service();
+        $service->setMembers($user);
         $form = $this->createForm(ServiceType::class, $service);
         $form->handleRequest($request);
 

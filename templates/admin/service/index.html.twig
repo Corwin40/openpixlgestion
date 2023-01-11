@@ -1,18 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Service index{% endblock %}
+{% block title %}Liste des services{% endblock %}
 
 {% block body %}
-
-    <div class="row">
-        <div class="col-12">
-            <h1>Liste des services</h1>
+    <section id="service_index">
+        <div class="container">
+            <div class="row title mt-4 mb-4">
+                <div class="col-12">
+                    <h1 class="text-center">Liste des services</h1>
+                </div>
+            </div>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Identifiant</th>
-                    <th>Nom</th>
-                    <th>Archives</th>
+                    <th><i class="fa-solid fa-folder"></i> Identifiant</th>
+                    <th><i class="fa-solid fa-tag"></i> Nom</th>
+                    <th><i class="fa-duotone fa-box-archive"></i> Archives</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -21,8 +24,6 @@
                         <td>{{ service.id }}</td>
                         <td>{{ service.name }}</td>
                         <td>{{ service.archives }}</td>
-                        <td>{{ service.createdAt ? service.createdAt|date('Y-m-d') : '' }}</td>
-                        <td>{{ service.updatedAt ? service.updatedAt|date('Y-m-d') : '' }}</td>
                         <td>
                             <a href="{{ path('app_admin_service_show', {'id': service.id}) }}">Voir</a>
                             <a href="{{ path('app_admin_service_edit', {'id': service.id}) }}">Editer</a>
@@ -36,9 +37,8 @@
                 </tbody>
             </table>
 
-            <a class="btn button titre_h4" href="{{ path('app_admin_service_new') }}">Crée un service</a>
+            <a class="btn" href="{{ path('app_admin_service_new') }}"><i class="fa-duotone fa-file-signature"></i> Crée un service</a>
         </div>
-
-    </div>
+    </section>
 
 {% endblock %}

@@ -1,52 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tableau de bord{% endblock %}
+{% block title %}Panneau d'administration{% endblock %}
 
 {% block body %}
-<div class="card">
-    <div class="card-body">
     <section id="dashboard">
-        <div class="row title mt-4 mb-4">
-            <div class="col-12">
-                <h1>Panneau d'administration</h1>
+        <div class="container text-center">
+            <div class="row title mt-4 mb-4">
+                <div class="col-12">
+                    <h1>Panneau d'administration</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <a class="titre_h2 text-center" href="{{ path('app_admin_service_index') }}"><i class="fa-duotone fa-folder-open"></i> Services</a>
+                        <div class="card-body">
+                            <a class="titre_h4 text-center" href="{{ path('app_admin_service_index') }}"><i class="fa-solid fa-list"></i> Afficher les services</a>
+                            <br><br>
+                            <a class="titre_h4 text-center" href="{{ path('app_admin_service_new') }}"><i class="fa-solid fa-square-plus"></i> Crée un service</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <a class="titre_h2 text-center" href="{{ path('app_admin_statut_index') }}"><i class="fa-solid fa-battery-three-quarters"></i> Statuts</a>
+                        <div class="card-body">
+                            <a class="titre_h4 text-center" href="{{ path('app_admin_statut_index') }}"><i class="fa-solid fa-list"></i> Afficher les statuts</a>
+                            <br><br>
+                            <a class="titre_h4 text-center" href="{{ path('app_admin_statut_new') }}"><i class="fa-solid fa-square-plus"></i> Crée un statut</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <a class="titre_h2 text-center" href="{{ path('app_admin_client_index') }}"><i class="fa-duotone fa-user"></i> Clients</a>
+                        <div class="card-body">
+                            <a class="titre_h4 text-center" href="{{ path('app_admin_client_index') }}"><i class="fa-solid fa-list"></i> Afficher les clients</a>
+                            <br><br>
+                            <a class="titre_h4 text-center" href="{{ path('app_admin_client_new') }}"><i class="fa-solid fa-square-plus"></i> Crée un client</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <a class="titre_h2 text-center" href="{{ path('app_admin_service_index') }}">Services</a>
-                <ul class="start_li">
-                    <li>
-                        <a class="titre_h4 text-center" href="{{ path('app_admin_service_index') }}">Afficher les services</a>
-                    </li>
-                    <li>
-                        <a class="titre_h4 text-center" href="{{ path('app_admin_service_new') }}">Crée un service</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <a class="titre_h2 text-center" href="{{ path('app_admin_statut_index') }}">Statuts</a>
-                <ul class="start_li">
-                    <li>
-                        <a class="titre_h4 text-center" href="{{ path('app_admin_statut_index') }}">Afficher les statuts</a>
-                    </li>
-                    <li>
-                        <a class="titre_h4 text-center" href="{{ path('app_admin_statut_new') }}">Crée un statut</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <a class="titre_h2 text-center" href="{{ path('app_admin_client_index') }}">Clients</a>
-                <ul class="start_li">
-                    <li>
-                        <a class="titre_h4 text-center" href="{{ path('app_admin_client_index') }}">Afficher les clients</a>
-                    </li>
-                    <li>
-                        <a class="titre_h4 text-center" href="{{ path('app_admin_client_new') }}">Crée un client</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-    </div>
-</div>
+        </section>
 {% endblock %}

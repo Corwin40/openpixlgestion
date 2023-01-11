@@ -10,8 +10,8 @@ body{
     }
     .titre_h2{
         color: $font-color;
-        margin-top: 10rem;
-        margin-bottom: 0.5rem;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
         font-weight: 500;
         font-size: 1.8rem;
         line-height: 1.2;
@@ -19,12 +19,52 @@ body{
     }
     .titre_h4{
         color: $font-color;
-        margin-top: 2rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 2rem;
         font-weight: 500;
         font-size: 1.2rem;
         line-height: 1.2;
         text-decoration: none;
+    }
+}
+
+#client_index {
+    h1 {
+        color: $color-primary;
+    }
+    a{
+        background-color: $blue-sky;
+    }
+    a:hover{
+        background-color: $color-primary;
+    }
+}
+#statut_index {
+    h1 {
+        color: $color-primary;
+    }
+    a{
+         background-color: $blue-sky;
+     }
+    a:hover{
+        background-color: $color-primary;
+    }
+}
+#service_index {
+    h1 {
+        color: $color-primary;
+    }
+    a{
+        background-color: $blue-sky;
+    }
+    a:hover{
+        background-color: $color-btn;
+    }
+}
+#login{
+    h1{
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        color: $color-primary;
     }
 }
 nav{
@@ -42,14 +82,6 @@ nav{
 .font{
     background-color: #efefef;
 }
-body ul{
-    color: white;
-}
-
-.button{
-    background-color: #4f97af;
-    color: black;
-}
 
 .form_space{
     margin-bottom: 0.1rem;
@@ -59,4 +91,8 @@ body ul{
 }
 .form_border{
     padding-left: 2rem;
+}
+.btn_logout{
+    text-align: end;
+    color: #d70000;
 }

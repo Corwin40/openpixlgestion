@@ -17,7 +17,7 @@ class StatutType extends AbstractType
                 'label'=>'Nom',
                 'required' => true,
                 'attr' => [
-                    'placeholder' => "Nom de l'archives"
+                    'placeholder' => "Nom de l'archive"
                 ]
             ])
             ->add('notes', TextType::class,[
@@ -49,14 +49,14 @@ class StatutType extends AbstractType
     ]
             ])
             ->add('startedAt', TextType::class,[
-                'label'=>'Début le',
+                'label'=>'Date',
                 'required' => true,
                 'attr' => [
                     'placeholder' => "Date de début"
                 ]
             ])
             ->add('finishedAt', TextType::class,[
-                'label'=>'Fini le',
+                'label'=>'Fin',
                 'required' => false,
                 'attr' => [
         'placeholder' => "Date de fin"

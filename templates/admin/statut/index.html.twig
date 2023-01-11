@@ -1,48 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Statut index{% endblock %}
+{% block title %}Liste des statuts{% endblock %}
 
 {% block body %}
-    <h1>Liste des statuts</h1>
+    <section id="statut_index">
+        <div class="container">
+            <div class="row title mt-4 mb-4">
+                <div class="col-12">
+                    <h1 class="text-center">Liste des statuts</h1>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><i class="fa-solid fa-folder"></i> Identifiant</th>
+                        <th><i class="fa-solid fa-tag"></i> Nom</th>
+                        <th><i class="fa-duotone fa-file-lines"></i> Notes</th>
+                        <th><i class="fa-duotone fa-euro-sign"></i> Prix</th>
+                        <th><i class="fa-duotone fa-clock"></i> Heures</th>
+                        <th><i class="fa-duotone fa-user"></i> Auteur</th>
+                        <th><i class="fa-duotone fa-clock"></i> Début</th>
+                        <th><i class="fa-duotone fa-clock"></i> Fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for statut in statuts %}
+                    <tr>
+                        <td>{{ statut.id }}</td>
+                        <td>{{ statut.name }}</td>
+                        <td>{{ statut.notes }}</td>
+                        <td>{{ statut.price }}</td>
+                        <td>{{ statut.hours }}</td>
+                        <td>{{ statut.author }}</td>
+                        <td>{{ statut.startedAt }}</td>
+                        <td>{{ statut.finishedAt }}</td>
+                       <td>
+                            <a href="{{ path('app_admin_statut_show', {'id': statut.id}) }}">Voir</a>
+                            <a href="{{ path('app_admin_statut_edit', {'id': statut.id}) }}">Editer</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11">Enregistrement</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Identifiant</th>
-                <th>Nom</th>
-                <th>Notes</th>
-                <th>Prix</th>
-                <th>Heures</th>
-                <th>Auteur</th>
-                <th>Début le </th>
-                <th>Fini le</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for statut in statuts %}
-            <tr>
-                <td>{{ statut.id }}</td>
-                <td>{{ statut.name }}</td>
-                <td>{{ statut.notes }}</td>
-                <td>{{ statut.price }}</td>
-                <td>{{ statut.hours }}</td>
-                <td>{{ statut.author }}</td>
-                <td>{{ statut.startedAt }}</td>
-                <td>{{ statut.finishedAt }}</td>
-                <td>{{ statut.createdAt ? statut.createdAt|date('Y-m-d') : '' }}</td>
-                <td>{{ statut.updatedAt ? statut.updatedAt|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_admin_statut_show', {'id': statut.id}) }}">Voir</a>
-                    <a href="{{ path('app_admin_statut_edit', {'id': statut.id}) }}">Editer</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">Enregistrement</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a class="btn button titre_h4" href="{{ path('app_admin_statut_new') }}">Crée un statut</a>
+            <a class="btn" href="{{ path('app_admin_statut_new') }}"><i class="fa-duotone fa-file-signature"></i> Crée un statut</a>
+        </div>
+    </section>
 {% endblock %}

@@ -4,14 +4,20 @@
         <div class="row g-2">
             {{ form_label(form.name, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
             <div class="col-sm-5">
-                {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
                 <small>{{ form_help(form.name) }}</small>
                 <div class="form-error">
                     {{ form_errors(form.name) }}
                 </div>
             </div>
             <div class="col-sm-4">
-                {{ form_widget(form.surname, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+                    {{ form_widget(form.surname, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
                 <small>{{ form_help(form.surname) }}</small>
                 <div class="form-error">
                     {{ form_errors(form.surname) }}
@@ -21,7 +27,10 @@
         <div class="row g-2">
             {{ form_label(form.address, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
             <div class="col-sm-9">
-                {{ form_widget(form.address, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-location-dot"></i></span>
+                    {{ form_widget(form.address, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
                 <small>{{ form_help(form.address) }}</small>
                 <div class="form-error">
                     {{ form_errors(form.address) }}
@@ -31,14 +40,20 @@
         <div class="row g-2">
             {{ form_label(form.postalCode, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
             <div class="col-sm-2">
-                {{ form_widget(form.postalCode, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-globe"></i></span>
+                    {{ form_widget(form.postalCode, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
                 <small>{{ form_help(form.postalCode) }}</small>
                 <div class="form-error">
                     {{ form_errors(form.postalCode) }}
                 </div>
             </div>
             <div class="col-sm-7">
-                {{ form_widget(form.city, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-city"></i></span>
+                    {{ form_widget(form.city, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
                 <small>{{ form_help(form.city) }}</small>
                 <div class="form-error">
                     {{ form_errors(form.city) }}
@@ -48,7 +63,10 @@
         <div class="row g-2">
             {{ form_label(form.email, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
             <div class="col-sm-9">
-                {{ form_widget(form.email, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
                 <small>{{ form_help(form.email) }}</small>
                 <div class="form-error">
                     {{ form_errors(form.email) }}
@@ -58,7 +76,10 @@
         <div class="row g-2">
             {{ form_label(form.phone, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
             <div class="col-sm-9">
-                {{ form_widget(form.phone, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-phone"></i></span>
+                    {{ form_widget(form.phone, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
                 <small>{{ form_help(form.phone) }}</small>
                 <div class="form-error">
                     {{ form_errors(form.phone) }}
@@ -68,5 +89,4 @@
         <button class="btn btn-outline-success">{{ button_label|default('Enregistrer') }}</button>&nbsp;&nbsp;<a class="btn btn-outline-dark" href="{{ path('app_admin_client_index') }}">Retour à la liste</a>
     </div>
     </div>
-</div>
 {{ form_end(form) }}
