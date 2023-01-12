@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Admin\Service;
 use App\Form\Admin\ServiceType;
+use App\Repository\Admin\ClientRepository;
 use App\Repository\Admin\ServiceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,5 +78,19 @@ class ServiceController extends AbstractController
         }
 
         return $this->redirectToRoute('app_admin_service_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/listByClient/{idclient}', name: 'app_admin_service_listbyclient', methods: ['GET'])]
+    public function listServicesByClient(ServiceRepository $serviceRepository, $idclient, ClientRepository $clientRepository)
+    {
+        $client = $clientRepository->find($idclient);
+        //dd($client);
+
+        $services = $serviceRepository->listByClient($idclient);
+       //dd($services);
+
+        return $this->render('admin/service/listbyclient.html.twig', [
+           'services' => $services
+        ]);
     }
 }

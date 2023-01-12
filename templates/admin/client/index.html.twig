@@ -21,6 +21,8 @@
                     <th><i class="fa-solid fa-globe"></i> Code postal</th>
                     <th><i class="fa-duotone fa-phone"></i> Téléphone</th>
                     <th><i class="fa-duotone fa-envelope"></i> Email</th>
+                    <th> Voir & Editer</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -35,8 +37,8 @@
                     <td>{{ client.phone }}</td>
                     <td>{{ client.email }}</td>
                     <td>
-                        <a href="{{ path('app_admin_client_show', {'id': client.id}) }}">show</a>
-                        <a href="{{ path('app_admin_client_edit', {'id': client.id}) }}">edit</a>
+                        <a class="btn" href="{{ path('app_admin_client_show', {'id': client.id}) }}"><i class="fa-duotone fa-eye"></i> Voir</a>
+                        <a class="btn" href="{{ path('app_admin_client_edit', {'id': client.id}) }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a>
                     </td>
                 </tr>
             {% else %}
@@ -48,7 +50,7 @@
         </table>
 
 
-        <a class="btn" href="{{ path('app_admin_client_new') }}"><i class="fa-duotone fa-file-signature"></i> Crée un client</a>
+        <a class="btn creation" href="{{ path('app_admin_client_new') }}"><i class="fa-duotone fa-file-signature"></i> Crée un client</a>
         </div>
     </section>
 {% endblock %}

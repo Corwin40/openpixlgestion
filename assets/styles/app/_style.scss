@@ -31,32 +31,32 @@ body{
     h1 {
         color: $color-primary;
     }
-    a{
+    .creation{
         background-color: $blue-sky;
     }
-    a:hover{
-        background-color: $color-primary;
+    .creation:hover{
+        background-color: $color-btn;
     }
 }
 #statut_index {
     h1 {
         color: $color-primary;
     }
-    a{
-         background-color: $blue-sky;
-     }
-    a:hover{
-        background-color: $color-primary;
+    .creation{
+        background-color: $blue-sky;
+    }
+    .creation:hover{
+        background-color: $color-btn;
     }
 }
 #service_index {
     h1 {
         color: $color-primary;
     }
-    a{
+    .creation{
         background-color: $blue-sky;
     }
-    a:hover{
+    .creation:hover{
         background-color: $color-btn;
     }
 }
@@ -95,4 +95,22 @@ nav{
 .btn_logout{
     text-align: end;
     color: #d70000;
+}
+#client_show{
+    h1{
+        color:$color-primary;
+    }
+    h4{
+        color: $blue-sky;
+    }
+    a{
+        color:$font-color;
+    }
+    .create_service{
+        background-color: $color-primary;
+    }
+    .create_service:hover {
+        background-color: $color-btn;
+    }
+
 }

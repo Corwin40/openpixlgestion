@@ -3,7 +3,11 @@
 namespace App\Form\Admin;
 
 use App\Entity\Admin\Client;
+use App\Entity\Admin\TypeClient;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -62,6 +66,17 @@ class ClientType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Email'
                 ]
+            ])
+            ->add('typeclient', EntityType::class,[
+                'class' => TypeClient::class,
+                'choice_label' => 'name',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.name', 'ASC');
+                },
+                'label'=>'Type de client',
+                'required' => false,
+                'placeholder' => 'Choisir un type de client'
             ])
         ;
     }

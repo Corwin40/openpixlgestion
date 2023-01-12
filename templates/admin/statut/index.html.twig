@@ -21,6 +21,7 @@
                         <th><i class="fa-duotone fa-user"></i> Auteur</th>
                         <th><i class="fa-duotone fa-clock"></i> Début</th>
                         <th><i class="fa-duotone fa-clock"></i> Fin</th>
+                        <th> Voir & Editer</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,8 +36,8 @@
                         <td>{{ statut.startedAt }}</td>
                         <td>{{ statut.finishedAt }}</td>
                        <td>
-                            <a href="{{ path('app_admin_statut_show', {'id': statut.id}) }}">Voir</a>
-                            <a href="{{ path('app_admin_statut_edit', {'id': statut.id}) }}">Editer</a>
+                           <a class="btn" href="{{ path('app_admin_statut_show', {'id': statut.id}) }}"><i class="fa-duotone fa-eye"></i> Voir</a>
+                           <a class="btn" href="{{ path('app_admin_statut_edit', {'id': statut.id}) }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a>
                         </td>
                     </tr>
                 {% else %}
@@ -47,7 +48,7 @@
                 </tbody>
             </table>
 
-            <a class="btn" href="{{ path('app_admin_statut_new') }}"><i class="fa-duotone fa-file-signature"></i> Crée un statut</a>
+            <a class="btn creation" href="{{ path('app_admin_statut_new') }}"><i class="fa-duotone fa-file-signature"></i> Crée un statut</a>
         </div>
     </section>
 {% endblock %}

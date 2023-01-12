@@ -16,6 +16,7 @@
                     <th><i class="fa-solid fa-folder"></i> Identifiant</th>
                     <th><i class="fa-solid fa-tag"></i> Nom</th>
                     <th><i class="fa-duotone fa-box-archive"></i> Archives</th>
+                    <th> Voir & Editer</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,8 +26,8 @@
                         <td>{{ service.name }}</td>
                         <td>{{ service.archives }}</td>
                         <td>
-                            <a href="{{ path('app_admin_service_show', {'id': service.id}) }}">Voir</a>
-                            <a href="{{ path('app_admin_service_edit', {'id': service.id}) }}">Editer</a>
+                            <a class="btn" href="{{ path('app_admin_service_show', {'id': service.id}) }}"><i class="fa-duotone fa-eye"></i> Voir</a>
+                            <a class="btn" href="{{ path('app_admin_service_edit', {'id': service.id}) }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a>
                         </td>
                     </tr>
                 {% else %}
@@ -37,7 +38,7 @@
                 </tbody>
             </table>
 
-            <a class="btn" href="{{ path('app_admin_service_new') }}"><i class="fa-duotone fa-file-signature"></i> Crée un service</a>
+            <a class="btn creation" href="{{ path('app_admin_service_new') }}"><i class="fa-duotone fa-file-signature"></i> Crée un service</a>
         </div>
     </section>
 

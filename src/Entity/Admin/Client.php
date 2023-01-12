@@ -52,10 +52,14 @@ class Client
     #[ORM\JoinColumn(nullable: false)]
     private ?TypeClient $typeclient = null;
 
+    #[ORM\ManyToMany(targetEntity: Service::class, mappedBy: 'client')]
+    private Collection $services;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
         $this->updatedAt = new \DateTime('now');
+        $this->services = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -194,6 +198,33 @@ class Client
     public function setTypeclient(?TypeClient $typeclient): self
     {
         $this->typeclient = $typeclient;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Service>
+     */
+    public function getServices(): Collection
+    {
+        return $this->services;
+    }
+
+    public function addService(Service $service): self
+    {
+        if (!$this->services->contains($service)) {
+            $this->services->add($service);
+            $service->addClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeService(Service $service): self
+    {
+        if ($this->services->removeElement($service)) {
+            $service->removeClient($this);
+        }
 
         return $this;
     }
