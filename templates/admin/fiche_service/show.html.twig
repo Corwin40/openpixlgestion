@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FicheService{% endblock %}
+
+{% block body %}
+    <h1>FicheService</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fiche_service.id }}</td>
+            </tr>
+            <tr>
+                <th>Service</th>
+                <td>{{ fiche_service.service }}</td>
+            </tr>
+            <tr>
+                <th>Client</th>
+                <td>{{ fiche_service.client }}</td>
+            </tr>
+            <tr>
+                <th>Time</th>
+                <td>{{ fiche_service.time }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ fiche_service.price }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ fiche_service.statut }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ fiche_service.createdAt ? fiche_service.createdAt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ fiche_service.updatedAt ? fiche_service.updatedAt|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_fiche_service_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_fiche_service_edit', {'id': fiche_service.id}) }}">edit</a>
+
+    {{ include('admin/fiche_service/_delete_form.html.twig') }}
+{% endblock %}

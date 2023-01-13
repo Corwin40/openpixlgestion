@@ -44,6 +44,34 @@ class ServiceController extends AbstractController
         ]);
     }
 
+    #[Route('/newonclient/{idclient}', name: 'app_admin_service_newonclient', methods: ['GET', 'POST'])]
+    public function newonclient(Request $request, ServiceRepository $serviceRepository, $idclient, ClientRepository $clientRepository)
+    {
+        $user = $this->getUser();
+        $client = $clientRepository->find($idclient);
+        //dd($user);
+        $service = new Service();
+        $service->setMembers($user);
+        $service->addClient($client);
+        $form = $this->createForm(ServiceType::class, $service);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $serviceRepository->save($service, true);
+
+            return $this->render('admin/client/show.html.twig', [
+                'id' => $idclient,
+            ]);
+        }
+
+        //dd($form->isValid());
+
+        return $this->renderForm('admin/service/newonclient.html.twig', [
+            'service' => $service,
+            'form' => $form,
+        ]);
+    }
+
     #[Route('/{id}', name: 'app_admin_service_show', methods: ['GET'])]
     public function show(Service $service): Response
     {
