@@ -4,13 +4,16 @@ namespace App\Controller\Admin;
 
 use App\Entity\Admin\FicheService;
 use App\Form\Admin\FicheServiceType;
+use App\Form\Admin\ServiceType;
+use App\Repository\Admin\ClientRepository;
 use App\Repository\Admin\FicheServiceRepository;
+use App\Repository\Admin\ServiceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/fiche/service')]
+#[Route('/admin/ficheservice')]
 class FicheServiceController extends AbstractController
 {
     #[Route('/', name: 'app_admin_fiche_service_index', methods: ['GET'])]
@@ -74,5 +77,56 @@ class FicheServiceController extends AbstractController
         }
 
         return $this->redirectToRoute('app_admin_fiche_service_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * Liste les services consommés par un client
+     */
+    #[Route('/listByClient/{idclient}', name: 'app_admin_ficheservice_listbyclient', methods: ['GET'])]
+    public function listServicesByClient(FicheServiceRepository $ficheServiceRepository, $idclient, ClientRepository $clientRepository)
+    {
+        // On récupère l'entité l'entité correspondante client
+        $client = $clientRepository->find($idclient);
+        //dd($client);
+
+        $listservices = $ficheServiceRepository->listByClient($idclient);
+        //dd($listservices);
+
+        return $this->render('admin/service/listbyclient.html.twig', [
+            'listservices' => $listservices
+        ]);
+    }
+
+    /**
+     * On ajoute un service sur un client
+     **/
+    #[Route('/addonclient/{idclient}', name: 'app_admin_ficheservice_addonclient', methods: ['GET'])]
+    public function addonclient(FicheServiceRepository $ficheServiceRepository, $idclient, ClientRepository $clientRepository)
+    {
+        $user = $this->getUser();
+        $client = $clientRepository->find($idclient);
+        //dd($user);
+
+        $ficheservice = $ficheServiceRepository->find($idservice);
+
+        $service->setMembers($user);
+        $service->addClient($client);
+        $form = $this->createForm(ServiceType::class, $service);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $serviceRepository->save($service, true);
+
+            return $this->render('admin/client/show.html.twig', [
+                'id' => $idclient,
+            ]);
+        }
+
+        //dd($form->isValid());
+
+        return $this->renderForm('admin/service/addonclient.html.twig', [
+            'service' => $service,
+            'form' => $form,
+        ]);
     }
 }

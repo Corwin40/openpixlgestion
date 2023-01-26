@@ -3,56 +3,48 @@
 {% block title %}Statut{% endblock %}
 
 {% block body %}
-    <h1>Statut</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ statut.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ statut.name }}</td>
-            </tr>
-            <tr>
-                <th>Notes</th>
-                <td>{{ statut.notes }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ statut.price }}</td>
-            </tr>
-            <tr>
-                <th>Hours</th>
-                <td>{{ statut.hours }}</td>
-            </tr>
-            <tr>
-                <th>Author</th>
-                <td>{{ statut.author }}</td>
-            </tr>
-            <tr>
-                <th>StartedAt</th>
-                <td>{{ statut.startedAt }}</td>
-            </tr>
-            <tr>
-                <th>FinishedAt</th>
-                <td>{{ statut.finishedAt }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ statut.createdAt ? statut.createdAt|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ statut.updatedAt ? statut.updatedAt|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_admin_statut_index') }}">back to list</a>
-
-    <a href="{{ path('app_admin_statut_edit', {'id': statut.id}) }}">edit</a>
-
-    {{ include('admin/statut/_delete_form.html.twig') }}
+    <section id="client_show">
+        <div class="container">
+            <div class="row title mt-4 mb-4">
+                <div class="col-12">
+                    <h1 class="text-center">Statut</h1>
+                    <br>
+                    <div class="text-center">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <br>
+                        <h4>{{ statut.name }}</h4>
+                        <div class="card-body text-start">
+                            <p><i class="fa-solid fa-user"></i> <b>Nom</b> : {{ statut.name }}</p>
+                            <p><i class="fa-solid fa-location-dot"></i> <b>Notes</b> : {{ statut.notes }}</p>
+                            <p><i class="fa-solid fa-city"></i> <b>Prix</b> : {{ statut.price }}</p>
+                            <p><i class="fa-solid fa-globe"></i> <b>Heures</b> : {{ statut.hours }}</p>
+                            <p><i class="fa-solid fa-phone"></i> <b>Auteur</b> : {{ statut.author }}</p>
+                            <p><i class="fa-solid fa-envelope"></i> <b>Début le</b> : {{ statut.startedAt ? statut.finishedAt|date('d / m / y') : '' }}</p>
+                            <p><i class="fa-duotone fa-clock"></i> <b>Fini le</b> : {{ statut.finishedAt ? statut.finishedAt|date('d / m / y') : '' }}</p>
+                            <a class="btn" href="{{ path('app_admin_statut_edit', {'id': statut.id}) }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card text-center">
+                        <br>
+                        <div class="card-body text-start">
+                            <p><i class="fa-solid fa-location-dot"></i> <b>Notes</b> : {{ statut.notes }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <br><br>
+                        <a class="btn" href="{{ path('app_admin_statut_index') }}"><i class="fa-solid fa-left-to-line"></i> Retour à la liste</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

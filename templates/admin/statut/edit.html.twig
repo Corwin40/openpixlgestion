@@ -3,11 +3,7 @@
 {% block title %}Edit Statut{% endblock %}
 
 {% block body %}
-    <h1>Edit Statut</h1>
+    <h1>Editer le Statut</h1>
 
-    {{ include('admin/statut/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_admin_statut_index') }}">back to list</a>
-
-    {{ include('admin/statut/_delete_form.html.twig') }}
+    {{ include('admin/statut/_form.html.twig', {'button_label': 'Mise à jour'}) }}
 {% endblock %}

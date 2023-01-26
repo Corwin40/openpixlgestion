@@ -39,6 +39,28 @@ class FicheServiceRepository extends ServiceEntityRepository
         }
     }
 
+    public function listByClient($idclient): array
+    {
+        return $this->createQueryBuilder('f')
+            ->leftJoin('f.Client', 'c')
+            ->leftJoin('f.service', 's')
+            ->addSelect('
+                f.updatedAt,
+                f.statut,
+                f.createdAt,
+                f.price,
+                f.id AS id,
+                s.id AS idService,
+                s.name AS nameService
+            ')
+            ->andWhere('c.id = :idclient')
+            ->setParameter('idclient', $idclient)
+            ->orderBy('f.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 //    /**
 //     * @return FicheService[] Returns an array of FicheService objects
 //     */

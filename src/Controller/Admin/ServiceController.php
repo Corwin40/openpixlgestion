@@ -71,7 +71,6 @@ class ServiceController extends AbstractController
             'form' => $form,
         ]);
     }
-
     #[Route('/{id}', name: 'app_admin_service_show', methods: ['GET'])]
     public function show(Service $service): Response
     {
@@ -108,17 +107,19 @@ class ServiceController extends AbstractController
         return $this->redirectToRoute('app_admin_service_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/listByClient/{idclient}', name: 'app_admin_service_listbyclient', methods: ['GET'])]
-    public function listServicesByClient(ServiceRepository $serviceRepository, $idclient, ClientRepository $clientRepository)
+
+
+    #[Route('/listByService/{idclient}', name: 'app_admin_service_listByService', methods: ['GET'])]
+    public function listByService(ServiceRepository $serviceRepository, $idclient, ClientRepository $clientRepository)
     {
-        $client = $clientRepository->find($idclient);
+        $client = $serviceRepository->find($idclient);
         //dd($client);
 
-        $services = $serviceRepository->listByClient($idclient);
-       //dd($services);
+        $services = $serviceRepository->listByService($idservice);
+        //dd($services);
 
-        return $this->render('admin/service/listbyclient.html.twig', [
-           'services' => $services
+        return $this->render('admin/service/Listbyservice.html.twig', [
+            'services' => $services
         ]);
     }
 }

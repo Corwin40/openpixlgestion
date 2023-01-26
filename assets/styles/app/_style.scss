@@ -106,11 +106,16 @@ nav{
     a{
         color:$font-color;
     }
-    .create_service{
+    .create_btn{
         background-color: $color-primary;
     }
-    .create_service:hover {
+    .create_btn:hover {
         background-color: $color-btn;
     }
-
+    .delete_btn{
+        background-color: #de1616;
+    }
+    .delete_btn:hover {
+        background-color: #b00000;
+    }
 }

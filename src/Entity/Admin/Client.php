@@ -55,11 +55,19 @@ class Client
     #[ORM\ManyToMany(targetEntity: Service::class, mappedBy: 'client')]
     private Collection $services;
 
+    #[ORM\ManyToMany(targetEntity: Service::class, mappedBy: 'clientServiceChoise')]
+    private Collection $servicesClientChoice;
+
+    #[ORM\OneToMany(mappedBy: 'Client', targetEntity: FicheService::class)]
+    private Collection $ficheServices;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
         $this->updatedAt = new \DateTime('now');
         $this->services = new ArrayCollection();
+        $this->servicesClientChoice = new ArrayCollection();
+        $this->ficheServices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,6 +232,63 @@ class Client
     {
         if ($this->services->removeElement($service)) {
             $service->removeClient($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Service>
+     */
+    public function getServicesClientChoice(): Collection
+    {
+        return $this->servicesClientChoice;
+    }
+
+    public function addServicesClientChoice(Service $servicesClientChoice): self
+    {
+        if (!$this->servicesClientChoice->contains($servicesClientChoice)) {
+            $this->servicesClientChoice->add($servicesClientChoice);
+            $servicesClientChoice->addClientServiceChoise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeServicesClientChoice(Service $servicesClientChoice): self
+    {
+        if ($this->servicesClientChoice->removeElement($servicesClientChoice)) {
+            $servicesClientChoice->removeClientServiceChoise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FicheService>
+     */
+    public function getFicheServices(): Collection
+    {
+        return $this->ficheServices;
+    }
+
+    public function addFicheService(FicheService $ficheService): self
+    {
+        if (!$this->ficheServices->contains($ficheService)) {
+            $this->ficheServices->add($ficheService);
+            $ficheService->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFicheService(FicheService $ficheService): self
+    {
+        if ($this->ficheServices->removeElement($ficheService)) {
+            // set the owning side to null (unless already changed)
+            if ($ficheService->getClient() === $this) {
+                $ficheService->setClient(null);
+            }
         }
 
         return $this;

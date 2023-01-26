@@ -25,8 +25,8 @@
                             <p><i class="fa-solid fa-globe"></i> <b>Code postal</b> : {{ client.postalCode }}</p>
                             <p><i class="fa-solid fa-phone"></i> <b>Téléphone</b> : {{ client.phone }}</p>
                             <p><i class="fa-solid fa-envelope"></i> <b>Email</b> : {{ client.email }}</p>
-                            <p><i class="fa-duotone fa-clock"></i> <b>Crée le</b> : {{ client.createdAt ? client.createdAt|date('Y-m-d') : '' }}</p>
-                            <p><i class="fa-duotone fa-clock"></i> <b>Mise à jour</b> : {{ client.updatedAt ? client.updatedAt|date('Y-m-d') : '' }}</p>
+                            <p><i class="fa-duotone fa-clock"></i> <b>Crée le</b> : {{ client.createdAt ? client.createdAt|date('d-m-y') : '' }}</p>
+                            <p><i class="fa-duotone fa-clock"></i> <b>Mise à jour</b> : {{ client.updatedAt ? client.updatedAt|date('d-m-y') : '' }}</p>
                             <a class="btn" href="{{ path('app_admin_client_edit', {'id': client.id}) }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a>
                         </div>
                     </div>
@@ -34,11 +34,14 @@
                 <div class="col-md-8">
                     <div class="card text-center">
                         <div class="row">
-                            <div class="col-md-12 mt-3 mb-3">
-                                <button class="btn create_service" data-bs-toggle="modal" data-bs-target="#newservice"><i class="fa-light fa-file-lines"></i> Ajouter un service</button>
+                            <div class="col-md-6 mt-3 mb-3">
+                                <button class="btn create_btn" data-bs-toggle="modal" data-bs-target="#newservice"><i class="fa-light fa-file-lines"></i> Crée un service</button>
+                            </div>
+                            <div class="col-md-6 mt-3 mb-3">
+                                <button class="btn create_btn" data-bs-toggle="modal" data-bs-target="#newservice"><i class="fa-light fa-file-lines"></i> Ajouter un service</button>
                             </div>
                         </div>
-                    {{ render(controller('App\\Controller\\Admin\\ServiceController::listServicesByClient', {'idclient': client.id})) }}
+                        {{ render(controller('App\\Controller\\Admin\\FicheServiceController::listServicesByClient', {'idclient': client.id})) }}
                     </div>
                 </div>
 
@@ -52,20 +55,20 @@
         </div>
     </section>
     <section>
-
         <!-- Modal -->
         <div class="modal fade" id="newservice" tabindex="-1" aria-labelledby="newservice" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un nouveau service</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Crée un nouveau service</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    {{ render(controller('App\\Controller\\Admin\\ServiceController::newonclient', {'idclient': client.id})) }}
+
                 </div>
             </div>
         </div>
     </section>
+
 
 
 {% endblock %}

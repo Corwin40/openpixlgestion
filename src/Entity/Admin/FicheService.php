@@ -14,12 +14,6 @@ class FicheService
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $service = null;
-
-    #[ORM\Column(length: 100)]
-    private ?string $client = null;
-
     #[ORM\Column(length: 7, nullable: true)]
     private ?string $time = null;
 
@@ -35,33 +29,18 @@ class FicheService
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\ManyToOne]
+    private ?Member $author = null;
+
+    #[ORM\ManyToOne(inversedBy: 'ficheServices')]
+    private ?Client $Client = null;
+
+    #[ORM\ManyToOne]
+    private ?Service $service = null;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getService(): ?string
-    {
-        return $this->service;
-    }
-
-    public function setService(string $service): self
-    {
-        $this->service = $service;
-
-        return $this;
-    }
-
-    public function getClient(): ?string
-    {
-        return $this->client;
-    }
-
-    public function setClient(string $client): self
-    {
-        $this->client = $client;
-
-        return $this;
     }
 
     public function getTime(): ?string
@@ -120,6 +99,42 @@ class FicheService
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Member
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Member $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->Client;
+    }
+
+    public function setClient(?Client $Client): self
+    {
+        $this->Client = $Client;
+
+        return $this;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(?Service $service): self
+    {
+        $this->service = $service;
 
         return $this;
     }
