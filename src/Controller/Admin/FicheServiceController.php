@@ -101,31 +101,32 @@ class FicheServiceController extends AbstractController
      * On ajoute un service sur un client
      **/
     #[Route('/addonclient/{idclient}', name: 'app_admin_ficheservice_addonclient', methods: ['GET'])]
-    public function addonclient(FicheServiceRepository $ficheServiceRepository, $idclient, ClientRepository $clientRepository)
+    public function addonclient(FicheServiceRepository $ficheServiceRepository, $idclient, ClientRepository $clientRepository, Request $request)
     {
         $user = $this->getUser();
         $client = $clientRepository->find($idclient);
         //dd($user);
 
-        $ficheservice = $ficheServiceRepository->find($idservice);
+        //$ficheservice = $ficheServiceRepository->find($idservice);
+        $ficheService = new FicheService();
+        $ficheService->setAuthor($user);
+        $ficheService->setClient($client);
+        $ficheService->setCreatedAt();
+        $ficheService->setUpdatedAt();
 
-        $service->setMembers($user);
-        $service->addClient($client);
-        $form = $this->createForm(ServiceType::class, $service);
+        $form = $this->createForm(FicheServiceType::class, $ficheService);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $serviceRepository->save($service, true);
+            $ficheServiceRepository->save($ficheService, true);
 
             return $this->render('admin/client/show.html.twig', [
                 'id' => $idclient,
             ]);
         }
 
-        //dd($form->isValid());
-
-        return $this->renderForm('admin/service/addonclient.html.twig', [
-            'service' => $service,
+        return $this->renderForm('admin/fiche_service/addonclient.html.twig', [
+            'service' => $ficheService,
             'form' => $form,
         ]);
     }

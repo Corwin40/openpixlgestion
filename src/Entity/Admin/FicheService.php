@@ -3,10 +3,12 @@
 namespace App\Entity\Admin;
 
 use App\Repository\Admin\FicheServiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FicheServiceRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class FicheService
 {
     #[ORM\Id]
@@ -37,6 +39,13 @@ class FicheService
 
     #[ORM\ManyToOne]
     private ?Service $service = null;
+
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime('now');
+        $this->updatedAt = new \DateTime('now');
+    }
 
     public function getId(): ?int
     {
@@ -84,9 +93,10 @@ class FicheService
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    #[ORM\PrePersist]
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTime('now');
 
         return $this;
     }
@@ -96,9 +106,11 @@ class FicheService
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setUpdatedAt(): self
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTime('now');
 
         return $this;
     }

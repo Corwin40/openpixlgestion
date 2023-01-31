@@ -1,4 +1,57 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'id': 'FormAddonclient'}}) }}
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-folder"></i></span>
+                {{ form_widget(form.service, {'attr': {'class': 'form-select form-select-sm'}}) }}
+            </div>
+            <small>{{ form_help(form.service) }}</small>
+            <div class="form-error">
+                {{ form_errors(form.service) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-clock"></i></span>
+                {{ form_widget(form.time, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+            <small>{{ form_help(form.time) }}</small>
+            <div class="form-error">
+                {{ form_errors(form.time) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-euro-sign"></i></span>
+                {{ form_widget(form.price, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+            <small>{{ form_help(form.price) }}</small>
+            <div class="form-error">
+                {{ form_errors(form.price) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+                {{ form_widget(form.statut, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+            <small>{{ form_help(form.statut) }}</small>
+            <div class="form-error">
+                {{ form_errors(form.statut) }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-md-12">
+            <button id="btnAddonclient" class="btn btn-outline-success">{{ button_label|default('Ajouter') }}</button>
+        </div>
+    </div>
+</div>
 {{ form_end(form) }}
