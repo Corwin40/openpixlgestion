@@ -7,37 +7,66 @@
     <script>
         window.onload = function(){
 
-            // transmission
-            const addserviceonclient = document.getElementById('addserviceonclient')
-            addserviceonclient.addEventListener('show.bs.modal', event => {
-                // Button that triggered the modal
-                const button = event.relatedTarget
-                // Extract info from data-bs-* attributes
-                const idclient = button.getAttribute('data-bs-whatever')
-                // If necessary, you could initiate an AJAX request here
-                // and then do the updating in a callback.
-                //
-                // Update the modal's content.
-                // Ajout d'un service
-                const FormAddonclient = document.getElementById('FormAddonclient')
-
-                const btnAddonclient = document.getElementById('btnAddonclient')
-                btnAddonclient.addEventListener('submit', function(event){
-                    event.preventDefault()
-                    let url = '/admin/ficheservice/addonclient/' + idclient
-                    let Form = new FormData()
-                    axios
-                        .post(url, Form)
-                        .then(function(response){
-
+            // PARTIE Ajout d'une fiche service en Javascript
+            // -----------------------------------------
+            // Déclaration des éléments utile à la fonction
+            const modalAddonClient = document.getElementById('addserviceonclient')
+            // Ouverture de la modale d'édition
+            modalAddonClient.addEventListener('show.bs.modal', function (event) {
+                // Récupération du bouton cliqué et extraction de la variable transmise dans le data-bs-whatever
+                let button = event.relatedTarget
+                let idclient = button.getAttribute('data-bs-whatever')
+                let url = '/admin/ficheservice/addonclient/' + idclient
+                console.log(url)
+                // Chargement du Formulaire
+                let modalBody = modalAddonClient.querySelector('.modal-body')
+                //console.log(modalBody)
+                // on va chercher le controlleur addonclient pour afficher le formulaire
+                axios
+                    .get('/admin/ficheservice/addonclient/' + idclient )
+                    .then(function (response) {
+                        const form = document.getElementById('ModalBodyaddonclient').innerHTML = response.data.form;
+                        // Ajout d'un évènement sur le click du selecteur EditCustomer
+                        document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddonclient);
                         })
-                        .catch(function(error){
-                            console.log(error)
-                        })
-                })
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                // mise à jour du lien de soumission du formulaire.
+                let modalSubmit = modalAddonClient.querySelector('.modal-footer a')
+                modalSubmit.href = '/admin/ficheservice/addonclient/' + idclient
 
             })
 
+            // fonction d'édition de la fiche Client
+            function btnaddonclient(event){
+                event.preventDefault()
+                let urlbtnaddonclient = this.href
+                let Formbtnaddonclient = document.querySelector('.formaddonclient')
+                let databtnaddonclient = new FormData(Formbtnaddonclient)
+                axios
+                    .post(urlbtnaddonclient, databtnaddonclient)
+                    .then(function(response){
+                        const liste = document.getElementById('listeficheservice').innerHTML = response.data.liste
+
+                        // Ajout d'un évènement sur le click du selecteur EditCustomer
+                        document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddonclient);
+                        })
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }
+
+            // Ajout d'un évènement sur le click du selecteur EditCustomer
+            document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                link.addEventListener('click', btnaddonclient);
+            })
 
         }
     </script>
@@ -101,7 +130,12 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Crée un nouveau service</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    {{ render(controller('App\\Controller\\Admin\\FicheServiceController::addonclient', {'idclient': client.id})) }}
+                    <div id="ModalBodyaddonclient"class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <a id="btnaddonclient" class="btn btn-sm btn-primary btnaddonclient" data-bs-dismiss="modal">Ajouter</a>
+                    </div>
                 </div>
             </div>
         </div>

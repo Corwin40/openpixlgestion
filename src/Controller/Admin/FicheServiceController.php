@@ -92,7 +92,7 @@ class FicheServiceController extends AbstractController
         $listservices = $ficheServiceRepository->listByClient($idclient);
         //dd($listservices);
 
-        return $this->render('admin/service/listbyclient.html.twig', [
+        return $this->render('admin/fiche_service/listbyclient.html.twig', [
             'listservices' => $listservices
         ]);
     }
@@ -100,7 +100,7 @@ class FicheServiceController extends AbstractController
     /**
      * On ajoute un service sur un client
      **/
-    #[Route('/addonclient/{idclient}', name: 'app_admin_ficheservice_addonclient', methods: ['GET'])]
+    #[Route('/addonclient/{idclient}', name: 'app_admin_ficheservice_addonclient', methods: ['GET', 'POST'])]
     public function addonclient(FicheServiceRepository $ficheServiceRepository, $idclient, ClientRepository $clientRepository, Request $request)
     {
         $user = $this->getUser();
@@ -114,20 +114,39 @@ class FicheServiceController extends AbstractController
         $ficheService->setCreatedAt();
         $ficheService->setUpdatedAt();
 
-        $form = $this->createForm(FicheServiceType::class, $ficheService);
+        $form = $this->createForm(FicheServiceType::class, $ficheService, [
+            'action'=> $this->generateUrl('app_admin_ficheservice_addonclient', ['idclient'=> $idclient]),
+            'method'=>'POST',
+            'attr' => ['class'=>'formaddonclient']
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //dd($form->isValid());
             $ficheServiceRepository->save($ficheService, true);
+            // on récupére toutes les fiches d'un client
+            $ficheservices = $ficheServiceRepository->listByClient($idclient);
 
-            return $this->render('admin/client/show.html.twig', [
-                'id' => $idclient,
-            ]);
+            return $this->json([
+                'code'=> 200,
+                'message' => "Le vendeur a été correctement modifié.",
+                // alimente un code html contenant tous les services auquel le client adhère
+                'liste' => $this->renderView('admin/fiche_service/_listeficheservice.html.twig', [
+                    'listservices' => $ficheservices,
+                ])
+            ], 200);
         }
 
-        return $this->renderForm('admin/fiche_service/addonclient.html.twig', [
-            'service' => $ficheService,
-            'form' => $form,
+        $view = $this->renderForm('admin/fiche_service/_form.html.twig', [
+            'ficheservice' => $ficheService,
+            'form' => $form
         ]);
+
+        //dd($view->getContent());
+        return $this->json([
+            'code'=> 200,
+            'form' => $view->getContent()
+        ], 200);
+
     }
 }

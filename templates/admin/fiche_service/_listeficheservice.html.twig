@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+            <tr>
+                <th><i class="fa-solid fa-folder"></i> Identifiant</th>
+                <th><i class="fa-solid fa-tag"></i> Nom</th>
+                <th><i class="fa-duotone fa-box-archive"></i> Archives</th>
+                <th> Voir & Editer</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for service in listservices %}
+                <tr>
+                    <td>{{ service.id }}</td>
+                    <td>{{ service.nameService }}</td>
+                    <td>{{ service.statut }}</td>
+                    <td>
+                        <a class="btn" href=""><i class="fa-duotone fa-eye"></i> Voir</a>
+                        <a class="btn" href=""><i class="fa-duotone fa-pen-to-square"></i> Editer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">0 Enregistrement</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
