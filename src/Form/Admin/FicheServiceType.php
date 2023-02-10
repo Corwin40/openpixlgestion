@@ -6,6 +6,7 @@ use App\Entity\Admin\FicheService;
 use App\Entity\Admin\Service;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,26 +24,40 @@ class FicheServiceType extends AbstractType
                     'placeholder' => 'Entrez le nom du service'
                 ]
             ])
-            ->add('time', TextType::class,[
+            ->add('time', ChoiceType::class,[
                 'label'=>'Temps',
-                'required' => true,
-                'attr' => [
-                    'placeholder' => 'Entrez le temps passé dessus'
+                'required' => false,
+                'placeholder' =>'Veuillez entrez une durée',
+                'choices'  => [
+                    '1 an' => '1 an',
+                    '2 ans' => '2 ans',
+                    '3 ans' => '3 ans',
+                    '4 ans' => '4 ans',
+                    '5 ans' => '5 ans',
                 ]
             ])
-            ->add('price', TextType::class,[
+            ->add('price', ChoiceType::class,[
                 'label'=>'Prix',
                 'required' => false,
-                'attr' => [
-                    'placeholder' => 'Entrez le prix'
+                'placeholder' =>'Veuillez entrez une durée',
+                'choices'  => [
+                    '100 €' => '100 €',
+                    "200 €" => "200 €",
+                    '300 €' => '300 €',
+                    "400 €" => "400 €",
+                    '500 €' => '500 €',
                 ]
             ])
-            ->add('statut', TextType::class,[
+            ->add('statut', ChoiceType::class,[
                 'label'=>'Statut',
                 'required' => false,
-                'attr' => [
-                    'placeholder' => "entrez le statut de l'article statut"
-                ]
+                'placeholder' =>'Veuillez entrez une durée',
+                'choices'  => [
+                    'service actif' => 'service actif',
+                    "service proche de l'échéance" => "service proche de l'échéance",
+                    'service à échéance' => 'service à échéance',
+                ],
+
             ])
         ;
     }

@@ -4,6 +4,7 @@ namespace App\Entity\Admin;
 
 use App\Repository\Admin\FicheServiceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,7 +18,7 @@ class FicheService
     private ?int $id = null;
 
     #[ORM\Column(length: 7, nullable: true)]
-    private ?string $time = null;
+    private ?int $time = null;
 
     #[ORM\Column(length: 5, nullable: true)]
     private ?string $price = null;
@@ -40,11 +41,18 @@ class FicheService
     #[ORM\ManyToOne]
     private ?Service $service = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $echeance = null;
+
+    #[ORM\OneToMany(mappedBy: 'ficheService', targetEntity: Statut::class)]
+    private Collection $statuts;
+
 
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
         $this->updatedAt = new \DateTime('now');
+        $this->statuts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,12 +60,12 @@ class FicheService
         return $this->id;
     }
 
-    public function getTime(): ?string
+    public function getTime(): ?int
     {
         return $this->time;
     }
 
-    public function setTime(?string $time): self
+    public function setTime(?int $time): self
     {
         $this->time = $time;
 
@@ -147,6 +155,48 @@ class FicheService
     public function setService(?Service $service): self
     {
         $this->service = $service;
+
+        return $this;
+    }
+
+    public function getEcheance(): ?\DateTimeInterface
+    {
+        return $this->echeance;
+    }
+
+    public function setEcheance(\DateTimeInterface $echeance): self
+    {
+        $this->echeance = $echeance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Statut>
+     */
+    public function getStatuts(): Collection
+    {
+        return $this->statuts;
+    }
+
+    public function addStatut(Statut $statut): self
+    {
+        if (!$this->statuts->contains($statut)) {
+            $this->statuts->add($statut);
+            $statut->setFicheService($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStatut(Statut $statut): self
+    {
+        if ($this->statuts->removeElement($statut)) {
+            // set the owning side to null (unless already changed)
+            if ($statut->getFicheService() === $this) {
+                $statut->setFicheService(null);
+            }
+        }
 
         return $this;
     }

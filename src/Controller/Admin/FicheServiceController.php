@@ -122,8 +122,13 @@ class FicheServiceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //dd($form->isValid());
+            $time = $form->get('time')->getData();
+            $echeance = new \DateTime('now');
+            $echeance->modify('+'.$time.'year');
+
+            $ficheService->setEcheance($echeance);
             $ficheServiceRepository->save($ficheService, true);
+
             // on récupére toutes les fiches d'un client
             $ficheservices = $ficheServiceRepository->listByClient($idclient);
 
@@ -148,5 +153,23 @@ class FicheServiceController extends AbstractController
             'form' => $view->getContent()
         ], 200);
 
+    }
+
+    #[Route('/del/{id}', name: 'app_admin_del_service')]
+    public function deleteServiceClient(FicheService $ficheService, FicheServiceRepository $ficheServiceRepository) : Response
+    {
+        $idclient = $ficheService->getClient()->getId();
+        $ficheServiceRepository->remove($ficheService, true);
+
+        $ficheservices = $ficheServiceRepository->listByClient($idclient);
+
+        return $this->json([
+            'code'=> 200,
+            'message' => "La fiche service a été correctement supprimée.",
+            // alimente un code html contenant tous les services auquel le client adhère
+            'liste' => $this->renderView('admin/fiche_service/_listeficheservice.html.twig', [
+                'listservices' => $ficheservices,
+            ])
+        ], 200);
     }
 }

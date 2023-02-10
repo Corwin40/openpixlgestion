@@ -1,0 +1,51 @@
+{{ form_start(form) }}
+ <div class="row g-2">
+            {{ form_label(form.name, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-4">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-folder"></i></span>
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+                <small>{{ form_help(form.name) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.name) }}
+                </div>
+            </div>
+        </div>
+        <div class="row g-2">
+            {{ form_label(form.notes, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-6">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-file-lines"></i></span>
+                    {{ form_widget(form.notes, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+                <small>{{ form_help(form.notes) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.notes) }}
+                </div>
+            </div>
+        </div>
+        <div class="row g-2">
+            {{ form_label(form.startedAt, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-3">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-clock"></i></span>
+                    {{ form_widget(form.startedAt, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+                <small>{{ form_help(form.startedAt) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.startedAt) }}
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-duotone fa-euro-sign"></i></span>
+                {{ form_widget(form.finishedAt, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+                <small>{{ form_help(form.finishedAt) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.finishedAt) }}
+                </div>
+            </div>
+        </div>
+{{ form_end(form) }}

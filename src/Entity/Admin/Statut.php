@@ -23,12 +23,6 @@ class Statut
     #[ORM\Column(type: Types::TEXT)]
     private ?string $notes = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
-    private ?string $price = null;
-
-    #[ORM\Column(length: 20)]
-    private ?string $hours = null;
-
     #[ORM\Column(length: 20)]
     private ?string $author = null;
 
@@ -43,6 +37,9 @@ class Statut
 
     #[ORM\Column(type: 'datetime')]
     private $updatedAt;
+
+    #[ORM\ManyToOne(inversedBy: 'statuts')]
+    private ?FicheService $ficheService = null;
 
 
     public function __construct()
@@ -76,30 +73,6 @@ class Statut
     public function setNotes(string $notes): self
     {
         $this->notes = $notes;
-
-        return $this;
-    }
-
-    public function getPrice(): ?string
-    {
-        return $this->price;
-    }
-
-    public function setPrice(string $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getHours(): ?string
-    {
-        return $this->hours;
-    }
-
-    public function setHours(string $hours): self
-    {
-        $this->hours = $hours;
 
         return $this;
     }
@@ -163,6 +136,18 @@ class Statut
     public function setUpdatedAt(): self
     {
         $this->updatedAt = new \DateTime('now');
+
+        return $this;
+    }
+
+    public function getFicheService(): ?FicheService
+    {
+        return $this->ficheService;
+    }
+
+    public function setFicheService(?FicheService $ficheService): self
+    {
+        $this->ficheService = $ficheService;
 
         return $this;
     }

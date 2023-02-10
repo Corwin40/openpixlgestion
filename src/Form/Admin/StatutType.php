@@ -4,6 +4,7 @@ namespace App\Form\Admin;
 
 use App\Entity\Admin\Statut;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,46 +21,25 @@ class StatutType extends AbstractType
                     'placeholder' => "Nom de l'archive"
                 ]
             ])
-            ->add('notes', TextType::class,[
+            ->add('notes', TextareaType::class,[
                 'label'=>'Notes',
                 'required' => false,
                 'attr' => [
-        'placeholder' => "Notes de mise à jour"
-    ]
-            ])
-            ->add('price', TextType::class,[
-                'label'=>'Prix',
-                'required' => true,
-                'attr' => [
-        'placeholder' => "Prix de la tâche"
-    ]
-            ])
-            ->add('hours', TextType::class,[
-                'label'=>'Heures',
-                'required' => true,
-                'attr' => [
-                    'placeholder' => "Heures passées"
+                    'placeholder' => "Notes de mise à jour"
                 ]
             ])
-            ->add('author', TextType::class,[
-                'label'=>'Auteur',
-                'required' => true,
-                'attr' => [
-        'placeholder' => "Nom de l'auteur"
-    ]
-            ])
             ->add('startedAt', TextType::class,[
-                'label'=>'Date',
+                'label'=>'Durée',
                 'required' => true,
                 'attr' => [
-                    'placeholder' => "Date de début"
+                    'placeholder' => "Heure de début"
                 ]
             ])
             ->add('finishedAt', TextType::class,[
-                'label'=>'Fin',
+                'label'=>'',
                 'required' => false,
                 'attr' => [
-        'placeholder' => "Date de fin"
+                'placeholder' => "Heure de fin"
     ]
             ])
         ;

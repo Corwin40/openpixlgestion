@@ -11,13 +11,11 @@
             // -----------------------------------------
             // Déclaration des éléments utile à la fonction
             const modalAddonClient = document.getElementById('addserviceonclient')
-            // Ouverture de la modale d'édition
+            // Ouverturle de a modale d'édition
             modalAddonClient.addEventListener('show.bs.modal', function (event) {
                 // Récupération du bouton cliqué et extraction de la variable transmise dans le data-bs-whatever
                 let button = event.relatedTarget
                 let idclient = button.getAttribute('data-bs-whatever')
-                let url = '/admin/ficheservice/addonclient/' + idclient
-                console.log(url)
                 // Chargement du Formulaire
                 let modalBody = modalAddonClient.querySelector('.modal-body')
                 //console.log(modalBody)
@@ -26,9 +24,19 @@
                     .get('/admin/ficheservice/addonclient/' + idclient )
                     .then(function (response) {
                         const form = document.getElementById('ModalBodyaddonclient').innerHTML = response.data.form;
-                        // Ajout d'un évènement sur le click du selecteur EditCustomer
+                        // Ajout d'un évènement sur le click du selecteur ajout d'un service
                         document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
                             link.addEventListener('click', btnaddonclient);
+                        })
+
+                        // Ajout d'un évènement sur le click de suppression service
+                        document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                            link.addEventListener('click', btnSupprService);
+                        })
+
+                        // Ajout d'un évènement sur le click du selecteur d'un statut
+                        document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddstatutonclient);
                         })
                     })
                     .catch(function (error) {
@@ -38,7 +46,6 @@
                 // mise à jour du lien de soumission du formulaire.
                 let modalSubmit = modalAddonClient.querySelector('.modal-footer a')
                 modalSubmit.href = '/admin/ficheservice/addonclient/' + idclient
-
             })
 
             // fonction d'édition de la fiche Client
@@ -52,9 +59,19 @@
                     .then(function(response){
                         const liste = document.getElementById('listeficheservice').innerHTML = response.data.liste
 
-                        // Ajout d'un évènement sur le click du selecteur EditCustomer
+                        // Ajout d'un évènement sur le click du selecteur ajout d'un service
                         document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
                             link.addEventListener('click', btnaddonclient);
+                        })
+
+                        // Ajout d'un évènement sur le click de suppression service
+                        document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                            link.addEventListener('click', btnSupprService);
+                        })
+
+                        // Ajout d'un évènement sur le click du selecteur d'un statut
+                        document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddstatutonclient);
                         })
 
                     })
@@ -63,10 +80,143 @@
                     })
             }
 
-            // Ajout d'un évènement sur le click du selecteur EditCustomer
+            // PARTIE suppression d'une fiche service en Javascript
+            // -----------------------------------------
+            // Déclaration des éléments utile à la fonction
+            const modalSupprService = document.getElementById('SupprService')
+            modalSupprService.addEventListener('show.bs.modal', event => {
+                // Button that triggered the modal
+                const button = event.relatedTarget
+                // Extract info from data-bs-* attributes
+                const idfiche = button.getAttribute('data-bs-whatever')
+                // If necessary, you could initiate an AJAX request here
+                // and then do the updating in a callback.
+                //
+                // Update the modal's content.
+                const modalBody = modalSupprService.querySelector('.modal-body')
+                modalBody.innerHTML = "<p>Vous êtes sur le point de supprimer la fiche. <br> Etes-vous sur de vouloir continuer ?</p>"
+                let modalSubmit = modalSupprService.querySelector('.modal-footer a')
+                modalSubmit.href = '/admin/ficheservice/del/' + idfiche
+            })
+
+            function btnSupprService(event){
+                event.preventDefault
+                let url = this.href
+                axios
+                    .post(url)
+                    .then(function(response){
+                        const liste = document.getElementById('listeficheservice').innerHTML = response.data.liste
+
+                        // Ajout d'un évènement sur le click du selecteur ajout d'un service
+                        document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddonclient);
+                        })
+
+                        // Ajout d'un évènement sur le click de suppression service
+                        document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                            link.addEventListener('click', btnSupprService);
+                        })
+
+                        // Ajout d'un évènement sur le click du selecteur d'un statut
+                        document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddstatutonclient);
+                        })
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+
+            }
+
+            // PARTIE Ajout d'un statut en Javascript
+            // -----------------------------------------
+            // Déclaration des éléments utile à la fonction
+            const modaladdstatutonClient = document.getElementById('addstatutonclient')
+            console.log(modaladdstatutonClient)
+            // Ouverture de a modale d'édition
+            modaladdstatutonClient.addEventListener('show.bs.modal', function (event) {
+                // Récupération du bouton cliqué et extraction de la variable transmise dans le data-bs-whatever
+                let button = event.relatedTarget
+                let idficheservice = button.getAttribute('data-bs-whatever')
+                // Chargement du Formulaire
+                let modalBody = modaladdstatutonClient.querySelector('.modal-body')
+                // on va chercher le controlleur addonclient pour afficher le formulaire
+                axios
+                    .get('/admin/statut/addstatutonclient/' + idficheservice )
+                    .then(function (response) {
+                        const form = document.getElementById('ModalBodyaddstatutonclient').innerHTML = response.data.form;
+                        // Ajout d'un évènement sur le click du selecteur ajout d'un service
+                        document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddonclient);
+                        })
+
+                        // Ajout d'un évènement sur le click de suppression service
+                        document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                            link.addEventListener('click', btnSupprService);
+                        })
+
+                        // Ajout d'un évènement sur le click du selecteur d'un statut
+                        document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddstatutonclient);
+                        })
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                // mise à jour du lien de soumission du formulaire.
+                let modalSubmit = modaladdstatutonClient.querySelector('.modal-footer a')
+                modalSubmit.href = '/admin/statut/addstatutonclient/' + idficheservice
+                })
+
+                // fonction d'édition de la fiche Client
+                function btnaddstatutonclient(event){
+                    event.preventDefault()
+                    let urlbtnaddstatutonclient = this.href
+                    let Formbtnaddstatutonclient = document.querySelector('.formaddstatutonclient')
+                    let databtnaddstatutonclient = new FormData(Formbtnaddstatutonclient)
+                    axios
+                        .post(urlbtnaddstatutonclient, databtnaddstatutonclient)
+                        .then(function(response){
+                            // const liste = document.getElementById('addstatutonclient').innerHTML = response.data.liste
+
+                            // Ajout d'un évènement sur le click du selecteur ajout d'un service
+                            document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                                link.addEventListener('click', btnaddonclient);
+                            })
+
+                            // Ajout d'un évènement sur le click de suppression service
+                            document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                                link.addEventListener('click', btnSupprService);
+                            })
+
+                            // Ajout d'un évènement sur le click du selecteur d'un statut
+                            document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                                link.addEventListener('click', btnaddstatutonclient);
+                            })
+
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                }
+
+            // Ajout d'un évènement sur le click du selecteur ajout d'un service
             document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
                 link.addEventListener('click', btnaddonclient);
             })
+
+            // Ajout d'un évènement sur le click de suppression service
+            document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                link.addEventListener('click', btnSupprService);
+            })
+
+            // Ajout d'un évènement sur le click du selecteur d'un statut
+            document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                link.addEventListener('click', btnaddstatutonclient);
+            })
+
 
         }
     </script>
@@ -130,7 +280,8 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Crée un nouveau service</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div id="ModalBodyaddonclient"class="modal-body">
+                    <div id="ModalBodyaddonclient" class="modal-body">
+                        <p>Test</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -139,7 +290,46 @@
                 </div>
             </div>
         </div>
+        <!-- Modal suppression de service-->
+        <div class="modal fade" id="SupprService" tabindex="-1" aria-labelledby="SupprService" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer un service</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="ModalBodySupprService"class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <a class="btn btn-sm btn-primary btnSupprService" data-bs-dismiss="modal">Ajouter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal ajout d'un statut -->
+        <div class="modal fade" id="addstatutonclient" tabindex="-1" aria-labelledby="addstatutonclient" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Crée un nouveau statut</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="ModalBodyaddstatutonclient"class="modal-body">
+                        <p>Test</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <a id="btnaddstatutonclient" class="btn btn-sm btn-primary btnaddstatutonclient" data-bs-dismiss="modal">Ajouter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+    <section>
+
+    </section>
+
 
 
 

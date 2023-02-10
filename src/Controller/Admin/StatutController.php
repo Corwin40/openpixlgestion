@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Admin\Statut;
 use App\Form\Admin\StatutType;
+use App\Repository\Admin\ClientRepository;
+use App\Repository\Admin\FicheServiceRepository;
 use App\Repository\Admin\StatutRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -74,5 +76,47 @@ class StatutController extends AbstractController
         }
 
         return $this->redirectToRoute('app_admin_statut_index', [], Response::HTTP_SEE_OTHER);
+    }
+    /**
+     * On ajoute un statut au service d'un client
+     **/
+    #[Route('/addstatutonclient/{idficheservice}', name: 'app_admin_statut_addstatutonclient', methods: ['GET', 'POST'])]
+    public function addstatutonclient(StatutRepository $statutRepository,FicheServiceRepository $ficheServiceRepository,$idficheservice, Request $request)
+    {
+        $user = $this->getUser();
+        $ficheservice = $ficheServiceRepository->find($idficheservice);
+        $client = $ficheservice->getClient();
+        //dd($user);
+
+        $statut = new Statut();
+        $statut->setAuthor($user->getId());
+        $statut->setFicheService($ficheservice);
+
+        $form = $this->createForm(StatutType::class, $statut, [
+            'action'=> $this->generateUrl('app_admin_statut_addstatutonclient', ['idficheservice'=> $idficheservice]),
+            'method'=>'POST',
+            'attr' => ['class'=>'formaddstatutonclient']
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $statutRepository->save($statut, true);
+
+            return $this->json([
+                'code'=> 200,
+                'message' => "OK",
+            ], 200);
+        }
+        $view = $this->renderForm('admin/statut/_formModal.html.twig', [
+            'statut' => $statut,
+            'form' => $form
+        ]);
+
+        //dd($view->getContent());
+        return $this->json([
+            'code'=> 200,
+            'form' => $view->getContent()
+        ], 200);
+
     }
 }

@@ -16,7 +16,7 @@
         <div class="col-sm-6">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-clock"></i></span>
-                {{ form_widget(form.time, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                {{ form_widget(form.time, {'attr': {'class': 'form-select form-select-sm'}}) }}
             </div>
             <small>{{ form_help(form.time) }}</small>
             <div class="form-error">
@@ -26,7 +26,7 @@
         <div class="col-sm-6">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-euro-sign"></i></span>
-                {{ form_widget(form.price, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                {{ form_widget(form.price, {'attr': {'class': 'form-select form-select-sm'}}) }}
             </div>
             <small>{{ form_help(form.price) }}</small>
             <div class="form-error">
@@ -38,7 +38,7 @@
         <div class="col-sm-12">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
-                {{ form_widget(form.statut, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                {{ form_widget(form.statut, {'attr': {'class': 'form-select form-select-sm'}}) }}
             </div>
             <small>{{ form_help(form.statut) }}</small>
             <div class="form-error">
