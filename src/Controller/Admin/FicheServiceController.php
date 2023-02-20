@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Admin\FicheService;
+use App\Entity\Admin\Statut;
 use App\Form\Admin\FicheServiceType;
 use App\Form\Admin\ServiceType;
 use App\Repository\Admin\ClientRepository;
@@ -100,8 +101,8 @@ class FicheServiceController extends AbstractController
     /**
      * On ajoute un service sur un client
      **/
-    #[Route('/addonclient/{idclient}', name: 'app_admin_ficheservice_addonclient', methods: ['GET', 'POST'])]
-    public function addonclient(FicheServiceRepository $ficheServiceRepository, $idclient, ClientRepository $clientRepository, Request $request)
+    #[Route('/addstatutonclient/{idclient}', name: 'app_admin_ficheservice_addonclient', methods: ['GET', 'POST'])]
+    public function addstatutonclient(FicheServiceRepository $ficheServiceRepository, $idclient, ClientRepository $clientRepository, Request $request)
     {
         $user = $this->getUser();
         $client = $clientRepository->find($idclient);

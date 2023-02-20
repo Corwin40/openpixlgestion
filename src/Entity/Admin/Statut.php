@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StatutRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Statut
+class Statut extends \App\Entity\Admin\FicheService
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,15 +23,6 @@ class Statut
     #[ORM\Column(type: Types::TEXT)]
     private ?string $notes = null;
 
-    #[ORM\Column(length: 20)]
-    private ?string $author = null;
-
-    #[ORM\Column(length: 20)]
-    private ?string $startedAt = null;
-
-    #[ORM\Column(length: 20)]
-    private ?string $finishedAt = null;
-
     #[ORM\Column(type: 'datetime')]
     private $createdAt;
 
@@ -40,6 +31,12 @@ class Statut
 
     #[ORM\ManyToOne(inversedBy: 'statuts')]
     private ?FicheService $ficheService = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $startedAt = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $finishedAt = null;
 
 
     public function __construct()
@@ -73,42 +70,6 @@ class Statut
     public function setNotes(string $notes): self
     {
         $this->notes = $notes;
-
-        return $this;
-    }
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    public function getStartedAt(): ?string
-    {
-        return $this->startedAt;
-    }
-
-    public function setStartedAt(string $startedAt): self
-    {
-        $this->startedAt = $startedAt;
-
-        return $this;
-    }
-
-    public function getFinishedAt(): ?string
-    {
-        return $this->finishedAt;
-    }
-
-    public function setFinishedAt(string $finishedAt): self
-    {
-        $this->finishedAt = $finishedAt;
 
         return $this;
     }
@@ -148,6 +109,30 @@ class Statut
     public function setFicheService(?FicheService $ficheService): self
     {
         $this->ficheService = $ficheService;
+
+        return $this;
+    }
+
+    public function getStartedAt(): ?\DateTimeInterface
+    {
+        return $this->startedAt;
+    }
+
+    public function setStartedAt(?\DateTimeInterface $startedAt): self
+    {
+        $this->startedAt = $startedAt;
+
+        return $this;
+    }
+
+    public function getFinishedAt(): ?\DateTimeInterface
+    {
+        return $this->finishedAt;
+    }
+
+    public function setFinishedAt(?\DateTimeInterface $finishedAt): self
+    {
+        $this->finishedAt = $finishedAt;
 
         return $this;
     }

@@ -23,6 +23,17 @@ class StatutController extends AbstractController
         ]);
     }
 
+    #[Route('/listbyficheservice/{idficheservice}', name: 'app_admin_statut_listbyficheservice', methods: ['GET'])]
+    public function listbyficheservice(StatutRepository $statutRepository, $idficheservice): Response
+    {
+        $statuts = $statutRepository->findBy(['ficheService'=> 2]);
+        dd($statuts);
+
+        return $this->render('admin/statut/listbyficheservice.html.twig', [
+            'statuts' => $statutRepository->findBy(['ficheService'=> $idficheservice]),
+        ]);
+    }
+
     #[Route('/new', name: 'app_admin_statut_new', methods: ['GET', 'POST'])]
     public function new(Request $request, StatutRepository $statutRepository): Response
     {

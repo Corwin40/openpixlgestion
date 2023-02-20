@@ -6,6 +6,7 @@ use App\Entity\Admin\Statut;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,19 +29,13 @@ class StatutType extends AbstractType
                     'placeholder' => "Notes de mise à jour"
                 ]
             ])
-            ->add('startedAt', TextType::class,[
+            ->add('startedAt', TimeType::class,[
                 'label'=>'Durée',
-                'required' => true,
-                'attr' => [
-                    'placeholder' => "Heure de début"
-                ]
+                'required' => false,
             ])
-            ->add('finishedAt', TextType::class,[
+            ->add('finishedAt', TimeType::class,[
                 'label'=>'',
                 'required' => false,
-                'attr' => [
-                'placeholder' => "Heure de fin"
-    ]
             ])
         ;
     }

@@ -1,0 +1,38 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th><i class="fa-solid fa-folder"></i> Identifiant</th>
+        <th><i class="fa-solid fa-tag"></i> Nom</th>
+        <th><i class="fa-duotone fa-file-lines"></i> Notes</th>
+        <th><i class="fa-duotone fa-user"></i> Auteur</th>
+        <th><i class="fa-duotone fa-clock"></i> Début</th>
+        <th><i class="fa-duotone fa-clock"></i> Fin</th>
+        <th>DELTA</th>
+        <th> Voir & Editer</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for statut in statuts %}
+        {% set deb = statut.startedAt %}
+        {% set end = statut.finishedAt %}
+        {% set diff = date(end).diff(date(deb)) %}
+        <tr>
+            <td>{{ statut.id }}</td>
+            <td>{{ statut.name }}</td>
+            <td>{{ statut.notes }}</td>
+            <td>{{ statut.author }}</td>
+            <td>{% if statut.startedAt is null %}{% else %}{{ statut.startedAt|date('h:m') }}{% endif %}</td>
+            <td>{% if statut.finishedAt is null %}{% else %}{{ statut.finishedAt|date('h:m') }}{% endif %}</td>
+            <td>{{ diff.h }}:{% if diff.i|length == 1%}0{{ diff.i }}{% else %}{{ diff.i }}{% endif %}</td>
+            <td>
+                <a class="btn" href="{{ path('app_admin_statut_show', {'id': statut.id}) }}"><i class="fa-duotone fa-eye"></i> Voir</a>
+                <a class="btn" href="{{ path('app_admin_statut_edit', {'id': statut.id}) }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="11">Enregistrement</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

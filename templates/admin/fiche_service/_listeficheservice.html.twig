@@ -5,7 +5,8 @@
             <tr>
                 <th><i class="fa-solid fa-folder"></i> Identifiant</th>
                 <th><i class="fa-solid fa-tag"></i> Nom</th>
-                <th><i class="fa-duotone fa-box-archive"></i> Statut</th>
+                <th><i class="fa-duotone fa-box-archive"></i> Etat</th>
+                <th>Notes</th>
                 <th>création</th>
                 <th>Echeance</th>
                 <th> Voir & Editer</th>
@@ -17,6 +18,7 @@
                     <td>{{ service.id }}</td>
                     <td>{{ service.nameService }}</td>
                     <td>{{ service.statut }}</td>
+                    <td></td>
                     <td>{{ service.echeance |date('d-m-Y') }}</td>
                     <td>{{ service.createdAt |date('d-m-Y') }}</td>
                     <td>
