@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Statut{% endblock %}
+
+{% block body %}
+    <h1>Editer le Statut</h1>
+
+    {{ include('admin/statut/_form.html.twig', {'button_label': 'Mise à jour'}) }}
+{% endblock %}

@@ -1,0 +1,124 @@
+body{
+    background-color: #ececec;
+}
+#dashboard{
+    h1{
+        color:$color-primary;
+    }
+    a{
+        color:$font-color;
+    }
+    .titre_h2{
+        color: $font-color;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        font-weight: 500;
+        font-size: 1.8rem;
+        line-height: 1.2;
+        text-decoration: none;
+    }
+    .titre_h4{
+        color: $font-color;
+        margin-bottom: 2rem;
+        font-weight: 500;
+        font-size: 1.2rem;
+        line-height: 1.2;
+        text-decoration: none;
+    }
+}
+
+#client_index {
+    h1 {
+        color: $color-primary;
+    }
+    .creation{
+        background-color: $blue-sky;
+    }
+    .creation:hover{
+        background-color: $color-btn;
+    }
+}
+#statut_index {
+    h1 {
+        color: $color-primary;
+    }
+    .creation{
+        background-color: $blue-sky;
+    }
+    .creation:hover{
+        background-color: $color-btn;
+    }
+}
+#service_index {
+    h1 {
+        color: $color-primary;
+    }
+    .creation{
+        background-color: $blue-sky;
+    }
+    .creation:hover{
+        background-color: $color-btn;
+    }
+}
+#login{
+    h1{
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        color: $color-primary;
+    }
+}
+nav{
+    background-color: white;
+    color: $color-primary;
+    .Logo_nav {
+        margin-right: 2rem;
+    }
+}
+
+
+.start_li{
+    margin-top: 2rem;
+}
+.font{
+    background-color: #efefef;
+}
+
+.form_space{
+    margin-bottom: 0.1rem;
+}
+.form_border{
+    padding-left: 2rem;
+}
+.form_border{
+    padding-left: 2rem;
+}
+.btn_logout{
+    text-align: end;
+    color: #d70000;
+}
+#client_show{
+    h1{
+        color:$color-primary;
+    }
+    h4{
+        color: $blue-sky;
+    }
+    a{
+        color:$font-color;
+    }
+    .create_btn{
+        background-color: $color-primary;
+    }
+    .create_btn:hover {
+        background-color: $color-btn;
+    }
+    .delete_btn{
+        background-color: #de1616;
+    }
+    .delete_btn:hover {
+        background-color: #b00000;
+    }
+}
+.btn_valide{
+    margin: 15px;
+}

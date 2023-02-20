@@ -1,0 +1,31 @@
+{{ form_start(form) }}
+<div class="modal-body">
+    <div class="row g-2">
+        {{ form_label(form.name, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+        <div class="col-sm-5">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-tag"></i></span>
+                {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+            <small>{{ form_help(form.name) }}</small>
+            <div class="form-error">
+                {{ form_errors(form.name) }}
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-box-archive"></i></span>
+                {{ form_widget(form.archives, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+            <small>{{ form_help(form.archives) }}</small>
+            <div class="form-error">
+                {{ form_errors(form.archives) }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+    <button class="btn btn-outline-success">{{ button_label|default('Enregistrer') }}</button>
+</div>
+{{ form_end(form) }}

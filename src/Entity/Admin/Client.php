@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Client
 {
     #[ORM\Id]
@@ -37,26 +38,36 @@ class Client
     #[ORM\Column(length: 50)]
     private ?string $email = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
+    #[ORM\Column(type: 'datetime')]
+    private $createdAt;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $updatedAt = null;
+    #[ORM\Column(type: 'datetime')]
+    private $updatedAt;
 
     #[ORM\ManyToOne(inversedBy: 'client')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?member $members = null;
-
-    #[ORM\ManyToMany(targetEntity: Service::class, inversedBy: 'clients')]
-    private Collection $service;
+    private ?Member $members = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?TypeClient $typeclient = null;
 
+    #[ORM\ManyToMany(targetEntity: Service::class, mappedBy: 'client')]
+    private Collection $services;
+
+    #[ORM\ManyToMany(targetEntity: Service::class, mappedBy: 'clientServiceChoise')]
+    private Collection $servicesClientChoice;
+
+    #[ORM\OneToMany(mappedBy: 'Client', targetEntity: FicheService::class)]
+    private Collection $ficheServices;
+
     public function __construct()
     {
-        $this->service = new ArrayCollection();
+        $this->createdAt = new \DateTime('now');
+        $this->updatedAt = new \DateTime('now');
+        $this->services = new ArrayCollection();
+        $this->servicesClientChoice = new ArrayCollection();
+        $this->ficheServices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -153,9 +164,10 @@ class Client
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    #[ORM\PrePersist]
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTime('now');
 
         return $this;
     }
@@ -165,9 +177,11 @@ class Client
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setUpdatedAt(): self
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTime('now');
 
         return $this;
     }
@@ -184,30 +198,6 @@ class Client
         return $this;
     }
 
-    /**
-     * @return Collection<int, Service>
-     */
-    public function getService(): Collection
-    {
-        return $this->service;
-    }
-
-    public function addService(Service $service): self
-    {
-        if (!$this->service->contains($service)) {
-            $this->service->add($service);
-        }
-
-        return $this;
-    }
-
-    public function removeService(Service $service): self
-    {
-        $this->service->removeElement($service);
-
-        return $this;
-    }
-
     public function getTypeclient(): ?TypeClient
     {
         return $this->typeclient;
@@ -216,6 +206,90 @@ class Client
     public function setTypeclient(?TypeClient $typeclient): self
     {
         $this->typeclient = $typeclient;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Service>
+     */
+    public function getServices(): Collection
+    {
+        return $this->services;
+    }
+
+    public function addService(Service $service): self
+    {
+        if (!$this->services->contains($service)) {
+            $this->services->add($service);
+            $service->addClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeService(Service $service): self
+    {
+        if ($this->services->removeElement($service)) {
+            $service->removeClient($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Service>
+     */
+    public function getServicesClientChoice(): Collection
+    {
+        return $this->servicesClientChoice;
+    }
+
+    public function addServicesClientChoice(Service $servicesClientChoice): self
+    {
+        if (!$this->servicesClientChoice->contains($servicesClientChoice)) {
+            $this->servicesClientChoice->add($servicesClientChoice);
+            $servicesClientChoice->addClientServiceChoise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeServicesClientChoice(Service $servicesClientChoice): self
+    {
+        if ($this->servicesClientChoice->removeElement($servicesClientChoice)) {
+            $servicesClientChoice->removeClientServiceChoise($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FicheService>
+     */
+    public function getFicheServices(): Collection
+    {
+        return $this->ficheServices;
+    }
+
+    public function addFicheService(FicheService $ficheService): self
+    {
+        if (!$this->ficheServices->contains($ficheService)) {
+            $this->ficheServices->add($ficheService);
+            $ficheService->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFicheService(FicheService $ficheService): self
+    {
+        if ($this->ficheServices->removeElement($ficheService)) {
+            // set the owning side to null (unless already changed)
+            if ($ficheService->getClient() === $this) {
+                $ficheService->setClient(null);
+            }
+        }
 
         return $this;
     }

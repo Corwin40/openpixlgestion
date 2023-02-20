@@ -39,6 +39,32 @@ class ServiceRepository extends ServiceEntityRepository
         }
     }
 
+    public function listByClient($idclient): array
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.client', 'c')
+            ->andWhere('c.id = :idclient')
+            ->setParameter('idclient', $idclient)
+            ->orderBy('s.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function listByService($idservice): array
+    {
+
+
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.clientServiceChoise', 'c')
+            ->andWhere('c.id = :idservice')
+            ->setParameter('idservice', $idservice)
+            ->orderBy('s.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Service[] Returns an array of Service objects
 //     */

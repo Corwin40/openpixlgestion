@@ -9,7 +9,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StatutRepository::class)]
-class Statut
+#[ORM\HasLifecycleCallbacks]
+class Statut extends \App\Entity\Admin\FicheService
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,33 +23,26 @@ class Statut
     #[ORM\Column(type: Types::TEXT)]
     private ?string $notes = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
-    private ?string $price = null;
+    #[ORM\Column(type: 'datetime')]
+    private $createdAt;
 
-    #[ORM\Column(length: 20)]
-    private ?string $hours = null;
+    #[ORM\Column(type: 'datetime')]
+    private $updatedAt;
 
-    #[ORM\Column(length: 20)]
-    private ?string $author = null;
+    #[ORM\ManyToOne(inversedBy: 'statuts')]
+    private ?FicheService $ficheService = null;
 
-    #[ORM\Column(length: 20)]
-    private ?string $startedAt = null;
+    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $startedAt = null;
 
-    #[ORM\Column(length: 20)]
-    private ?string $finishedAt = null;
+    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $finishedAt = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $updatedAt = null;
-
-    #[ORM\ManyToMany(targetEntity: Service::class, mappedBy: 'statut')]
-    private Collection $services;
 
     public function __construct()
     {
-        $this->services = new ArrayCollection();
+        $this->createdAt = new \DateTime('now');
+        $this->updatedAt = new \DateTime('now');
     }
 
     public function getId(): ?int
@@ -80,74 +74,15 @@ class Statut
         return $this;
     }
 
-    public function getPrice(): ?string
-    {
-        return $this->price;
-    }
-
-    public function setPrice(string $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getHours(): ?string
-    {
-        return $this->hours;
-    }
-
-    public function setHours(string $hours): self
-    {
-        $this->hours = $hours;
-
-        return $this;
-    }
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    public function getStartedAt(): ?string
-    {
-        return $this->startedAt;
-    }
-
-    public function setStartedAt(string $startedAt): self
-    {
-        $this->startedAt = $startedAt;
-
-        return $this;
-    }
-
-    public function getFinishedAt(): ?string
-    {
-        return $this->finishedAt;
-    }
-
-    public function setFinishedAt(string $finishedAt): self
-    {
-        $this->finishedAt = $finishedAt;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    #[ORM\PrePersist]
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTime('now');
 
         return $this;
     }
@@ -157,36 +92,47 @@ class Statut
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setUpdatedAt(): self
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTime('now');
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Service>
-     */
-    public function getServices(): Collection
+    public function getFicheService(): ?FicheService
     {
-        return $this->services;
+        return $this->ficheService;
     }
 
-    public function addService(Service $service): self
+    public function setFicheService(?FicheService $ficheService): self
     {
-        if (!$this->services->contains($service)) {
-            $this->services->add($service);
-            $service->addStatut($this);
-        }
+        $this->ficheService = $ficheService;
 
         return $this;
     }
 
-    public function removeService(Service $service): self
+    public function getStartedAt(): ?\DateTimeInterface
     {
-        if ($this->services->removeElement($service)) {
-            $service->removeStatut($this);
-        }
+        return $this->startedAt;
+    }
+
+    public function setStartedAt(?\DateTimeInterface $startedAt): self
+    {
+        $this->startedAt = $startedAt;
+
+        return $this;
+    }
+
+    public function getFinishedAt(): ?\DateTimeInterface
+    {
+        return $this->finishedAt;
+    }
+
+    public function setFinishedAt(?\DateTimeInterface $finishedAt): self
+    {
+        $this->finishedAt = $finishedAt;
 
         return $this;
     }

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des services{% endblock %}
+
+{% block body %}
+    <section id="service_index">
+        <div class="container">
+            <div class="row title mt-4 mb-4">
+                <div class="col-12">
+                    <h1 class="text-center">Fiche des services</h1>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th><i class="fa-solid fa-folder"></i> Identifiant</th>
+                    <th><i class="fa-solid fa-tag"></i> Service</th>
+                    <th><i class="fa-duotone fa-box-archive"></i> Client</th>
+                    <th><i class="fa-solid fa-folder"></i> Temps</th>
+                    <th><i class="fa-solid fa-tag"></i> Prix</th>
+                    <th><i class="fa-duotone fa-box-archive"></i> Statut</th>
+                    <th><i class="fa-duotone fa-box-archive"></i> Crée le</th>
+                    <th><i class="fa-solid fa-folder"></i> Mis à jour</th>
+                    <th><i class="fa-solid fa-tag"></i> Crée & Modifier</th>
+                    <th> Voir & Editer</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for fiche_service in fiche_services %}
+                    <tr>
+                        <td>{{ fiche_service.id }}</td>
+                        <td>{{ fiche_service.service }}</td>
+                        <td>{{ fiche_service.client }}</td>
+                        <td>{{ fiche_service.time }}</td>
+                        <td>{{ fiche_service.price }}</td>
+                        <td>{{ fiche_service.statut }}</td>
+                        <td>{{ fiche_service.createdAt ? fiche_service.createdAt|date('Y-m-d') : '' }}</td>
+                        <a href="{{ path('app_admin_fiche_service_new') }}">Create new</a>
+                        <td>
+                            <a class="btn" href="{{ path('app_admin_service_show', {'id': service.id}) }}"><i class="fa-duotone fa-eye"></i> Voir</a>
+                            <a class="btn" href="{{ path('app_admin_service_edit', {'id': service.id}) }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11">Enregistrement</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn creation" href="{{ path('app_admin_fiche_service_new') }}"><i class="fa-duotone fa-file-signature"></i> Crée un service</a>
+        </div>
+    </section>
+
+{% endblock %}

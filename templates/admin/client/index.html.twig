@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des clients{% endblock %}
+
+{% block body %}
+    <section id="client_index">
+        <div class="container">
+            <div class="row title mt-4 mb-4">
+                <div class="col-12">
+                    <h1 class="text-center">Liste des clients</h1>
+                </div>
+            </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><i class="fa-solid fa-folder"></i> Identifiant</th>
+                    <th><i class="fa-solid fa-tag"></i> Nom</th>
+                    <th><i class="fa-duotone fa-user"></i> Prénom</th>
+                    <th><i class="fa-solid fa-location-dot"></i> Adresse</th>
+                    <th><i class="fa-duotone fa-city"></i> Ville</th>
+                    <th><i class="fa-solid fa-globe"></i> Code postal</th>
+                    <th><i class="fa-duotone fa-phone"></i> Téléphone</th>
+                    <th><i class="fa-duotone fa-envelope"></i> Email</th>
+                    <th> Voir & Editer</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.id }}</td>
+                    <td>{{ client.name }}</td>
+                    <td>{{ client.surname }}</td>
+                    <td>{{ client.address }}</td>
+                    <td>{{ client.city }}</td>
+                    <td>{{ client.postalCode }}</td>
+                    <td>{{ client.phone }}</td>
+                    <td>{{ client.email }}</td>
+                    <td>
+                        <a class="btn" href="{{ path('app_admin_client_show', {'id': client.id}) }}"><i class="fa-duotone fa-eye"></i> Voir</a>
+                        <a class="btn" href="{{ path('app_admin_client_edit', {'id': client.id}) }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="11">Enregistrement</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+        <a class="btn creation" href="{{ path('app_admin_client_new') }}"><i class="fa-duotone fa-file-signature"></i> Crée un client</a>
+        </div>
+    </section>
+{% endblock %}

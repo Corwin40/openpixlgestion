@@ -1,0 +1,11 @@
+$color-primary : #0F7480;
+$color-secondary : #000000;
+$font-color: #2e2e2e;
+$blue-sky: #63c5e0;
+$color-btn : #4f97af;
+
+//*** ------------- Import Variables of bootstrap ---------------- ***//
+@import './node_modules/bootstrap/scss/bootstrap';
+@import './node_modules/bootstrap/scss/variables';
+//*** ------------- Import Variables of my theme ---------------- ***//
+@import "assets/styles/app/style";

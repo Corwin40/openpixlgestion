@@ -3,12 +3,15 @@
 namespace App\Entity\Admin;
 
 use App\Repository\Admin\ServiceRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Service
 {
     #[ORM\Id]
@@ -20,33 +23,20 @@ class Service
     private ?string $name = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $email = null;
-
-    #[ORM\Column(length: 50)]
-    private ?string $password = null;
-
-    #[ORM\Column(length: 50)]
     private ?string $archives = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
+    #[ORM\Column(type: 'datetime')]
+    private $createdAt;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $updatedAt = null;
+    #[ORM\Column(type: 'datetime')]
+    private $updatedAt;
 
     #[ORM\ManyToOne(inversedBy: 'service')]
-    private ?member $members = null;
+    private ?Member $members = null;
 
-    #[ORM\ManyToMany(targetEntity: Client::class, mappedBy: 'service')]
-    private Collection $clients;
-
-    #[ORM\ManyToMany(targetEntity: Statut::class, inversedBy: 'services')]
-    private Collection $statut;
 
     public function __construct()
     {
-        $this->clients = new ArrayCollection();
-        $this->statut = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -62,30 +52,6 @@ class Service
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
 
         return $this;
     }
@@ -107,9 +73,10 @@ class Service
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    #[ORM\PrePersist]
+    public function setCreatedAt(): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTime('now');
 
         return $this;
     }
@@ -119,9 +86,11 @@ class Service
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function setUpdatedAt(): self
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTime('now');
 
         return $this;
     }
@@ -138,54 +107,8 @@ class Service
         return $this;
     }
 
-    /**
-     * @return Collection<int, Client>
-     */
-    public function getClients(): Collection
+    public function __toString()
     {
-        return $this->clients;
-    }
-
-    public function addClient(Client $client): self
-    {
-        if (!$this->clients->contains($client)) {
-            $this->clients->add($client);
-            $client->addService($this);
-        }
-
-        return $this;
-    }
-
-    public function removeClient(Client $client): self
-    {
-        if ($this->clients->removeElement($client)) {
-            $client->removeService($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Statut>
-     */
-    public function getStatut(): Collection
-    {
-        return $this->statut;
-    }
-
-    public function addStatut(Statut $statut): self
-    {
-        if (!$this->statut->contains($statut)) {
-            $this->statut->add($statut);
-        }
-
-        return $this;
-    }
-
-    public function removeStatut(Statut $statut): self
-    {
-        $this->statut->removeElement($statut);
-
-        return $this;
+        return $this->name;
     }
 }
