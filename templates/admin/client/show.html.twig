@@ -134,7 +134,7 @@
             }
 
 
-            // PARTIE Ajout d'un statut en Javascript
+            // PARTIE Ajout d'une intervention en Javascript
             // -----------------------------------------
             // I. Déclaration des éléments utile à la fonction
             const modaladdstatutonClient = document.getElementById('addstatutonclient')
@@ -147,7 +147,7 @@
                 let modalBody = modaladdstatutonClient.querySelector('.modal-body')
                 // on va chercher le controlleur addonclient pour afficher le formulaire
                 axios
-                    .get('/admin/statut/addstatutonclient/' + idficheservice )
+                    .get('/admin/intervention/addinterveonclient/' + idficheservice )
                     .then(function (response) {
                         const form = document.getElementById('ModalBodyaddstatutonclient').innerHTML = response.data.form;
                         // Ajout d'un évènement sur le click du selecteur ajout d'un service
@@ -171,7 +171,7 @@
                     })
                 // mise à jour du lien de soumission du formulaire.
                 let modalSubmit = modaladdstatutonClient.querySelector('.modal-footer a')
-                modalSubmit.href = '/admin/statut/addstatutonclient/' + idficheservice
+                modalSubmit.href = '/admin/intervention/addinterveonclient/' + idficheservice
             })
 
             // III.

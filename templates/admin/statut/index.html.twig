@@ -32,7 +32,7 @@
                         <td>{{ statut.id }}</td>
                         <td>{{ statut.name }}</td>
                         <td>{{ statut.notes }}</td>
-                        <td>{{ statut.author }}</td>
+                        <td></td>
                         <td>{% if statut.startedAt is null %}{% else %}{{ statut.startedAt|date('h:m') }}{% endif %}</td>
                         <td>{% if statut.finishedAt is null %}{% else %}{{ statut.finishedAt|date('h:m') }}{% endif %}</td>
                         <td>{{ diff.h }}:{% if diff.i|length == 1%}0{{ diff.i }}{% else %}{{ diff.i }}{% endif %}</td>

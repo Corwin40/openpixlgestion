@@ -40,18 +40,14 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'members', targetEntity: Service::class)]
     private Collection $service;
 
-    #[ORM\ManyToMany(targetEntity: Statut::class)]
-    private Collection $statut;
-
-    #[ORM\OneToMany(mappedBy: 'Author', targetEntity: statut::class)]
-    private Collection $statuts;
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Intervention::class)]
+    private Collection $interventions;
 
     public function __construct()
     {
         $this->client = new ArrayCollection();
         $this->service = new ArrayCollection();
-        $this->statut = new ArrayCollection();
-        $this->statuts = new ArrayCollection();
+        $this->interventions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -197,34 +193,32 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Statut>
+     * @return Collection<int, Intervention>
      */
-    public function getStatut(): Collection
+    public function getInterventions(): Collection
     {
-        return $this->statut;
+        return $this->interventions;
     }
 
-    public function addStatut(Statut $statut): self
+    public function addIntervention(Intervention $intervention): self
     {
-        if (!$this->statut->contains($statut)) {
-            $this->statut->add($statut);
+        if (!$this->interventions->contains($intervention)) {
+            $this->interventions->add($intervention);
+            $intervention->setAuthor($this);
         }
 
         return $this;
     }
 
-    public function removeStatut(Statut $statut): self
+    public function removeIntervention(Intervention $intervention): self
     {
-        $this->statut->removeElement($statut);
+        if ($this->interventions->removeElement($intervention)) {
+            // set the owning side to null (unless already changed)
+            if ($intervention->getAuthor() === $this) {
+                $intervention->setAuthor(null);
+            }
+        }
 
         return $this;
-    }
-
-    /**
-     * @return Collection<int, statut>
-     */
-    public function getStatuts(): Collection
-    {
-        return $this->statuts;
     }
 }

@@ -38,21 +38,21 @@ class FicheService
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $echeance = null;
 
-    #[ORM\OneToMany(mappedBy: 'ficheService', targetEntity: Statut::class)]
-    private Collection $statuts;
-
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
     private ?int $time = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $price = null;
 
+    #[ORM\OneToMany(mappedBy: 'ficheservice', targetEntity: Intervention::class)]
+    private Collection $interventions;
+
 
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
         $this->updatedAt = new \DateTime('now');
-        $this->statuts = new ArrayCollection();
+        $this->interventions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,36 +147,6 @@ class FicheService
         return $this;
     }
 
-    /**
-     * @return Collection<int, Statut>
-     */
-    public function getStatuts(): Collection
-    {
-        return $this->statuts;
-    }
-
-    public function addStatut(Statut $statut): self
-    {
-        if (!$this->statuts->contains($statut)) {
-            $this->statuts->add($statut);
-            $statut->setFicheService($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStatut(Statut $statut): self
-    {
-        if ($this->statuts->removeElement($statut)) {
-            // set the owning side to null (unless already changed)
-            if ($statut->getFicheService() === $this) {
-                $statut->setFicheService(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getTime(): ?int
     {
         return $this->time;
@@ -197,6 +167,36 @@ class FicheService
     public function setPrice(?int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Intervention>
+     */
+    public function getInterventions(): Collection
+    {
+        return $this->interventions;
+    }
+
+    public function addIntervention(Intervention $intervention): self
+    {
+        if (!$this->interventions->contains($intervention)) {
+            $this->interventions->add($intervention);
+            $intervention->setFicheservice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntervention(Intervention $intervention): self
+    {
+        if ($this->interventions->removeElement($intervention)) {
+            // set the owning side to null (unless already changed)
+            if ($intervention->getFicheservice() === $this) {
+                $intervention->setFicheservice(null);
+            }
+        }
 
         return $this;
     }
