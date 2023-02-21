@@ -101,8 +101,8 @@ class FicheServiceController extends AbstractController
     /**
      * On ajoute un service sur un client
      **/
-    #[Route('/addstatutonclient/{idclient}', name: 'app_admin_ficheservice_addonclient', methods: ['GET', 'POST'])]
-    public function addstatutonclient(FicheServiceRepository $ficheServiceRepository, $idclient, ClientRepository $clientRepository, Request $request)
+    #[Route('/addonclient/{idclient}', name: 'app_admin_ficheservice_addonclient', methods: ['GET', 'POST'])]
+    public function addonclient(FicheServiceRepository $ficheServiceRepository, $idclient, ClientRepository $clientRepository, Request $request)
     {
         $user = $this->getUser();
         $client = $clientRepository->find($idclient);

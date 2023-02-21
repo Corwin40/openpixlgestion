@@ -30,12 +30,14 @@ class StatutType extends AbstractType
                 ]
             ])
             ->add('startedAt', TimeType::class,[
-                'label'=>'Durée',
+                'label'=>'Début / Fin',
                 'required' => false,
+                'widget' => 'single_text',
             ])
             ->add('finishedAt', TimeType::class,[
-                'label'=>'',
+                'label'=>'Fin',
                 'required' => false,
+                'widget' => 'single_text',
             ])
         ;
     }

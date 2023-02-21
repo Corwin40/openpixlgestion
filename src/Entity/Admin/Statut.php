@@ -38,6 +38,9 @@ class Statut extends \App\Entity\Admin\FicheService
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $finishedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'statuts')]
+    private ?Member $Author = null;
+
 
     public function __construct()
     {
@@ -133,6 +136,18 @@ class Statut extends \App\Entity\Admin\FicheService
     public function setFinishedAt(?\DateTimeInterface $finishedAt): self
     {
         $this->finishedAt = $finishedAt;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Member
+    {
+        return $this->Author;
+    }
+
+    public function setAuthor(?Member $Author): self
+    {
+        $this->Author = $Author;
 
         return $this;
     }

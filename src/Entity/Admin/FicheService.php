@@ -17,12 +17,6 @@ class FicheService
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 7, nullable: true)]
-    private ?int $time = null;
-
-    #[ORM\Column(length: 5, nullable: true)]
-    private ?string $price = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $statut = null;
 
@@ -47,6 +41,12 @@ class FicheService
     #[ORM\OneToMany(mappedBy: 'ficheService', targetEntity: Statut::class)]
     private Collection $statuts;
 
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    private ?int $time = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $price = null;
+
 
     public function __construct()
     {
@@ -58,30 +58,6 @@ class FicheService
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTime(): ?int
-    {
-        return $this->time;
-    }
-
-    public function setTime(?int $time): self
-    {
-        $this->time = $time;
-
-        return $this;
-    }
-
-    public function getPrice(): ?string
-    {
-        return $this->price;
-    }
-
-    public function setPrice(?string $price): self
-    {
-        $this->price = $price;
-
-        return $this;
     }
 
     public function getStatut(): ?string
@@ -197,6 +173,30 @@ class FicheService
                 $statut->setFicheService(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTime(): ?int
+    {
+        return $this->time;
+    }
+
+    public function setTime(?int $time): self
+    {
+        $this->time = $time;
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?int $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }

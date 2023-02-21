@@ -27,31 +27,31 @@ class FicheServiceType extends AbstractType
             ->add('time', ChoiceType::class,[
                 'label'=>'Temps',
                 'required' => false,
-                'placeholder' =>'Veuillez entrez une durée',
+                'placeholder' =>'Quelle durée',
                 'choices'  => [
-                    '1 an' => '1 an',
-                    '2 ans' => '2 ans',
-                    '3 ans' => '3 ans',
-                    '4 ans' => '4 ans',
-                    '5 ans' => '5 ans',
+                    '1 an' => '1',
+                    '2 ans' => '2',
+                    '3 ans' => '3',
+                    '4 ans' => '4',
+                    '5 ans' => '5',
                 ]
             ])
             ->add('price', ChoiceType::class,[
                 'label'=>'Prix',
                 'required' => false,
-                'placeholder' =>'Veuillez entrez une durée',
+                'placeholder' =>'Quel prix',
                 'choices'  => [
-                    '100 €' => '100 €',
-                    "200 €" => "200 €",
-                    '300 €' => '300 €',
-                    "400 €" => "400 €",
-                    '500 €' => '500 €',
+                    '100 €' => '100',
+                    "200 €" => "200",
+                    '300 €' => '300',
+                    "400 €" => "400",
+                    "500 €" => "500",
                 ]
             ])
             ->add('statut', ChoiceType::class,[
                 'label'=>'Statut',
                 'required' => false,
-                'placeholder' =>'Veuillez entrez une durée',
+                'placeholder' =>'Etat su service',
                 'choices'  => [
                     'service actif' => 'service actif',
                     "service proche de l'échéance" => "service proche de l'échéance",

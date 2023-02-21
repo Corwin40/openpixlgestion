@@ -43,11 +43,15 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Statut::class)]
     private Collection $statut;
 
+    #[ORM\OneToMany(mappedBy: 'Author', targetEntity: statut::class)]
+    private Collection $statuts;
+
     public function __construct()
     {
         $this->client = new ArrayCollection();
         $this->service = new ArrayCollection();
         $this->statut = new ArrayCollection();
+        $this->statuts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -214,5 +218,13 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
         $this->statut->removeElement($statut);
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, statut>
+     */
+    public function getStatuts(): Collection
+    {
+        return $this->statuts;
     }
 }

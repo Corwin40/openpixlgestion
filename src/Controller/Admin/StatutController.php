@@ -96,11 +96,10 @@ class StatutController extends AbstractController
     {
         $user = $this->getUser();
         $ficheservice = $ficheServiceRepository->find($idficheservice);
-        $client = $ficheservice->getClient();
         //dd($user);
 
         $statut = new Statut();
-        $statut->setAuthor($user->getId());
+        $statut->setAuthor($user);
         $statut->setFicheService($ficheservice);
 
         $form = $this->createForm(StatutType::class, $statut, [

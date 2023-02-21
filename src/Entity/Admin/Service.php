@@ -34,11 +34,6 @@ class Service
     #[ORM\ManyToOne(inversedBy: 'service')]
     private ?Member $members = null;
 
-
-    public function __construct()
-    {
-    }
-
     public function getId(): ?int
     {
         return $this->id;
