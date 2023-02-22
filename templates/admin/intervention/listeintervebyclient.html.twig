@@ -1,0 +1,19 @@
+{% for listeinterve in listeinterves %}
+    <tr>
+        <td>{{ listeinterve.id }}</td>
+        <td>{{ listeinterve.name }}</td>
+        <td>{{ listeinterve.description }}</td>
+        <td>{{ listeinterve.startedAt ? listeinterve.startedAt|date('H:i:s') : '' }}</td>
+        <td>{{ listeinterve.finishedAt ? listeinterve.finishedAt|date('H:i:s') : '' }}</td>
+        <td>{{ listeinterve.createdAt ? listeinterve.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+        <td>{{ listeinterve.updatedAt ? listeinterve.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+        <td>
+            <a href="{{ path('app_admin_intervention_show', {'id': listeinterve.id}) }}">show</a>
+            <a href="{{ path('app_admin_intervention_edit', {'id': listeinterve.id}) }}">edit</a>
+        </td>
+    </tr>
+{% else %}
+    <tr>
+        <td colspan="8">no records found</td>
+    </tr>
+{% endfor %}

@@ -5,8 +5,10 @@ namespace App\Controller\Admin;
 use App\Entity\Admin\Intervention;
 use App\Form\Admin\InterventionType;
 use App\Form\Admin\StatutType;
+use App\Repository\Admin\ClientRepository;
 use App\Repository\Admin\FicheServiceRepository;
 use App\Repository\Admin\InterventionRepository;
+use Container5c9QE5J\getClientRepositoryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -118,5 +120,20 @@ class InterventionController extends AbstractController
             'form' => $view->getContent()
         ], 200);
 
+    }
+
+
+    #[Route('/listeinterveonclient/{idficheservice}', name: 'app_admin_statut_listeinterveonclient', methods: ['GET', 'POST'])]
+    public function listeinterveonclient(InterventionRepository $interventionRepository,$idficheservice, FicheServiceRepository $ficheServiceRepository, Request $request)
+    {
+        // On récupère l'entité correspondante ficheservice
+        $fiche = $ficheServiceRepository->find($idficheservice);
+
+        $listinterves = $interventionRepository->listeintervebyclient($idficheservice);
+        //dd($listinterves);
+
+        return $this->render('admin/intervention/listeintervebyclient.html.twig', [
+            'listeinterves' => $listinterves
+        ]);
     }
 }

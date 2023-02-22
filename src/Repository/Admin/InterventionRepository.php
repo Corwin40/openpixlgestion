@@ -39,6 +39,17 @@ class InterventionRepository extends ServiceEntityRepository
         }
     }
 
+    public function listeintervebyclient($idclient)
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.ficheservice = :ficheservice')
+            ->setParameter('ficheservice', $idclient)
+            ->orderBy('i.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 //    /**
 //     * @return Intervention[] Returns an array of Intervention objects
 //     */
