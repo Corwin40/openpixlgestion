@@ -205,6 +205,44 @@
                     })
             }
 
+            // PARTIE Liste des interventions selon la fiche service du client en Javascript
+            // -----------------------------------------
+            // I. Déclaration des éléments utile à la fonction
+            const modalListInterveonFiche = document.getElementById('Listintervonfiche')
+            // II. Ouverture de la modale listant les interventions
+            modalListInterveonFiche.addEventListener('show.bs.modal', function (event) {
+                // Récupération du bouton cliqué et extraction de la variable transmise dans le data-bs-whatever
+                let button = event.relatedTarget
+                let idficheservice = button.getAttribute('data-bs-whatever')
+                // Chargement du Formulaire
+                let modalBody = modalListInterveonFiche.querySelector('.modal-body')
+                // on va chercher le controlleur addonclient pour afficher le formulaire
+                axios
+                    .get('/admin/intervention/listeinterveonclient/' + idficheservice )
+                    .then(function (response) {
+                        let list = document.getElementById('ModalBodyListintervonfiche').innerHTML = response.data.list;
+                        // Ajout d'un évènement sur le click du selecteur ajout d'un service
+                        document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddonclient);
+                        })
+
+                        // Ajout d'un évènement sur le click de suppression service
+                        document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                            link.addEventListener('click', btnSupprService);
+                        })
+
+                        // Ajout d'un évènement sur le click du selecteur d'un statut
+                        document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddstatutonclient);
+                        })
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+            })
+
+
             // Ajout d'un évènement sur le click du selecteur ajout d'un service
             document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
                 link.addEventListener('click', btnaddonclient);
@@ -355,7 +393,23 @@
                 </div>
             </div>
         </div>
-
+        <!-- Modal listes des interventions -->
+        <div class="modal modal-xl fade " id="Listintervonfiche" tabindex="-1" aria-labelledby="Listintervonfiche" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter une intervention</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="ModalBodyListintervonfiche" class="modal-body">
+                        <p>Doit afficher la liste des interventions.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
 

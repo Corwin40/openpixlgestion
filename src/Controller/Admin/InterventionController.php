@@ -132,8 +132,12 @@ class InterventionController extends AbstractController
         $listinterves = $interventionRepository->listeintervebyclient($idficheservice);
         //dd($listinterves);
 
-        return $this->render('admin/intervention/listeintervebyclient.html.twig', [
-            'listeinterves' => $listinterves
-        ]);
+        return $this->json([
+            'code'=> 200,
+            'message' => "OK",
+            'list' => $this->renderView('admin/intervention/listeintervebyclient.html.twig', [
+                'listeinterves' => $listinterves,
+            ])
+        ], 200);
     }
 }

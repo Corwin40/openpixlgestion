@@ -1,3 +1,56 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
+{{ form_start(form, {'attr': {'id': 'FormInterventionliste'}}) }}
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <div class="row g-2">
+            {{ form_label(form.name, "Nom", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-4">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-duotone fa-input-text"></i></span>
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+                <small>{{ form_help(form.name) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.name) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {{ form_label(form.description, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-sharp fa-regular fa-file-lines"></i></span>
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+                <small>{{ form_help(form.description) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.description) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {{ form_label(form.startedAt, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-3">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-duotone fa-clock"></i></span>
+                    {{ form_widget(form.startedAt, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+                <small>{{ form_help(form.startedAt) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.startedAt) }}
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-duotone fa-clock"></i></span>
+                    {{ form_widget(form.finishedAt, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+                <small>{{ form_help(form.finishedAt) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.finishedAt) }}
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-outline-success">{{ button_label|default('Enregistrer') }}</button>&nbsp;&nbsp<a class="btn btn-outline-secondary" href="{{ path('app_admin_intervention_index') }}">Retour à la liste</a>
+    </div>
+</div>
 {{ form_end(form) }}

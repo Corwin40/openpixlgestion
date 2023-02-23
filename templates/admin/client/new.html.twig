@@ -3,16 +3,16 @@
 {% block title %}Nouveau client{% endblock %}
 
 {% block body %}
-    <section id="client_index">
-        <div class="container-fluid">
-            <div class="row title mt-4 mb-4">
-                <div class="col-12">
-                    <h1 class="text-start">Crée un client</h1>
-                </div>
-                <div class="col-12">
-                    {{ include('admin/client/_form.html.twig') }}
-                </div>
+
+    <section class="container-fluid">
+        <div class="row title mt-4 mb-4">
+            <h1 class="text-start">Crée un client</h1>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-6 col-xl-4">
+                {{ include('admin/client/_form.html.twig') }}
             </div>
         </div>
     </section>
+
 {% endblock %}

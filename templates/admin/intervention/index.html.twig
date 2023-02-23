@@ -3,43 +3,50 @@
 {% block title %}Intervention index{% endblock %}
 
 {% block body %}
-    <h1>Intervention index</h1>
+    <section id="client_index" class="container-fluid">
+        <div class="row title mt-4 mb-4">
+            <div class="col-12">
+                <h1>Liste des interventions</h1>
+            </div>
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><i class="fa-solid fa-folder"></i> Identifiant</th>
+                            <th><i class="fa-solid fa-tag"></i> Nom</th>
+                            <th><i class="fa-sharp fa-regular fa-file-lines"></i> Description</th>
+                            <th><i class="fa-duotone fa-clock"></i> Début</th>
+                            <th><i class="fa-duotone fa-clock"></i> Fin</th>
+                            <th><i class="fa-duotone fa-clock"></i> Crée le</th>
+                            <th><i class="fa-duotone fa-clock"></i> Mise à jour</th>
+                            <th>Voir & Editer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for intervention in interventions %}
+                        <tr>
+                            <td>{{ intervention.id }}</td>
+                            <td>{{ intervention.name }}</td>
+                            <td>{{ intervention.description }}</td>
+                            <td>{{ intervention.startedAt ? intervention.startedAt|date('H:i:s') : '' }}</td>
+                            <td>{{ intervention.finishedAt ? intervention.finishedAt|date('H:i:s') : '' }}</td>
+                            <td>{{ intervention.createdAt ? intervention.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ intervention.updatedAt ? intervention.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>
+                                <a class="btn" href="{{ path('app_admin_intervention_show', {'id': intervention.id}) }}"><i class="fa-duotone fa-eye"></i>Voir</a>
+                                <a class="btn" href="{{ path('app_admin_intervention_edit', {'id': intervention.id}) }}"><i class="fa-duotone fa-pen-to-square"></i>Editer</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">Pas d'intervention enregistrer</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <a class="btn btn-outline-info" href="{{ path('app_admin_intervention_new') }}">Crée une intervention</a>
+            </div>
+        </div>
+    </section>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>StartedAt</th>
-                <th>FinishedAt</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for intervention in interventions %}
-            <tr>
-                <td>{{ intervention.id }}</td>
-                <td>{{ intervention.name }}</td>
-                <td>{{ intervention.description }}</td>
-                <td>{{ intervention.startedAt ? intervention.startedAt|date('H:i:s') : '' }}</td>
-                <td>{{ intervention.finishedAt ? intervention.finishedAt|date('H:i:s') : '' }}</td>
-                <td>{{ intervention.createdAt ? intervention.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ intervention.updatedAt ? intervention.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_admin_intervention_show', {'id': intervention.id}) }}">show</a>
-                    <a href="{{ path('app_admin_intervention_edit', {'id': intervention.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_admin_intervention_new') }}">Create new</a>
 {% endblock %}

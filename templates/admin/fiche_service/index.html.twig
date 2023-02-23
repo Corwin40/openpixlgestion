@@ -7,9 +7,10 @@
         <div class="container">
             <div class="row title mt-4 mb-4">
                 <div class="col-12">
-                    <h1 class="text-center">Fiche des services</h1>
+                    <h1>Fiche des services</h1>
                 </div>
             </div>
+            <div class="col-12">
             <table class="table">
                 <thead>
                 <tr>
@@ -41,14 +42,15 @@
                             <a class="btn" href="{{ path('app_admin_service_edit', {'id': service.id}) }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a>
                         </td>
                     </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="11">Enregistrement</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            <a class="btn creation" href="{{ path('app_admin_fiche_service_new') }}"><i class="fa-duotone fa-file-signature"></i> Crée un service</a>
+                    {% else %}
+                        <tr>
+                            <td colspan="11">Enregistrement</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <a class="btn creation" href="{{ path('app_admin_fiche_service_new') }}"><i class="fa-duotone fa-file-signature"></i> Crée un service</a>
+            </div>
         </div>
     </section>
 

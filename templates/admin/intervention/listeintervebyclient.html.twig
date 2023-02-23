@@ -1,19 +1,34 @@
-{% for listeinterve in listeinterves %}
+<table class="table table-sm">
+    <thead>
     <tr>
-        <td>{{ listeinterve.id }}</td>
-        <td>{{ listeinterve.name }}</td>
-        <td>{{ listeinterve.description }}</td>
-        <td>{{ listeinterve.startedAt ? listeinterve.startedAt|date('H:i:s') : '' }}</td>
-        <td>{{ listeinterve.finishedAt ? listeinterve.finishedAt|date('H:i:s') : '' }}</td>
-        <td>{{ listeinterve.createdAt ? listeinterve.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-        <td>{{ listeinterve.updatedAt ? listeinterve.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-        <td>
-            <a href="{{ path('app_admin_intervention_show', {'id': listeinterve.id}) }}">show</a>
-            <a href="{{ path('app_admin_intervention_edit', {'id': listeinterve.id}) }}">edit</a>
-        </td>
+        <th>Nom de l'intervention</th>
+        <th>Description</th>
+        <th>Départ</th>
+        <th>Fin</th>
+        <th>Crée le</th>
+        <th>Mise à jour</th>
+        <th>...</th>
     </tr>
-{% else %}
-    <tr>
-        <td colspan="8">no records found</td>
-    </tr>
-{% endfor %}
+    </thead>
+    <tbody>
+    {% for listeinterve in listeinterves %}
+        <tr>
+            <td>{{ listeinterve.name }}</td>
+            <td>{{ listeinterve.description }}</td>
+            <td>{{ listeinterve.startedAt ? listeinterve.startedAt|date('H:i:s') : '' }}</td>
+            <td>{{ listeinterve.finishedAt ? listeinterve.finishedAt|date('H:i:s') : '' }}</td>
+            <td>{{ listeinterve.createdAt ? listeinterve.createdAt|date('Y-m-d') : '' }}</td>
+            <td>{{ listeinterve.updatedAt ? listeinterve.updatedAt|date('Y-m-d') : '' }}</td>
+            <td>
+                <a href="{{ path('app_admin_intervention_show', {'id': listeinterve.id}) }}">show</a>
+                <a href="{{ path('app_admin_intervention_edit', {'id': listeinterve.id}) }}">edit</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="8">Aucune intervention enregistrer</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
