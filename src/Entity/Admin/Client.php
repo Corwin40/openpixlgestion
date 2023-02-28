@@ -61,6 +61,18 @@ class Client
     #[ORM\OneToMany(mappedBy: 'Client', targetEntity: FicheService::class)]
     private Collection $ficheServices;
 
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $siren = null;
+
+    #[ORM\Column(length: 14, nullable: true)]
+    private ?string $siret = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $tva = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $Activity_pro = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -290,6 +302,54 @@ class Client
                 $ficheService->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSiren(): ?string
+    {
+        return $this->siren;
+    }
+
+    public function setSiren(?string $siren): self
+    {
+        $this->siren = $siren;
+
+        return $this;
+    }
+
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(?string $siret): self
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
+
+    public function getTva(): ?int
+    {
+        return $this->tva;
+    }
+
+    public function setTva(?int $tva): self
+    {
+        $this->tva = $tva;
+
+        return $this;
+    }
+
+    public function getActivityPro(): ?string
+    {
+        return $this->Activity_pro;
+    }
+
+    public function setActivityPro(?string $Activity_pro): self
+    {
+        $this->Activity_pro = $Activity_pro;
 
         return $this;
     }

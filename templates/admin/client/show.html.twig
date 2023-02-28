@@ -302,9 +302,24 @@
                                         <th class="table-light"><i class="fa-solid fa-envelope"></i> Email :</th>
                                         <td>{{ client.email }}</td>
                                     </tr>
+                                    <tr>
+                                        <th class="table-light"><i class="fa-solid fa-envelope"></i> N°Siren :</th>
+                                        <td>{{ client.siren }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light"><i class="fa-solid fa-envelope"></i> N°Siret :</th>
+                                        <td>{{ client.siret }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light"><i class="fa-solid fa-envelope"></i> TVA :</th>
+                                        <td>{{ client.tva }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light"><i class="fa-solid fa-envelope"></i> Activité :</th>
+                                        <td>{{ client.activityPro }}</td>
+                                    </tr>
                                 </tbody>
                             </table>
-
                             <div class="row">
                                 <div class="col-6">
                                     <p class="text-center"><i class="fa-duotone fa-clock"></i> <b>Crée le</b> : {{ client.createdAt ? client.createdAt|date('d-m-y') : '' }}</p>
