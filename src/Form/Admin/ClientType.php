@@ -78,6 +78,35 @@ class ClientType extends AbstractType
                 'required' => false,
                 'placeholder' => 'Choisir un type de client'
             ])
+            ->add('siren', TextType::class,[
+                'label'=>'N°Siren | N°Siret',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Numéro de Siren'
+                ]
+            ])
+            ->add('siret', TextType::class,[
+                'label'=>'N°Siret',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Numéro de Siret'
+                ]
+            ])
+            ->add('tva', TextType::class,[
+                'label'=>'TVA',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Taux TVA'
+                ]
+            ])
+            ->add('activityPro', TextType::class,[
+                'label'=>'Activité',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => "Entrez l'activité de l'entreprise"
+                ]
+            ])
+
         ;
     }
 

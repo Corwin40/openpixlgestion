@@ -1,11 +1,37 @@
 {{ form_start(form) }}
+
+<script>
+    window.onload = function() {
+
+        // I . on sélectionne le select
+        const clienttype = document.getElementById('client_typeclient')
+        // 2. sur le select on récupère la valeur sur le "OnChange"
+        clienttype.addEventListener('change', function(event){
+            if(clienttype.value == 1){
+                document.getElementById("siret_siren").style.display = "block"
+                document.getElementById("activity_pro").style.display = "block"
+                document.getElementById("tva").style.display = "block"
+            }else if(clienttype.value == 2){
+                document.getElementById("siret_siren").style.display = "none"
+                document.getElementById("activity_pro").style.display = "none"
+                document.getElementById("tva").style.display = "none"
+            }else if(clienttype.value == 3){
+                document.getElementById("siret_siren").style.display = "block"
+                document.getElementById("activity_pro").style.display = "block"
+                document.getElementById("tva").style.display = "block"
+            }
+        })
+    }
+</script>
+
+
 <div class="card">
     <div class="card-body">
         <div class="row g-2">
             {{ form_label(form.typeclient, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
-            <div class="col-sm-3">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"><i class="fa-duotone fa-book-open-cover"></i></span>
+            <div class="col-sm-5">
+                <div class="input-group">
+                    <span class="input-group-text" id="test"><i class="fa-duotone fa-book-open-cover"></i></span>
                     {{ form_widget(form.typeclient, {'attr': {'class': 'form-select form-select-sm'}}) }}
                 </div>
                 <small>{{ form_help(form.typeclient) }}</small>
@@ -17,7 +43,7 @@
         <div class="row g-2">
             {{ form_label(form.name, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
             <div class="col-sm-5">
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
                     {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-sm'}}) }}
                 </div>
@@ -27,7 +53,7 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
                     {{ form_widget(form.surname, {'attr': {'class': 'form-control form-control-sm'}}) }}
                 </div>
@@ -37,10 +63,59 @@
                 </div>
             </div>
         </div>
+        <div id="siret_siren" class="row g-2" style="display:none;">
+            {{ form_label(form.siren, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-tag"></i></span>
+                    {{ form_widget(form.siren, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+                <small>{{ form_help(form.siren) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.siren) }}
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-tags"></i></span>
+                    {{ form_widget(form.siret, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+                <small>{{ form_help(form.siret) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.siret) }}
+                </div>
+            </div>
+        </div>
+        <div id="activity_pro" class="row g-2" style="display:none;">
+            {{ form_label(form.activityPro, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-duotone fa-chart-network"></i></span>
+                    {{ form_widget(form.activityPro, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+                <small>{{ form_help(form.activityPro) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.activityPro) }}
+                </div>
+            </div>
+        </div>
+        <div id="tva" class="row g-2" style="display:none;">
+            {{ form_label(form.tva, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-duotone fa-circle-dollar"></i></span>
+                    {{ form_widget(form.tva, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+                <small>{{ form_help(form.tva) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.tva) }}
+                </div>
+            </div>
+        </div>
         <div class="row g-2">
             {{ form_label(form.address, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
             <div class="col-sm-9">
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-location-dot"></i></span>
                     {{ form_widget(form.address, {'attr': {'class': 'form-control form-control-sm'}}) }}
                 </div>
@@ -52,8 +127,8 @@
         </div>
         <div class="row g-2">
             {{ form_label(form.postalCode, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
-            <div class="col-sm-2">
-                <div class="input-group mb-3">
+            <div class="col-sm-4">
+                <div class="input-group">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-globe"></i></span>
                     {{ form_widget(form.postalCode, {'attr': {'class': 'form-control form-control-sm'}}) }}
                 </div>
@@ -62,8 +137,8 @@
                     {{ form_errors(form.postalCode) }}
                 </div>
             </div>
-            <div class="col-sm-7">
-                <div class="input-group mb-3">
+            <div class="col-sm-5">
+                <div class="input-group">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-city"></i></span>
                     {{ form_widget(form.city, {'attr': {'class': 'form-control form-control-sm'}}) }}
                 </div>
@@ -76,7 +151,7 @@
         <div class="row g-2">
             {{ form_label(form.email, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
             <div class="col-sm-9">
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
                     {{ form_widget(form.email, {'attr': {'class': 'form-control form-control-sm'}}) }}
                 </div>
@@ -89,7 +164,7 @@
         <div class="row g-2">
             {{ form_label(form.phone, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
             <div class="col-sm-9">
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-phone"></i></span>
                     {{ form_widget(form.phone, {'attr': {'class': 'form-control form-control-sm'}}) }}
                 </div>
