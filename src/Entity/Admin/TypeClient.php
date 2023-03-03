@@ -16,6 +16,9 @@ class TypeClient
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private $isFormCompleted = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -36,5 +39,17 @@ class TypeClient
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function isFormCompleted(): bool
+    {
+        return $this->isFormCompleted;
+    }
+
+    public function setisFormCompleted(bool $isFormCompleted): self
+    {
+        $this->isFormCompleted = $isFormCompleted;
+
+        return $this;
     }
 }

@@ -78,6 +78,13 @@ class ClientType extends AbstractType
                 'required' => false,
                 'placeholder' => 'Choisir un type de client'
             ])
+            ->add('director', TextType::class,[
+                'label'=>'Directeur',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Nom du directeur'
+                ]
+            ])
             ->add('siren', TextType::class,[
                 'label'=>'N°Siren | N°Siret',
                 'required' => true,

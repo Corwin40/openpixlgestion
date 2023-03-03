@@ -258,8 +258,8 @@
                 link.addEventListener('click', btnaddstatutonclient);
             })
 
-
         }
+
     </script>
 {% endblock %}
 
@@ -268,14 +268,14 @@
         <div class="container-fluid">
             <div class="row title mt-4 mb-4">
                 <div class="col-12">
-                    <h1 class="">Fiche de suivi Client</h1>
+                    <h1  class="">Fiche de suivi Client</h1>
                 </div>
             </div>
             <div class="row g-1">
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">{{ client.typeclient|upper }}</h4>
+                            <h4 id="client_typeclient" class="card-title">{{ client.typeclient|upper }}</h4>
                         </div>
                         <div class="card-body">
                             <table class="table table-sm">
@@ -302,8 +302,14 @@
                                         <th class="table-light"><i class="fa-solid fa-envelope"></i> Email :</th>
                                         <td>{{ client.email }}</td>
                                     </tr>
+                                    {#  on veut seulement afficher ces lignes si le type de client est organisation ou partenaire #}
+                                    {% if client.typeclient.isFormCompleted == 1 %}
                                     <tr>
-                                        <th class="table-light"><i class="fa-solid fa-envelope"></i> N°Siren :</th>
+                                        <th  class="table-light"><i class="fa-solid fa-envelope"></i> Directeur :</th>
+                                        <td>{{ client.director }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th  class="table-light"><i class="fa-solid fa-envelope"></i> N°Siren :</th>
                                         <td>{{ client.siren }}</td>
                                     </tr>
                                     <tr>
@@ -318,6 +324,7 @@
                                         <th class="table-light"><i class="fa-solid fa-envelope"></i> Activité :</th>
                                         <td>{{ client.activityPro }}</td>
                                     </tr>
+                                    {% endif %}
                                 </tbody>
                             </table>
                             <div class="row">

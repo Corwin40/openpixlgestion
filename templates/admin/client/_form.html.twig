@@ -8,17 +8,20 @@
         // 2. sur le select on récupère la valeur sur le "OnChange"
         clienttype.addEventListener('change', function(event){
             if(clienttype.value == 1){
-                document.getElementById("siret_siren").style.display = "block"
-                document.getElementById("activity_pro").style.display = "block"
-                document.getElementById("tva").style.display = "block"
+                document.getElementById("director").removeAttribute('style')
+                document.getElementById("siret_siren").removeAttribute('style')
+                document.getElementById("activity_pro").removeAttribute('style')
+                document.getElementById("tva").removeAttribute('style')
             }else if(clienttype.value == 2){
+                document.getElementById("director").style.display = "none"
                 document.getElementById("siret_siren").style.display = "none"
                 document.getElementById("activity_pro").style.display = "none"
                 document.getElementById("tva").style.display = "none"
             }else if(clienttype.value == 3){
-                document.getElementById("siret_siren").style.display = "block"
-                document.getElementById("activity_pro").style.display = "block"
-                document.getElementById("tva").style.display = "block"
+                document.getElementById("director").removeAttribute('style')
+                document.getElementById("siret_siren").removeAttribute('style')
+                document.getElementById("activity_pro").removeAttribute('style')
+                document.getElementById("tva").removeAttribute('style')
             }
         })
     }
@@ -31,7 +34,7 @@
             {{ form_label(form.typeclient, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
             <div class="col-sm-5">
                 <div class="input-group">
-                    <span class="input-group-text" id="test"><i class="fa-duotone fa-book-open-cover"></i></span>
+                    <span class="input-group-text"><i class="fa-duotone fa-book-open-cover"></i></span>
                     {{ form_widget(form.typeclient, {'attr': {'class': 'form-select form-select-sm'}}) }}
                 </div>
                 <small>{{ form_help(form.typeclient) }}</small>
@@ -60,6 +63,18 @@
                 <small>{{ form_help(form.surname) }}</small>
                 <div class="form-error">
                     {{ form_errors(form.surname) }}
+                </div>
+            </div>
+        </div><div id="director" class="row g-2" style="display:none;">
+            {{ form_label(form.director, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-tag"></i></span>
+                    {{ form_widget(form.director, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+                <small>{{ form_help(form.director) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.director) }}
                 </div>
             </div>
         </div>

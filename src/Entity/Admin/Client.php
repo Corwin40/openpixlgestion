@@ -73,6 +73,9 @@ class Client
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $Activity_pro = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $director = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -350,6 +353,18 @@ class Client
     public function setActivityPro(?string $Activity_pro): self
     {
         $this->Activity_pro = $Activity_pro;
+
+        return $this;
+    }
+
+    public function getDirector(): ?string
+    {
+        return $this->director;
+    }
+
+    public function setDirector(?string $director): self
+    {
+        $this->director = $director;
 
         return $this;
     }
