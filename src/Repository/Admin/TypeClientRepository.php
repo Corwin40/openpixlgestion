@@ -5,6 +5,7 @@ namespace App\Repository\Admin;
 use App\Entity\Admin\TypeClient;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use PHPUnit\Util\Type;
 
 /**
  * @extends ServiceEntityRepository<TypeClient>
@@ -38,6 +39,23 @@ class TypeClientRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function typeEntreprise($typeEntreprise): bool
+    {
+        return $this->createQueryBuilder('t')
+            ->leftJoin('t.client', 'c')
+            ->addSelect('
+                t.isFormCompleted as isFormCompleted,
+            ')
+            ->andWhere('t.isFormCompleted = :typeEntreprise')
+            ->setParameter('typeEntreprise', $typeEntreprise)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+
+
 
 //    /**
 //     * @return TypeClient[] Returns an array of TypeClient objects

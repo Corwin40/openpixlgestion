@@ -5,6 +5,7 @@ namespace App\Form\Admin;
 use App\Entity\Admin\Client;
 use App\Entity\Admin\TypeClient;
 use Doctrine\ORM\EntityRepository;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -76,7 +77,23 @@ class ClientType extends AbstractType
                 },
                 'label'=>'Type de client',
                 'required' => false,
-                'placeholder' => 'Choisir un type de client'
+                'placeholder' => 'Choisir un type de client',
+                'attr' => [
+                    'form_attr' => true,
+                ]
+            ])
+            ->add('typeclient', EntityType::class,[
+                'class' => TypeClient::class,
+                'choice_label' => 'isFormCompleted',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->typeEntreprise('isFormCompleted');
+                },
+                'label'=>'Type de client',
+                'required' => false,
+                'placeholder' => 'Choisir un type de client',
+                'attr' => [
+                    'form_attr' => true,
+                ]
             ])
             ->add('director', TextType::class,[
                 'label'=>'Directeur',
