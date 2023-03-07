@@ -75,18 +75,10 @@ class ClientType extends AbstractType
                     return $er->createQueryBuilder('t')
                         ->orderBy('t.name', 'ASC');
                 },
-                'label'=>'Type de client',
-                'required' => false,
-                'placeholder' => 'Choisir un type de client',
-                'attr' => [
-                    'form_attr' => true,
-                ]
-            ])
-            ->add('typeclient', EntityType::class,[
-                'class' => TypeClient::class,
-                'choice_label' => 'isFormCompleted',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->typeEntreprise('isFormCompleted');
+                'choice_attr' => function (TypeClient $typeClient, $key, $index) {
+                    return [
+                        'data-data' => $typeClient->getName(),
+                    ];
                 },
                 'label'=>'Type de client',
                 'required' => false,

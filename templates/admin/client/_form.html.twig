@@ -2,7 +2,23 @@
 
 <script>
     window.onload = function() {
-
+        const TSTypeclient = new TomSelect("#client_typeclient",{
+            plugins: ['remove_button'],
+            create: true,
+            onItemAdd:function(){
+                this.setTextboxValue('');
+                this.refreshOptions();
+            },
+            render:{
+                option:function(data,escape){
+                    console.log(data)
+                    return '<div class="d-flex"><span>' + escape(data.data) + '</span><span class="ms-auto text-muted">' + escape(data.value) +'</span></div>';
+                },
+                item:function(data,escape){
+                    return '<div>' + escape(data.data) + '</div>';
+                }
+            }
+        });
         // I . on sélectionne le select
         const clienttype = document.getElementById('client_typeclient')
         // 2. sur le select on récupère la valeur sur le "OnChange"
@@ -33,10 +49,7 @@
         <div class="row g-2">
             {{ form_label(form.typeclient, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
             <div class="col-sm-5">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="fa-duotone fa-book-open-cover"></i></span>
-                    {{ form_widget(form.typeclient, {'attr': {'class': 'form-select form-select-sm'}}) }}
-                </div>
+                {{ form_widget(form.typeclient) }}
                 <small>{{ form_help(form.typeclient) }}</small>
                 <div class="form-error">
                     {{ form_errors(form.typeclient) }}

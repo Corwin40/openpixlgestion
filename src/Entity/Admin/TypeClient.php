@@ -16,8 +16,8 @@ class TypeClient
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\Column(type: 'boolean')]
-    private $isFormCompleted = false;
+    #[ORM\Column]
+    private ?bool $isFormCompleted = false;
 
     public function getId(): ?int
     {
@@ -41,12 +41,12 @@ class TypeClient
         return $this->name;
     }
 
-    public function isFormCompleted(): bool
+    public function isIsFormCompleted(): ?bool
     {
         return $this->isFormCompleted;
     }
 
-    public function setisFormCompleted(bool $isFormCompleted): self
+    public function setIsFormCompleted(bool $isFormCompleted): self
     {
         $this->isFormCompleted = $isFormCompleted;
 

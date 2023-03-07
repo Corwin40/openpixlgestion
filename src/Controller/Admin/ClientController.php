@@ -26,9 +26,10 @@ class ClientController extends AbstractController
     {
         // on récupère l'utilisateur connecté
         $user = $this->getUser();
+
         // on hydrate l'entité
         $client = new Client();
-        $client -> setMembers($user);
+        $client->setMembers($user);
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
