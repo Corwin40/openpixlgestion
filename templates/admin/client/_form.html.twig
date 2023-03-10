@@ -24,16 +24,19 @@
         // 2. sur le select on récupère la valeur sur le "OnChange"
         clienttype.addEventListener('change', function(event){
             if(clienttype.value == 1){
+                document.getElementById("logo").removeAttribute('style')
                 document.getElementById("director").removeAttribute('style')
                 document.getElementById("siret_siren").removeAttribute('style')
                 document.getElementById("activity_pro").removeAttribute('style')
                 document.getElementById("tva").removeAttribute('style')
             }else if(clienttype.value == 2){
+                document.getElementById("logo").style.display = "none" // Insere dans le DOM, une balise Style sur l'éléments sélectionné qui injecte du CSS
                 document.getElementById("director").style.display = "none"
                 document.getElementById("siret_siren").style.display = "none"
                 document.getElementById("activity_pro").style.display = "none"
                 document.getElementById("tva").style.display = "none"
             }else if(clienttype.value == 3){
+                document.getElementById("logo").removeAttribute('style')
                 document.getElementById("director").removeAttribute('style')
                 document.getElementById("siret_siren").removeAttribute('style')
                 document.getElementById("activity_pro").removeAttribute('style')
@@ -78,7 +81,36 @@
                     {{ form_errors(form.surname) }}
                 </div>
             </div>
-        </div><div id="director" class="row g-2" style="display:none;">
+        </div>
+        <div id="logo" class="row g-2" style="display:none;">
+            {{ form_label(form.logoFile, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+            <div class="col-sm-5">
+                {{ form_widget(form.logoFile) }}
+                <small>{{ form_help(form.logoFile) }}</small>
+                <div class="form-error">
+                    {{ form_errors(form.logoFile) }}
+                </div>
+            </div>
+
+            {% if client.logoName is not null %}
+                <div class="col-9 offset-2">
+                    <img class="img-fluid" src="{{ asset('images/logo/' ~ client.logoName) }}" alt="{{ client.logoName }}">
+                </div>
+                {% if app.request.attributes.get('_route') == 'app_admin_client_edit' %}
+                    <div class="text-center col-8">
+                        {{ form_label(form.isSupprLogo, "Supprimer le logo ") }}
+                        {{ form_widget(form.isSupprLogo) }}
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="col-sm-3" style="display: none;">
+                    {{ form_label(form.isSupprLogo, "Supprimer le logo") }}
+                    {{ form_widget(form.isSupprLogo, {'attr': {'style': 'display:none;'}}) }}
+                </div>
+            {% endif %}
+
+        </div>
+        <div id="director" class="row g-2" style="display:none;">
             {{ form_label(form.director, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
             <div class="col-sm-4">
                 <div class="input-group">

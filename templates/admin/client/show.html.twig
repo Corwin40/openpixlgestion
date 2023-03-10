@@ -286,6 +286,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% if client.logoName is not null %}
+                                    <div class="col-12 text-center">
+                                        <img class="img-fluid" src="{{ asset('images/logo/' ~ client.logoName) }}" alt="{{ client.logoName }}">
+                                    </div>
+
+                                    {% endif %}
                                     <tr>
                                         <th class="table-light"><i class="fa-solid fa-user"></i> Nom & Prénom :</th>
                                         <td>{{ client.name }} {{ client.surname }}</td>
@@ -304,6 +310,7 @@
                                     </tr>
                                     {#  on veut seulement afficher ces lignes si le type de client est organisation ou partenaire #}
                                     {% if client.typeclient.isFormCompleted == 1 %}
+
                                     <tr>
                                         <th  class="table-light"><i class="fa-solid fa-envelope"></i> Directeur :</th>
                                         <td>{{ client.director }}</td>

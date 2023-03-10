@@ -8,17 +8,40 @@ use Doctrine\ORM\EntityRepository;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ClientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('logoFile', FileType::class, [
+            'label' => 'Logo',
+            'mapped' => false,
+            'required' => false,
+            'constraints' => [
+                new File([
+                    'maxSize' => '10000k',
+                    'mimeTypes' => [
+                        'image/png',
+                        'image/jpg',
+                        'image/jpeg',
+                        ],
+                    'mimeTypesMessage' => 'Attention, veuillez charger un fichier au format jpg ou png',
+                    ])
+                ],
+            ])
+            ->add('isSupprLogo', CheckboxType::class,[
+                'label' => 'Supprimer le logo',
+                'required' => false
+                ])
             ->add('name', TextType::class,[
                 'label'=>'Nom & prénom',
                 'required' => true,
@@ -89,35 +112,35 @@ class ClientType extends AbstractType
             ])
             ->add('director', TextType::class,[
                 'label'=>'Directeur',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'Nom du directeur'
                 ]
             ])
             ->add('siren', TextType::class,[
                 'label'=>'N°Siren | N°Siret',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'Numéro de Siren'
                 ]
             ])
             ->add('siret', TextType::class,[
                 'label'=>'N°Siret',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'Numéro de Siret'
                 ]
             ])
             ->add('tva', TextType::class,[
                 'label'=>'TVA',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'Taux TVA'
                 ]
             ])
             ->add('activityPro', TextType::class,[
                 'label'=>'Activité',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'placeholder' => "Entrez l'activité de l'entreprise"
                 ]

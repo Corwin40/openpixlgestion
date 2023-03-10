@@ -76,6 +76,15 @@ class Client
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $director = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $logoName = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $logoSize = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $IsSupprLogo = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -365,6 +374,42 @@ class Client
     public function setDirector(?string $director): self
     {
         $this->director = $director;
+
+        return $this;
+    }
+
+    public function getLogoName(): ?string
+    {
+        return $this->logoName;
+    }
+
+    public function setLogoName(?string $logoName): self
+    {
+        $this->logoName = $logoName;
+
+        return $this;
+    }
+
+    public function getLogoSize(): ?int
+    {
+        return $this->logoSize;
+    }
+
+    public function setLogoSize(?int $logoSize): self
+    {
+        $this->logoSize = $logoSize;
+
+        return $this;
+    }
+
+    public function isIsSupprLogo(): ?bool
+    {
+        return $this->IsSupprLogo;
+    }
+
+    public function setIsSupprLogo(?bool $IsSupprLogo): self
+    {
+        $this->IsSupprLogo = $IsSupprLogo;
 
         return $this;
     }

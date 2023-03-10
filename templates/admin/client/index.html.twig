@@ -2,6 +2,45 @@
 
 {% block title %}Liste des clients{% endblock %}
 
+{% block javascripts %}
+{{ parent() }}
+    <script>
+        window.onload = function(){
+            // PARTIE Suppression d'un cliant en Javascript
+            // -----------------------------------------
+            // I. Déclaration des éléments utile à la fonction
+            const modalSupprClient = document.getElementById('Suppr')
+
+            // II. Ouverture de la modale d'édition
+            modalSupprClient.addEventListener('show.bs.modal', function (event) {
+                // Récupération du bouton cliqué et extraction de la variable transmise dans le data-bs-whatever
+                let button = event.relatedTarget
+                let idclient = button.getAttribute('data-bs-whatever')
+
+                // on va chercher le controlleur qui va supprimer le client
+                axios
+                    .get('/admin/client/addonclient/' + idclient )
+                    .then(function (response) {
+                        const liste = document.getElementById('').innerHTML = response.data.liste;
+
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                // mise à jour du lien de soumission du formulaire.
+                let modalSubmit = modalAddonClient.querySelector('.modal-footer a')
+                modalSubmit.href = '/admin/ficheservice/addonclient/' + idclient
+            })
+
+            // Ajout d'un évènement sur le click de suppression service
+            document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                link.addEventListener('click', btnSupprService);
+            })
+        }
+    </script>
+{% endblock %}
+
 {% block body %}
     <section id="client_index">
         <div class="container-fluid">
@@ -39,7 +78,9 @@
                                 <td>
                                     <a class="btn" href="{{ path('app_admin_client_show', {'id': client.id}) }}"><i class="fa-duotone fa-eye"></i> Voir</a>
                                     <a class="btn" href="{{ path('app_admin_client_edit', {'id': client.id}) }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Suppr" data-bs-whatever="{{ client.id }}"><i class="fa-duotone fa-pen-to-square"></i> Supprimer </button>
                                 </td>
+
                             </tr>
                         {% else %}
                             <tr>
