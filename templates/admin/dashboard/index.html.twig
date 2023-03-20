@@ -3,45 +3,53 @@
 {% block title %}Panneau d'administration{% endblock %}
 
 {% block body %}
-    <section id="dashboard">
-        <div class="container text-center">
-            <div class="row title mt-4 mb-4">
-                <div class="col-12">
-                    <h1>Panneau d'administration</h1>
+    <section id="dashboard" class="container">
+        <div class="row title mt-4 mb-4">
+            <div class="col-12">
+                <h1>Panneau d'administration</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <a class="titre_h2 text-center" href="{{ path('app_admin_service_index') }}"><i class="fa-duotone fa-folder-open"></i> Services</a>
+                    <div class="card-body">
+                        <a class="titre_h4 text-center" href="{{ path('app_admin_service_index') }}"><i class="fa-solid fa-list"></i> Afficher les services</a>
+                        <br><br>
+                        <a class="titre_h4 text-center" href="{{ path('app_admin_service_new') }}"><i class="fa-solid fa-square-plus"></i> Crée un service</a>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <a class="titre_h2 text-center" href="{{ path('app_admin_service_index') }}"><i class="fa-duotone fa-folder-open"></i> Services</a>
-                        <div class="card-body">
-                            <a class="titre_h4 text-center" href="{{ path('app_admin_service_index') }}"><i class="fa-solid fa-list"></i> Afficher les services</a>
-                            <br><br>
-                            <a class="titre_h4 text-center" href="{{ path('app_admin_service_new') }}"><i class="fa-solid fa-square-plus"></i> Crée un service</a>
-                        </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <a class="titre_h2 text-center" href="{{ path('app_admin_intervention_index') }}"><i class="fa-solid fa-battery-three-quarters"></i> intervention</a>
+                    <div class="card-body">
+                        <a class="titre_h4 text-center" href="{{ path('app_admin_intervention_index') }}"><i class="fa-solid fa-list"></i> Afficher les interventions</a>
+                        <br><br>
+                        <a class="titre_h4 text-center" href="{{ path('app_admin_intervention_new') }}"><i class="fa-solid fa-square-plus"></i> Crée un intervention</a>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <a class="titre_h2 text-center" href="{{ path('app_admin_intervention_index') }}"><i class="fa-solid fa-battery-three-quarters"></i> Intervention</a>
-                        <div class="card-body">
-                            <a class="titre_h4 text-center" href="{{ path('app_admin_intervention_index') }}"><i class="fa-solid fa-list"></i> Afficher les Intervention</a>
-                            <br><br>
-                            <a class="titre_h4 text-center" href="{{ path('app_admin_intervention_new') }}"><i class="fa-solid fa-square-plus"></i> Crée un Intervention</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <a class="titre_h2 text-center" href="{{ path('app_admin_client_index') }}"><i class="fa-duotone fa-user"></i> Clients</a>
-                        <div class="card-body">
-                            <a class="titre_h4 text-center" href="{{ path('app_admin_client_index') }}"><i class="fa-solid fa-list"></i> Afficher les clients</a>
-                            <br><br>
-                            <a class="titre_h4 text-center" href="{{ path('app_admin_client_new') }}"><i class="fa-solid fa-square-plus"></i> Crée un client</a>
-                        </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <a class="titre_h2 text-center" href="{{ path('app_admin_client_index') }}"><i class="fa-duotone fa-user"></i> Clients</a>
+                    <div class="card-body">
+                        <a class="titre_h4 text-center" href="{{ path('app_admin_client_index') }}"><i class="fa-solid fa-list"></i> Afficher les clients</a>
+                        <br><br>
+                        <a class="titre_h4 text-center" href="{{ path('app_admin_client_new') }}"><i class="fa-solid fa-square-plus"></i> Crée un client</a>
                     </div>
                 </div>
             </div>
         </div>
-        </section>
+    </section>
+    <section class="container">
+        <div class="row title mt-4 mb-4">
+            <div class="col-12">
+                <h1>Favoris</h1>
+            </div>
+        </div>
+        <div class="row mt-4 mb-4">
+            {{ render(controller('App\\Controller\\Admin\\ClientController::showFavoris')) }}
+        </div>
+    </section>
 {% endblock %}

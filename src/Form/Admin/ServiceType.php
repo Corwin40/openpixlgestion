@@ -7,6 +7,7 @@ use App\Entity\Admin\TypeClient;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,12 +36,17 @@ class ServiceType extends AbstractType
                     'placeholder' => 'Nom du service'
                 ]
             ])
-            ->add('archives', TextType::class,[
+            ->add('description', TextareaType::class, [
+                'label'=>'Description'
+            ])
+            ->add('code',TextType::class,[
+                'label'=>'code',
                 'required' => true,
                 'attr' => [
-                    'placeholder' => "Nom de l'archive"
+                    'placeholder' => 'code'
                 ]
             ])
+
         ;
     }
 

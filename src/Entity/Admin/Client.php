@@ -18,12 +18,6 @@ class Client
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $name = null;
-
-    #[ORM\Column(length: 50)]
-    private ?string $surname = null;
-
-    #[ORM\Column(length: 50)]
     private ?string $address = null;
 
     #[ORM\Column(length: 50)]
@@ -85,6 +79,18 @@ class Client
     #[ORM\Column(nullable: true)]
     private ?bool $IsSupprLogo = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $firstName = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $lastName = null;
+
+    #[ORM\Column]
+    private ?bool $isFavori = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $nameStructure = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -97,30 +103,6 @@ class Client
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getSurname(): ?string
-    {
-        return $this->surname;
-    }
-
-    public function setSurname(string $surname): self
-    {
-        $this->surname = $surname;
-
-        return $this;
     }
 
     public function getAddress(): ?string
@@ -410,6 +392,54 @@ class Client
     public function setIsSupprLogo(?bool $IsSupprLogo): self
     {
         $this->IsSupprLogo = $IsSupprLogo;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(?string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(?string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function isIsFavori(): ?bool
+    {
+        return $this->isFavori;
+    }
+
+    public function setIsFavori(bool $isFavori): self
+    {
+        $this->isFavori = $isFavori;
+
+        return $this;
+    }
+
+    public function getNameStructure(): ?string
+    {
+        return $this->nameStructure;
+    }
+
+    public function setNameStructure(?string $nameStructure): self
+    {
+        $this->nameStructure = $nameStructure;
 
         return $this;
     }

@@ -42,15 +42,15 @@ class ClientType extends AbstractType
                 'label' => 'Supprimer le logo',
                 'required' => false
                 ])
-            ->add('name', TextType::class,[
-                'label'=>'Nom & prénom',
+            ->add('firstName', TextType::class,[
+                'label'=>'Prénom & Nom',
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Entrez le nom'
                 ]
             ])
-            ->add('surname', TextType::class,[
-                'label'=>'Prénom',
+            ->add('lastName', TextType::class,[
+                'label'=>'Nom',
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Entrez le prénom'
@@ -108,6 +108,13 @@ class ClientType extends AbstractType
                 'placeholder' => 'Choisir un type de client',
                 'attr' => [
                     'form_attr' => true,
+                ]
+            ])
+            ->add('nameStructure', TextType::class,[
+                'label'=>'Nom de la société',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Nom de la société'
                 ]
             ])
             ->add('director', TextType::class,[

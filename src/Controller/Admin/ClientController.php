@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Admin\Client;
+use App\Entity\Admin\TypeClient;
 use App\Form\Admin\ClientType;
 use App\Repository\Admin\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,6 +23,42 @@ class ClientController extends AbstractController
         return $this->render('admin/client/index.html.twig', [
             'clients' => $clientRepository->findAll(),
         ]);
+    }
+
+    /**
+     * Sélectionne tous les clients favoris
+     * @param ClientRepository $clientRepository
+     * @return Response
+     */
+    #[Route('/showfavoris', name: 'app_admin_client_showfavoris', methods: ['GET'])]
+    public function showFavoris(ClientRepository $clientRepository): Response
+    {
+        return $this->render('admin/client/showfavoris.html.twig', [
+            'clients' => $clientRepository->findBy(['isFavori' => 1]),
+        ]);
+    }
+
+    #[Route('/setfavoris/{id}', name: 'app_admin_client_setfavoris', methods: ['GET', 'POST'])]
+    public function setFavoris(Client $client, ClientRepository $clientRepository): Response
+    {
+        $admin = $this->getUser();
+        $isFavori = $client->isIsFavori();
+        if(!$admin) return $this->json([
+            'code' => 403,
+            'message'=> "Vous n'êtes pas connecté"
+        ], 403);
+        // Si la page est déja publiée, alors on dépublie
+
+        if($isFavori == true){
+            $client->setIsFavori(0);
+            //dd($client);
+            $clientRepository->save($client, true);
+            return $this->json(['code'=> 200, 'message' => "Le client est désépinglé au tableau de bord"], 200);
+        }
+        $client->setIsFavori(1);
+        //dd($client);
+        $clientRepository->save($client, true);
+        return $this->json(['code'=> 200, 'message' => "Le client est épinglé au tableau de bord"], 200);
     }
 
     #[Route('/new', name: 'app_admin_client_new', methods: ['GET', 'POST'])]
@@ -82,6 +119,24 @@ class ClientController extends AbstractController
             'client' => $client,
         ]);
     }
+
+    #[Route('/getTypeClient/{id}', name: 'app_admin_client_gettypeclient', methods: ['GET'])]
+    public function getTypeClient(TypeClient $typeClient): Response
+    {
+        if($typeClient->isIsFormCompleted()){
+            $val = 1;
+        }else{
+            $val = 0;
+        }
+
+        return $this->json([
+            'code'=> 200,
+            'message' => "Le vendeur a été correctement modifié.",
+            // alimente un code html contenant tous les services auquel le client adhère
+            'value' => $val
+        ], 200);
+    }
+
 
     #[Route('/{id}/edit', name: 'app_admin_client_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Client $client, ClientRepository $clientRepository, SluggerInterface $slugger): Response

@@ -1,0 +1,23 @@
+<div id="showfavoris" class="col-2">
+{% for client in clients %}
+    <div class="card">
+        {% if client.logoName is not empty %}
+            <img class="card-img-top img-fluid" src="{{ asset('/images/logos/'~client.logoName) }}" alt="{{ client.logoName }}">
+        {% else %}
+            <img class="card-img-top img-fluid" src="{{ asset('images/logo_openpixl_bleu.jpg') }}" alt="OpenPixl">
+        {% endif %}
+        <div class="card-body">
+            <a href="{{ path('app_admin_client_show', {'id': client.id}) }}" class="stretched-link"></a>
+        </div>
+        <div class="card-footer">
+            {% if client.typeclient.isFormCompleted == 0 %}
+            <p class="text-center mb-0">{{ client.firstname }} {{ client.lastname }}</p>
+            {% else %}
+            <p class="text-center mb-0">{{ client.nameStructure }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+
+{% endfor %}
+</div>

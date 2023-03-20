@@ -19,7 +19,7 @@
                     <a class="nav-link barre_navigation " href="{{ path('app_admin_client_index') }}"><i class="fa-duotone fa-user"></i> Client</a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a class="nav-link btn_logout" href="{{path('op_security_logout')}}" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-duotone fa-arrow-right-from-bracket"></i> Déconnexion</a>
+                    <a class="nav-link btn_logout" href="{{ path('op_security_logout') }}"><i class="fa-duotone fa-arrow-right-from-bracket"></i> Déconnexion</a>
                 {% endif %}
             </ul>
         </div>

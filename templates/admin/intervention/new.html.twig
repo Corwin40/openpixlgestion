@@ -2,11 +2,27 @@
 
 {% block title %}New Intervention{% endblock %}
 
+{% block javascripts %}
+    {{  parent() }}
+    <script>
+        window.onload = function(){
+            ClassicEditor
+                .create(document.querySelector('#intervention_description'), {
+                    toolbar: [ 'heading','bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote', 'indent', 'alignment' ],
+                    height: 50
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    </script>
+{% endblock %}
+
 {% block body %}
 
     <section class="container-fluid">
         <div class="row title mt-4 mb-4">
-            <h1>Crée une intervention</h1>
+            <h1>Créer une intervention</h1>
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-6 col-xl-4">

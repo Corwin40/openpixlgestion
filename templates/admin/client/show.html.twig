@@ -279,22 +279,25 @@
                         </div>
                         <div class="card-body">
                             <table class="table table-sm">
+
                                 <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
+                                <tr>
+                                    <td class="col-sm-4"></td>
+                                    <td class="col-sm-3"></td>
+                                    <td class="col-sm-5"></td>
+                                </tr>
                                 </thead>
                                 <tbody>
                                     {% if client.logoName is not null %}
-                                    <div class="col-12 text-center">
-                                        <img class="img-fluid" src="{{ asset('images/logo/' ~ client.logoName) }}" alt="{{ client.logoName }}">
-                                    </div>
-
+                                        <tr>
+                                            <td rowspan="10" class="align-middle"><img class="img-fluid" src="{{ asset('images/logos/' ~ client.logoName) }}" alt="{{ client.logoName }}"></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                     {% endif %}
                                     <tr>
                                         <th class="table-light"><i class="fa-solid fa-user"></i> Nom & Prénom :</th>
-                                        <td>{{ client.name }} {{ client.surname }}</td>
+                                        <td>{{ client.firstName }} {{ client.lastName }}</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light"><i class="fa-solid fa-location-dot"></i> Adresse :</th>
@@ -310,18 +313,17 @@
                                     </tr>
                                     {#  on veut seulement afficher ces lignes si le type de client est organisation ou partenaire #}
                                     {% if client.typeclient.isFormCompleted == 1 %}
-
+                                    <tr>
+                                        <th  class="table-light"><i class="fa-solid fa-envelope"></i> Nom structure :</th>
+                                        <td>{{ client.nameStructure }}</td>
+                                    </tr>
                                     <tr>
                                         <th  class="table-light"><i class="fa-solid fa-envelope"></i> Directeur :</th>
                                         <td>{{ client.director }}</td>
                                     </tr>
                                     <tr>
-                                        <th  class="table-light"><i class="fa-solid fa-envelope"></i> N°Siren :</th>
-                                        <td>{{ client.siren }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="table-light"><i class="fa-solid fa-envelope"></i> N°Siret :</th>
-                                        <td>{{ client.siret }}</td>
+                                        <th  class="table-light"><i class="fa-solid fa-envelope"></i> N°Siren / N°Siret :</th>
+                                        <td>{{ client.siren }} / {{ client.siret }}</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light"><i class="fa-solid fa-envelope"></i> TVA :</th>
@@ -351,9 +353,10 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#addserviceonclient" data-bs-whatever="{{ client.id }}"><i class="fa-light fa-file-lines"></i> Ajouter un service</button>
+                            <h4 id="client_typeclient" class="card-title text-start">LISTE DES SERVICES</h4>
                         </div>
                         <div class="card-body">
+                            <button href="#" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addserviceonclient" data-bs-whatever="{{ client.id }}"><i class="fa-light fa-file-lines"></i> Ajouter un service</button>
                             {{ render(controller('App\\Controller\\Admin\\FicheServiceController::listServicesByClient', {'idclient': client.id})) }}
                         </div>
                     </div>

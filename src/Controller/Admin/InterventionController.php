@@ -33,6 +33,7 @@ class InterventionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $interventionRepository->save($intervention, true);
 
             return $this->redirectToRoute('app_admin_intervention_index', [], Response::HTTP_SEE_OTHER);
@@ -88,9 +89,11 @@ class InterventionController extends AbstractController
     {
         $user = $this->getUser();
         $ficheservice = $ficheServiceRepository->find($idficheservice);
-        //dd($user);
-
+        $nameserv = $ficheservice->getService()->getCode();
+        $dateNow = new \DateTime('now');
+        $name = $nameserv.'-'.$dateNow->format('dmY');
         $intervention = new Intervention();
+        $intervention->setName($name);
         $intervention->setAuthor($user);
         $intervention->setFicheService($ficheservice);
 
@@ -102,6 +105,7 @@ class InterventionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $interventionRepository->save($intervention, true);
 
             return $this->json([

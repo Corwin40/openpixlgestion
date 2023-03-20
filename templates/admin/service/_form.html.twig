@@ -1,30 +1,27 @@
 {{ form_start(form) }}
 <div class="card">
     <div class="card-body">
-        <div class="row g-2">
-            {{ form_label(form.name, "", {'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
-            <div class="col-sm-5">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-tag"></i></span>
+        <table class="table table-sm">
+            <tr>
+                <td class="col-sm-4"></td>
+                <td class="col-sm-6"></td>
+                <td class="col-sm-2"></td>
+            </tr>
+            <tr class="align-middle">
+                <td class="table-light">{{ form_label(form.name) }}</td>
+                <td>
                     {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-sm'}}) }}
-                </div>
-                <small>{{ form_help(form.name) }}</small>
-                <div class="form-error">
-                    {{ form_errors(form.name) }}
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-box-archive"></i></span>
-                    {{ form_widget(form.archives, {'attr': {'class': 'form-control form-control-sm'}}) }}
-                </div>
-                <small>{{ form_help(form.archives) }}</small>
-                <div class="form-error">
-                    {{ form_errors(form.archives) }}
-                </div>
-            </div>
-        </div>
-        <button class="btn btn-outline-success">{{ button_label|default('Enregistrer') }}</button>&nbsp;&nbsp;<a class="btn btn-outline-dark" href="{{ path('app_admin_service_index') }}">Retour à la liste</a>
+                </td>
+                <td>{{ form_widget(form.code, {'attr': {'class': 'form-control form-control-sm'}}) }}</td>
+            </tr>
+            <tr class="align-middle">
+                <td class="table-light">{{ form_label(form.description) }}</td>
+                <td colspan="2">
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </td>
+            </tr>
+        </table>
+        <button class="btn btn-sm btn-outline-success">{{ button_label|default('Enregistrer') }}</button>&nbsp;&nbsp;<a class="btn btn-sm btn-outline-dark" href="{{ path('app_admin_service_index') }}">Retour à la liste</a>
     </div>
 </div>
 </div>

@@ -3,11 +3,31 @@
 {% block title %}Edit FicheService{% endblock %}
 
 {% block body %}
-    <h1>Edit FicheService</h1>
 
-    {{ include('admin/fiche_service/_form.html.twig', {'button_label': 'Update'}) }}
+<section id="service_show">
+    <div class="container-fluid">
+        <div class="row title mt-4 mb-4">
+            <div class="col-12">
+                <h1 class="text-start">Fiche service : {{ fiche_service.service.name }} / {{ fiche_service.client.firstName }} {{ fiche_service.client.lastName }}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-6 col-xl-4">
+                {{ include('admin/fiche_service/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_admin_fiche_service_index') }}">back to list</a>
+                {{ include('admin/fiche_service/_delete_form.html.twig') }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p class="text-center"><a class="btn" href="{{ path('app_admin_service_index') }}"><i class="fa-solid fa-left-to-line"></i> Retour à la liste</a></p>
+            </div>
+        </div>
+    </div>
+</section>
 
-    {{ include('admin/fiche_service/_delete_form.html.twig') }}
+
+
+
+
 {% endblock %}

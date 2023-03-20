@@ -3,8 +3,7 @@
 {% block title %}Liste des services{% endblock %}
 
 {% block body %}
-    <section id="service_index">
-        <div class="container-fluid">
+    <section id="service_index" class="container-fluid">
             <div class="row title mt-4 mb-4">
                 <div class="col-12">
                     <h1>Liste des services</h1>
@@ -13,18 +12,18 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th><i class="fa-solid fa-folder"></i> Identifiant</th>
+                            <th><i class="fa-solid fa-folder"></i> Id</th>
                             <th><i class="fa-solid fa-tag"></i> Nom</th>
-                            <th><i class="fa-duotone fa-box-archive"></i> Archives</th>
+                            <th><i class="fa-duotone fa-box-archive"></i> Description</th>
                             <th> Voir & Editer</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for service in services %}
-                            <tr>
+                            <tr class="align-middle">
                                 <td>{{ service.id }}</td>
                                 <td>{{ service.name }}</td>
-                                <td>{{ service.archives }}</td>
+                                <td>{{ service.description|u.truncate(100, ' ...')|raw }}</td>
                                 <td>
                                     <a class="btn" href="{{ path('app_admin_service_show', {'id': service.id}) }}"><i class="fa-duotone fa-eye"></i> Voir</a>
                                     <a class="btn" href="{{ path('app_admin_service_edit', {'id': service.id}) }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a>
@@ -40,6 +39,5 @@
                     <a class="btn btn-outline-info" href="{{ path('app_admin_service_new') }}"><i class="fa-duotone fa-file-signature"></i> Crée un service</a>
                 </div>
             </div>
-        </div>
     </section>
 {% endblock %}

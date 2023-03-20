@@ -98,6 +98,16 @@ class FicheServiceController extends AbstractController
         ]);
     }
 
+    #[Route('/listservactifs/{idserv}', name: 'app_admin_service_index', methods: ['GET'])]
+    public function listservactifs(FicheServiceRepository $ficheServiceRepository, $idserv): Response
+    {
+        $listservices = $ficheServiceRepository->listByServ($idserv);
+
+        return $this->render('admin/fiche_service/listservactif.html.twig', [
+            'listservices' => $listservices
+        ]);
+    }
+
     /**
      * On ajoute un service sur un client
      **/

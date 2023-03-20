@@ -3,40 +3,47 @@
 
 {# ... #}
 
+
+{% block header %}
+{% endblock %}
+
+
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    <section id="login">
-        <div class="container text-center col-md-5">
-            <div class="card">
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h1>Connexion</h1>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="card-body">
-                            <form action="{{ path('op_security_login') }}" method="post">
-                                <div class="row justify-content-center">
-                                    <div class="col-sm-9 justify-content-center">
-                                        <div class="input-group mb-1">
-                                            <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
-                                            <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}">
+    <section class="container">
+        <div class="row justify-content-center align-content-center vh-100">
+            <div class="col-7">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-4">
+                                <img class="img-fluid" src="{{ asset('images/logo_openpixl_bleu.jpg') }}" alt="" >
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-sm-8 mb-5">
+                                <form action="{{ path('op_security_login') }}" method="post">
+                                    {% if error %}
+                                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                    {% endif %}
+                                    <div class="row justify-content-center">
+                                        <div class="col-sm-9 justify-content-center">
+                                            <div class="input-group mb-1">
+                                                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
+                                                <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="input-group mb-1">
+                                                <span class="input-group-text" id="basic-addon1"><i class="fa-duotone fa-key"></i></span>
+                                                <input type="password" class="form-control" id="password" name="_password">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <button type="submit" class="btn btn-outline-success w-100">Connexion</button>
                                         </div>
                                     </div>
-                                    <div class="col-sm-9">
-                                        <div class="input-group mb-1">
-                                            <span class="input-group-text" id="basic-addon1"><i class="fa-duotone fa-key"></i></span>
-                                            <input type="password" class="form-control" id="password" name="_password">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <button type="submit" class="btn btn-outline-success w-100">Connexion</button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

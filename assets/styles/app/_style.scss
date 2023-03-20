@@ -9,11 +9,11 @@ body{
         color: #ffffff;
         background-color: $blue-sky;
     }
+    h1 {
+        color: $color-primary;
+    }
 }
 #dashboard{
-    h1{
-        color:$color-primary;
-    }
     a{
         color:$font-color;
     }
@@ -36,21 +36,6 @@ body{
     }
 }
 
-#client_index {
-    h1 {
-        color: $color-primary;
-    }
-}
-#statut_index {
-    h1 {
-        color: $color-primary;
-    }
-}
-#service_index {
-    h1 {
-        color: $color-primary;
-    }
-}
 #login{
     margin-top: auto;
     margin-bottom: auto;
@@ -91,22 +76,7 @@ nav{
     text-align: end;
     color: #d70000;
 }
-#client_show{
-    h1{
-        color:$color-primary;
-    }
-    h4{
-        color: $blue-sky;
-    }
 
-
-    .delete_btn{
-        background-color: #de1616;
-    }
-    .delete_btn:hover {
-        background-color: #b00000;
-    }
-}
 .btn_valide{
     margin: 15px;
 }
