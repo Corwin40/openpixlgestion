@@ -12,6 +12,8 @@ use Container5c9QE5J\getClientRepositoryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/intervention')]
@@ -91,33 +93,58 @@ class InterventionController extends AbstractController
     /**
      * On ajoute une intervention au service d'un client
      **/
-    #[Route('/addinterveonclient/{idficheservice}', name: 'app_admin_statut_addinterveonclient', methods: ['GET', 'POST'])]
-    public function addinterveonclient(InterventionRepository $interventionRepository, FicheServiceRepository $ficheServiceRepository,$idficheservice, Request $request)
+    #[Route('/addinterveonclient/{idficheservice}', name: 'app_admin_intervention_addinterveonclient', methods: ['GET', 'POST'])]
+    public function addinterveonclient(
+        InterventionRepository $interventionRepository,
+        FicheServiceRepository $ficheServiceRepository,
+        $idficheservice,
+        Request $request,
+        MailerInterface $mailer
+    )
     {
         $user = $this->getUser();
+
         $ficheservice = $ficheServiceRepository->find($idficheservice);
         $nameserv = $ficheservice->getService()->getCode();
+        $emailClient = $ficheservice->getClient()->getEmail();
         $dateNow = new \DateTime('now');
         $name = $nameserv.'-'.$dateNow->format('dmY');
+
         $intervention = new Intervention();
         $intervention->setName($name);
         $intervention->setAuthor($user);
         $intervention->setFicheService($ficheservice);
 
         $form = $this->createForm(InterventionType::class, $intervention, [
-            'action'=> $this->generateUrl('app_admin_statut_addstatutonclient', ['idficheservice'=> $idficheservice]),
+            'action'=> $this->generateUrl('app_admin_intervention_addinterveonclient', ['idficheservice'=> $idficheservice]),
             'method'=>'POST',
-            'attr' => ['class'=>'formaddstatutonclient']
+            'attr' => ['class'=>'formaddinterventiononclient']
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $startedAt = $form->get('startedAt')->getData();
+            $finishedAt = $form->get('finishedAt')->getData();
+            $intervention->setTimelaps($delta = date_diff($startedAt, $finishedAt));
             $interventionRepository->save($intervention, true);
+
+            // Fonction d'envoi mail
+            $email = (new Email())
+                ->from('contact@openpixl.fr')
+                ->to($emailClient)
+                //->cc('cc@example.com')
+                //->bcc('bcc@example.com')
+                //->replyTo('fabien@example.com')
+                //->priority(Email::PRIORITY_HIGH)
+                ->subject('[OpenPixl] - Mise à jour de votre service')
+                ->text('Sending emails is fun again!')
+                ->html('<p>See Twig integration for better HTML integration!</p>');
+
+            $mailer->send($email);
 
             return $this->json([
                 'code'=> 200,
-                'message' => "OK",
+                'message' => "l'intervention a bien été enregistrée.",
             ], 200);
         }
         $view = $this->renderForm('admin/intervention/_form.html.twig', [
@@ -134,7 +161,7 @@ class InterventionController extends AbstractController
     }
 
 
-    #[Route('/listeinterveonclient/{idficheservice}', name: 'app_admin_statut_listeinterveonclient', methods: ['GET', 'POST'])]
+    #[Route('/listeinterveonclient/{idficheservice}', name: 'app_admin_intervention_listeinterveonclient', methods: ['GET', 'POST'])]
     public function listeinterveonclient(InterventionRepository $interventionRepository,$idficheservice, FicheServiceRepository $ficheServiceRepository, Request $request)
     {
         // On récupère l'entité correspondante ficheservice

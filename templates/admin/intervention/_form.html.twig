@@ -1,6 +1,5 @@
 {{ form_start(form, {'attr': {'id': 'FormInterventionliste'}}) }}
-<div class="card">
-    <div class="card-body">
+
         <table class="table table-sm">
             <tr>
                 <td class="col-sm-3"></td>
@@ -46,7 +45,5 @@
                 <td colspan="2"></td>
             </tr>
         </table>
-        <button class="btn btn-sm btn-outline-success">{{ button_label|default('Enregistrer') }}</button>&nbsp;&nbsp<a class="btn btn-sm btn-outline-secondary" href="{{ path('app_admin_intervention_index') }}">Retour à la liste</a>
-    </div>
-</div>
+
 {{ form_end(form) }}

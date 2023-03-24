@@ -31,12 +31,12 @@ class InterventionType extends AbstractType
             ->add('startedAt', TimeType::class,[
                 'label'=>'Début / Fin',
                 'required' => false,
-                'widget' => 'single_text',
+                'widget' => 'single_text'
             ])
             ->add('finishedAt', TimeType::class,[
                 'label'=>'',
                 'required' => false,
-                'widget' => 'single_text',
+                'widget' => 'single_text'
             ])
             ->add('isRecurr', CheckboxType::class,[
                 'label' => 'Mettre en place la récurence ?',

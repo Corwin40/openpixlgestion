@@ -146,9 +146,9 @@ class FicheServiceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $time = $form->get('time')->getData();
-            $echeance = new \DateTime('now');
-            $echeance->modify('+'.$time.'year');
+            $engagement = $form->get('engagement')->getData();
+            $inscription = new \DateTime('now');
+            $echeance = date_add($inscription, $engagement);
 
             $ficheService->setEcheance($echeance);
             $ficheServiceRepository->save($ficheService, true);

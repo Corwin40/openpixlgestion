@@ -52,7 +52,7 @@ class ServiceType extends AbstractType
                 ]
             ])
             ->add('duration', TimeType::class,[
-                'label'=>'Début / Fin',
+                'label'=>"volume d'heure",
                 'required' => false,
                 'widget' => 'single_text',
             ])

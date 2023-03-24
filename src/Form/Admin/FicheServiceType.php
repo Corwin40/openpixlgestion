@@ -29,7 +29,7 @@ class FicheServiceType extends AbstractType
                 'with_months' => false,
                 'with_days'   => false,
                 'with_hours'  => false,
-                'years' => range(2, 7),
+                'years' => array_combine(range(1, 5), range(1, 5)),
                 'labels' => ['years' => 'Année']
             ])
             ->add('package', ChoiceType::class,[

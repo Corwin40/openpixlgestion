@@ -6,9 +6,9 @@
             <tr>
                 <th></th>
                 <th><i class="fa-solid fa-tag"></i> Nom</th>
-                <th><i class="fa-duotone fa-box-archive"></i> Etat</th>
-                <th>Engagement</th>
+                <th><i class="fa-duotone fa-box-archive"></i> Durée</th>
                 <th>Forfait</th>
+                <th>Etat</th>
                 <th>création</th>
                 <th>Echeance</th>
                 <th>...</th>
@@ -19,7 +19,7 @@
                 <tr class="align-middle">
                     <td><input type="checkbox" value="{{ ficheservice.id }}" id="serv-id"></td>
                     <td>{{ ficheservice.nameService }}</td>
-                    <td>{{ ficheservice.engagement }}</td>
+                    <td>{{ ficheservice.engagement|date('%y') }} {% if ficheservice.engagement|date('%y') > 2%}ans{% else %}an{% endif %}</td>
                     <td>{{ ficheservice.package }}</td>
                     <td>{{ ficheservice.statut }}</td>
                     <td>{{ ficheservice.createdAt |date('d-m-Y') }}</td>

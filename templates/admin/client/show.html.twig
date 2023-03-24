@@ -178,7 +178,7 @@
             function btnaddstatutonclient(event){
                 event.preventDefault()
                 let urlbtnaddstatutonclient = this.href
-                let Formbtnaddstatutonclient = document.querySelector('.formaddstatutonclient')
+                let Formbtnaddstatutonclient = document.getElementById('FormInterventionliste')
                 let databtnaddstatutonclient = new FormData(Formbtnaddstatutonclient)
                 axios
                     .post(urlbtnaddstatutonclient, databtnaddstatutonclient)
@@ -439,8 +439,8 @@
                         <p>Test</p>
                     </div>
                     <div class="modal-footer">
+                        <a href="" id="btnaddstatutonclient" class="btn btn-sm btn-primary btnaddstatutonclient" data-bs-dismiss="modal">Enregistrer</a>
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <a id="btnaddstatutonclient" class="btn btn-sm btn-primary btnaddstatutonclient" data-bs-dismiss="modal">Ajouter</a>
                     </div>
                 </div>
             </div>
