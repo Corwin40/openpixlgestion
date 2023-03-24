@@ -1,5 +1,6 @@
-<div id="showfavoris" class="col-2">
+
 {% for client in clients %}
+<div id="showfavoris" class="col-2">
     <div class="card">
         {% if client.logoName is not empty %}
             <img class="card-img-top img-fluid" src="{{ asset('/images/logos/'~client.logoName) }}" alt="{{ client.logoName }}">
@@ -17,7 +18,7 @@
             {% endif %}
         </div>
     </div>
-{% else %}
-
-{% endfor %}
 </div>
+{% else %}
+{% endfor %}
+

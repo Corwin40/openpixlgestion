@@ -1,8 +1,8 @@
-<table class="table table-sm table table-striped">
+<table class="table table-sm">
     <thead>
     <tr>
         <th>Nom de l'intervention</th>
-        <th>Description</th>
+        <th>Auteur</th>
         <th>Départ</th>
         <th>Fin</th>
         <th>Ecart</th>
@@ -17,10 +17,10 @@
         {% set diffHour = date(listeinterve.finishedAt|date('H:i')).diff(date(listeinterve.startedAt|date('H:i'))) %}
         <tr>
             <td>{{ listeinterve.name }}</td>
-            <td>{{ listeinterve.description }}</td>
+            <td>{{ listeinterve.author.firstName }} {{ listeinterve.author.lastName }}</td>
             <td>{{ listeinterve.startedAt ? listeinterve.startedAt|date('H:i') : '' }}</td>
             <td>{{ listeinterve.finishedAt ? listeinterve.finishedAt|date('H:i') : '' }}</td>
-            <td>{{ diffHour|date('%Hh%i') }}</td>
+            <td>{{ listeinterve.timelaps|date('%Hh%I') }}</td>
             <td>{{ listeinterve.createdAt ? listeinterve.createdAt|date('Y-m-d') : '' }}</td>
             <td>{{ listeinterve.updatedAt ? listeinterve.updatedAt|date('Y-m-d') : '' }}</td>
             <td>
@@ -39,7 +39,7 @@
         {% set total = date(cumul|date('H:i')).diff(date('1900/01/01')) %}
         <tr>
             <th class="text-end" colspan="4">Temps réalisé sur le projet :</th>
-            <td>{{ total|date('%Hh%i') }}</td>
+            <td>{{ total|date('%Hh%I') }}</td>
             <td colspan="3"></td>
 
         </tr>

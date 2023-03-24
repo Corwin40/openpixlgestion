@@ -28,11 +28,12 @@ class ServiceController extends AbstractController
         $user = $this->getUser();
         //dd($user);
         $service = new Service();
-        $service->setMembers($user);
+
         $form = $this->createForm(ServiceType::class, $service);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $service->setMembers($user);
             $serviceRepository->save($service, true);
 
             return $this->redirectToRoute('app_admin_service_index', [], Response::HTTP_SEE_OTHER);
@@ -57,6 +58,7 @@ class ServiceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $serviceRepository->save($service, true);
 
             return $this->render('admin/client/show.html.twig', [
@@ -86,6 +88,7 @@ class ServiceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //dd($form->get('duration')->getData());
             $serviceRepository->save($service, true);
 
             return $this->redirectToRoute('app_admin_service_index', [], Response::HTTP_SEE_OTHER);

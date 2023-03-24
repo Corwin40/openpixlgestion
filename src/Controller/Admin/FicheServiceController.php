@@ -55,7 +55,11 @@ class FicheServiceController extends AbstractController
     #[Route('/{id}/edit', name: 'app_admin_fiche_service_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, FicheService $ficheService, FicheServiceRepository $ficheServiceRepository): Response
     {
-        $form = $this->createForm(FicheServiceType::class, $ficheService);
+        $form = $this->createForm(FicheServiceType::class, $ficheService, [
+            'action'=> $this->generateUrl('app_admin_fiche_service_edit', ['id'=> $ficheService->getId()]),
+            'method'=>'POST',
+            'attr' => ['class'=>'formeditonclient']
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -64,10 +68,21 @@ class FicheServiceController extends AbstractController
             return $this->redirectToRoute('app_admin_fiche_service_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/fiche_service/edit.html.twig', [
-            'fiche_service' => $ficheService,
-            'form' => $form,
+        $view = $this->renderForm('admin/fiche_service/_form.html.twig', [
+            'ficheservice' => $ficheService,
+            'form' => $form
         ]);
+
+        return $this->json([
+            'code' => 200,
+            'message' => '',
+            'form' => $view->getContent()
+        ], 200);
+
+        // return $this->renderForm('admin/fiche_service/edit.html.twig', [
+        //    'fiche_service' => $ficheService,
+        //    'form' => $form,
+        //]);
     }
 
     #[Route('/{id}', name: 'app_admin_fiche_service_delete', methods: ['POST'])]
@@ -88,28 +103,26 @@ class FicheServiceController extends AbstractController
     {
         // On récupère l'entité l'entité correspondante client
         $client = $clientRepository->find($idclient);
-        //dd($client);
 
-        $listservices = $ficheServiceRepository->listByClient($idclient);
-        //dd($listservices);
+        $listficheservices = $ficheServiceRepository->listByClient($idclient);
 
         return $this->render('admin/fiche_service/listbyclient.html.twig', [
-            'listservices' => $listservices
+            'listficheservices' => $listficheservices
         ]);
     }
 
     #[Route('/listservactifs/{idserv}', name: 'app_admin_service_index', methods: ['GET'])]
     public function listservactifs(FicheServiceRepository $ficheServiceRepository, $idserv): Response
     {
-        $listservices = $ficheServiceRepository->listByServ($idserv);
+        $listficheservices = $ficheServiceRepository->listByServ($idserv);
 
         return $this->render('admin/fiche_service/listservactif.html.twig', [
-            'listservices' => $listservices
+            'listficheservices' => $listficheservices
         ]);
     }
 
     /**
-     * On ajoute un service sur un client
+     * On ajoute une fiche service depuis un compte client
      **/
     #[Route('/addonclient/{idclient}', name: 'app_admin_ficheservice_addonclient', methods: ['GET', 'POST'])]
     public function addonclient(FicheServiceRepository $ficheServiceRepository, $idclient, ClientRepository $clientRepository, Request $request)

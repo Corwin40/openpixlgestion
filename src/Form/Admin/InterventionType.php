@@ -4,6 +4,8 @@ namespace App\Form\Admin;
 
 use App\Entity\Admin\Intervention;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +23,7 @@ class InterventionType extends AbstractType
                 ]
             ])
             ->add('description', TextareaType::class, [
+                'required' => false,
                 'attr' => [
                     'placeholder' => "Description"
                 ]
@@ -34,6 +37,35 @@ class InterventionType extends AbstractType
                 'label'=>'',
                 'required' => false,
                 'widget' => 'single_text',
+            ])
+            ->add('isRecurr', CheckboxType::class,[
+                'label' => 'Mettre en place la récurence ?',
+                'required' => false
+            ])
+            ->add('recurrence', ChoiceType::class,[
+                'label'=>'Récurrence',
+                'required' => false,
+                'choices'  => [
+                    'Toutes les semaines' => '1',
+                    'Toutes les 2 semaines' => '2',
+                    'Une fois par mois' => '4',
+                    'Tous les 2 mois' => '8',
+                    'une fois par trimestre' => '12',
+                ]
+            ])
+            ->add('multiple', ChoiceType::class,[
+                'label'=>'Répétition',
+                'required' => false,
+                'choices'  => [
+                    '1' => '1',
+                    '2' => '2',
+                    '3' => '3',
+                    '4' => '4',
+                    '5' => '5',
+                    '6' => '6',
+                    '7' => '7',
+                    '8' => '8',
+                ]
             ])
         ;
     }

@@ -7,6 +7,7 @@ use App\Entity\Admin\Service;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,26 +21,20 @@ class FicheServiceType extends AbstractType
                 'class' => Service::class,
                 'label'=>'Nom du service',
                 'required' => true,
-                'attr' => [
-                    'placeholder' => 'Entrez le nom du service'
-                ]
             ])
-            ->add('time', ChoiceType::class,[
-                'label'=>'Temps',
-                'required' => false,
-                'placeholder' =>'Quelle durée',
-                'choices'  => [
-                    '1 an' => '1',
-                    '2 ans' => '2',
-                    '3 ans' => '3',
-                    '4 ans' => '4',
-                    '5 ans' => '5',
-                ]
+            ->add('engagement', DateIntervalType::class, [
+                'label' => "Durée de l'engagement",
+                'widget' => 'choice',
+                'with_years'  => true,
+                'with_months' => false,
+                'with_days'   => false,
+                'with_hours'  => false,
+                'years' => range(2, 7),
+                'labels' => ['years' => 'Année']
             ])
-            ->add('price', ChoiceType::class,[
-                'label'=>'Prix',
+            ->add('package', ChoiceType::class,[
+                'label'=>'Tarif de base',
                 'required' => false,
-                'placeholder' =>'Quel prix',
                 'choices'  => [
                     '100 €' => '100',
                     "200 €" => "200",
@@ -49,9 +44,8 @@ class FicheServiceType extends AbstractType
                 ]
             ])
             ->add('statut', ChoiceType::class,[
-                'label'=>'Statut',
+                'label'=>'Etat du service',
                 'required' => false,
-                'placeholder' =>'Etat su service',
                 'choices'  => [
                     'service actif' => 'service actif',
                     "service proche de l'échéance" => "service proche de l'échéance",

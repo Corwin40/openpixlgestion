@@ -54,26 +54,35 @@
             </tr>
             <tr id="logo" style="display: none;">
                 <td class="table-light">{{ form_label(form.logoFile) }}</td>
+
+
+                {% if client.logoName is not null %}
                 <td>
-                    {{ form_widget(form.logoFile, {'attr': {'class': 'form-control form-control-sm'}}) }}
-                    {% if client.logoName is not null %}
-                        <div class="col-9 offset-2">
-                            <img class="img-fluid" src="{{ asset('images/logo/' ~ client.logoName) }}" alt="{{ client.logoName }}">
-                        </div>
-                        {% if app.request.attributes.get('_route') == 'app_admin_client_edit' %}
-                            <div class="text-center col-8">
-                                {{ form_label(form.isSupprLogo, "Supprimer le logo ") }}
-                                {{ form_widget(form.isSupprLogo) }}
-                            </div>
-                        {% endif %}
-                    {% else %}
-                        <div class="col-sm-3" style="display: none;">
-                            {{ form_label(form.isSupprLogo, "Supprimer le logo") }}
-                            {{ form_widget(form.isSupprLogo, {'attr': {'style': 'display:none;'}}) }}
-                        </div>
+                    {{ form_widget(form.logoFile, {'attr': {'class': 'form-control form-control-sm', 'style':'display:none;'}}) }}
+                    <div class="col-9 offset-2">
+                        <img class="img-fluid" src="{{ asset('images/logos/' ~ client.logoName) }}" alt="{{ client.logoName }}">
+                    </div>
+                </td>
+                <td>
+                    {% if app.request.attributes.get('_route') == 'app_admin_client_edit' %}
+                    <div class="text-center col-8">
+                        {{ form_label(form.isSupprLogo, "Supprimer le logo ") }}
+                        {{ form_widget(form.isSupprLogo) }}
+                    </div>
                     {% endif %}
                 </td>
-                <td>{{ form_errors(form.logoFile) }}</td>
+                {% else %}
+                <td>
+                    {{ form_widget(form.logoFile, {'attr': {'class': 'form-control form-control-sm'}}) }}
+
+                </td>
+                <td>
+                    <div class="col-sm-3" style="display: none;">
+                        {{ form_label(form.isSupprLogo, "Supprimer le logo") }}
+                        {{ form_widget(form.isSupprLogo, {'attr': {'style': 'display:none;'}}) }}
+                    </div>
+                </td>
+                {% endif %}
             </tr>
             <tr id="director" style="display: none;">
                 <td class="table-light">{{ form_label(form.director) }}</td>

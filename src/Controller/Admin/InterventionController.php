@@ -34,6 +34,10 @@ class InterventionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $startedAt = $form->getData()->get('startedAt');
+            $finishedAt = $form->getData()->get('finishedAt');
+            $delta = date_diff($startedAt, $finishedAt);
+
             $interventionRepository->save($intervention, true);
 
             return $this->redirectToRoute('app_admin_intervention_index', [], Response::HTTP_SEE_OTHER);
@@ -60,6 +64,9 @@ class InterventionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $startedAt = $form->get('startedAt')->getData();
+            $finishedAt = $form->get('finishedAt')->getData();
+            $intervention->setTimelaps($delta = date_diff($startedAt, $finishedAt));
             $interventionRepository->save($intervention, true);
 
             return $this->redirectToRoute('app_admin_intervention_index', [], Response::HTTP_SEE_OTHER);
@@ -82,7 +89,7 @@ class InterventionController extends AbstractController
     }
 
     /**
-     * On ajoute un statut au service d'un client
+     * On ajoute une intervention au service d'un client
      **/
     #[Route('/addinterveonclient/{idficheservice}', name: 'app_admin_statut_addinterveonclient', methods: ['GET', 'POST'])]
     public function addinterveonclient(InterventionRepository $interventionRepository, FicheServiceRepository $ficheServiceRepository,$idficheservice, Request $request)

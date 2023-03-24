@@ -1,27 +1,29 @@
 <div class="row">
     <div class="col-md-12">
         <table class="table">
-            <caption>{{ listservices|length }} enregistrement</caption>
+            <caption>{{ listficheservices|length }} enregistrement</caption>
             <thead>
             <tr>
-                <th><i class="fa-solid fa-folder"></i> Identifiant</th>
+                <th></th>
                 <th><i class="fa-solid fa-tag"></i> Nom</th>
                 <th><i class="fa-duotone fa-box-archive"></i> Etat</th>
-                <th>Notes</th>
+                <th>Engagement</th>
+                <th>Forfait</th>
                 <th>création</th>
                 <th>Echeance</th>
                 <th>...</th>
             </tr>
             </thead>
             <tbody>
-            {% for service in listservices %}
+            {% for ficheservice in listficheservices %}
                 <tr class="align-middle">
-                    <td>{{ service.id }}</td>
-                    <td>{{ service.nameService }}</td>
-                    <td>{{ service.statut }}</td>
-                    <td></td>
-                    <td>{{ service.createdAt |date('d-m-Y') }}</td>
-                    <td>{{ service.echeance |date('d-m-Y') }}</td>
+                    <td><input type="checkbox" value="{{ ficheservice.id }}" id="serv-id"></td>
+                    <td>{{ ficheservice.nameService }}</td>
+                    <td>{{ ficheservice.engagement }}</td>
+                    <td>{{ ficheservice.package }}</td>
+                    <td>{{ ficheservice.statut }}</td>
+                    <td>{{ ficheservice.createdAt |date('d-m-Y') }}</td>
+                    <td>{{ ficheservice.echeance |date('d-m-Y') }}</td>
                     <td>
                         <div class="btn-group btn-group-sm" role="group">
                             <button id="btnGroupDrop1" type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -29,10 +31,10 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                 <li><a class="dropdown-item" href=""><i class="fa-duotone fa-eye"></i> Voir</a></li>
-                                <li><a class="dropdown-item" href="{{ path('app_admin_fiche_service_edit', {'id': service.id}) }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addstatutonclient" data-bs-whatever="{{ service.id }}"><i class="fa-light fa-file-lines"></i> Ajouter une intervention</a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Listintervonfiche" data-bs-whatever="{{ service.id }}"><i class="fa-light fa-file-lines"></i> Afficher les interventions</a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#SupprService" data-bs-whatever="{{ service.id }}"><i class="fa-solid fa-trash"></i> Supprimer</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_admin_fiche_service_edit', {'id': ficheservice.id}) }}" data-bs-toggle="modal" data-bs-target="#editstatutonclient" data-bs-whatever="{{ ficheservice.id }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addstatutonclient" data-bs-whatever="{{ ficheservice.id }}"><i class="fa-light fa-file-lines"></i> Ajouter une intervention</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Listintervonfiche" data-bs-whatever="{{ ficheservice.id }}"><i class="fa-light fa-file-lines"></i> Afficher les interventions</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#SupprService" data-bs-whatever="{{ ficheservice.id }}"><i class="fa-solid fa-trash"></i> Supprimer</a></li>
                             </ul>
                         </div>
                     </td>

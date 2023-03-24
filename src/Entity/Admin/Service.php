@@ -2,6 +2,7 @@
 
 namespace App\Entity\Admin;
 
+use App\Entity\Admin\Choice\TypoServ;
 use App\Repository\Admin\ServiceRepository;
 use DateTime;
 use DateTimeInterface;
@@ -28,14 +29,20 @@ class Service
     #[ORM\Column(type: 'datetime')]
     private $updatedAt;
 
-    #[ORM\ManyToOne(inversedBy: 'service')]
-    private ?Member $members = null;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $code = null;
+
+    #[ORM\Column]
+    private ?bool $isActive = false;
+
+    #[ORM\ManyToOne(inversedBy: 'services')]
+    private ?TypoServ $TypoServ = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $duration = null;
 
     public function getId(): ?int
     {
@@ -118,6 +125,42 @@ class Service
     public function setCode(string $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    public function isIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getTypoServ(): ?TypoServ
+    {
+        return $this->TypoServ;
+    }
+
+    public function setTypoServ(?TypoServ $TypoServ): self
+    {
+        $this->TypoServ = $TypoServ;
+
+        return $this;
+    }
+
+    public function getDuration(): ?\DateTimeInterface
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(?\DateTimeInterface $duration): self
+    {
+        $this->duration = $duration;
 
         return $this;
     }

@@ -86,7 +86,7 @@ class Client
     private ?string $lastName = null;
 
     #[ORM\Column]
-    private ?bool $isFavori = null;
+    private ?bool $isFavori = false;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $nameStructure = null;

@@ -27,17 +27,29 @@ class Intervention
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $finishedAt = null;
 
-    #[ORM\Column(type: 'datetime')]
-    private $createdAt;
-
-    #[ORM\Column(type: 'datetime')]
-    private $updatedAt;
+    #[ORM\Column(nullable: true)]
+    private ?\DateInterval $timelaps = null;
 
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?Member $author = null;
 
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?FicheService $ficheservice = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isRecurr = false;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $recurrence = null;
+
+    #[ORM\Column(type: 'datetime')]
+    private $createdAt;
+
+    #[ORM\Column(type: 'datetime')]
+    private $updatedAt;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $multiple = null;
 
     public function __construct()
     {
@@ -98,6 +110,66 @@ class Intervention
         return $this;
     }
 
+    public function getTimelaps(): ?\DateInterval
+    {
+        return $this->timelaps;
+    }
+
+    public function setTimelaps(?\DateInterval $timelaps): self
+    {
+        $this->timelaps = $timelaps;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Member
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Member $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getFicheservice(): ?FicheService
+    {
+        return $this->ficheservice;
+    }
+
+    public function setFicheservice(?FicheService $ficheservice): self
+    {
+        $this->ficheservice = $ficheservice;
+
+        return $this;
+    }
+
+    public function isIsRecurr(): ?bool
+    {
+        return $this->isRecurr;
+    }
+
+    public function setIsRecurr(?bool $isRecurr): self
+    {
+        $this->isRecurr = $isRecurr;
+
+        return $this;
+    }
+
+    public function getRecurrence(): ?int
+    {
+        return $this->recurrence;
+    }
+
+    public function setRecurrence(?int $recurrence): self
+    {
+        $this->recurrence = $recurrence;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -125,26 +197,14 @@ class Intervention
         return $this;
     }
 
-    public function getAuthor(): ?Member
+    public function getMultiple(): ?int
     {
-        return $this->author;
+        return $this->multiple;
     }
 
-    public function setAuthor(?Member $author): self
+    public function setMultiple(?int $multiple): self
     {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    public function getFicheservice(): ?FicheService
-    {
-        return $this->ficheservice;
-    }
-
-    public function setFicheservice(?FicheService $ficheservice): self
-    {
-        $this->ficheservice = $ficheservice;
+        $this->multiple = $multiple;
 
         return $this;
     }

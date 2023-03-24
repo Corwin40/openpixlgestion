@@ -9,74 +9,38 @@ body{
         color: #ffffff;
         background-color: $blue-sky;
     }
-    h1 {
+    h1,h2 {
         color: $color-primary;
     }
-}
-#dashboard{
     a{
         color:$font-color;
-    }
-    .titre_h2{
-        color: $font-color;
-        margin-top: 1rem;
-        margin-bottom: 2rem;
-        font-weight: 500;
-        font-size: 1.8rem;
-        line-height: 1.2;
         text-decoration: none;
     }
-    .titre_h4{
-        color: $font-color;
-        margin-bottom: 2rem;
-        font-weight: 500;
-        font-size: 1.2rem;
-        line-height: 1.2;
-        text-decoration: none;
+    a:hover{
+        color:$color-primary;
     }
-}
-
-#login{
-    margin-top: auto;
-    margin-bottom: auto;
-    .card{
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
-    h1{
+    nav{
+        background-color: white;
         color: $color-primary;
+        .Logo_nav {
+            margin-right: 2rem;
+        }
     }
-}
-nav{
-    background-color: white;
-    color: $color-primary;
-    .Logo_nav {
-        margin-right: 2rem;
+    #login{
+        margin-top: auto;
+        margin-bottom: auto;
+        .card{
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        h1{
+            color: $color-primary;
+        }
     }
-}
+    #showfavoris{
+        .card{
+            min-height: 216px;
 
-
-.start_li{
-    margin-top: 2rem;
-}
-.font{
-    background-color: #efefef;
-}
-
-.form_space{
-    margin-bottom: 0.1rem;
-}
-.form_border{
-    padding-left: 2rem;
-}
-.form_border{
-    padding-left: 2rem;
-}
-.btn_logout{
-    text-align: end;
-    color: #d70000;
-}
-
-.btn_valide{
-    margin: 15px;
+        }
+    }
 }

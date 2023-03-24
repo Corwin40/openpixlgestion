@@ -263,7 +263,7 @@
     </script>
 {% endblock %}
 
-{% block body %}
+{% block content %}
     <section id="client_show">
         <div class="container-fluid">
             <div class="row title mt-4 mb-4">
@@ -290,15 +290,17 @@
                                 <tbody>
                                     {% if client.logoName is not null %}
                                         <tr>
-                                            <td rowspan="10" class="align-middle"><img class="img-fluid" src="{{ asset('images/logos/' ~ client.logoName) }}" alt="{{ client.logoName }}"></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td rowspan="9" class="align-middle"><img class="img-fluid" src="{{ asset('images/logos/' ~ client.logoName) }}" alt="{{ client.logoName }}"></td>
+                                            <th class="table-light"><i class="fa-solid fa-user"></i> Nom & Prénom :</th>
+                                            <td>{{ client.firstName }} {{ client.lastName }}</td>
                                         </tr>
-                                    {% endif %}
+                                    {% else %}
                                     <tr>
+                                        <td rowspan="9" class="align-middle"><img class="img-fluid" src="{{ asset('images/logo_openpixl_bleu.jpg') }}" alt="{{ client.logoName }}"></td>
                                         <th class="table-light"><i class="fa-solid fa-user"></i> Nom & Prénom :</th>
                                         <td>{{ client.firstName }} {{ client.lastName }}</td>
                                     </tr>
+                                    {% endif %}
                                     <tr>
                                         <th class="table-light"><i class="fa-solid fa-location-dot"></i> Adresse :</th>
                                         <td>{{ client.address }}<br>{{ client.postalCode }} {{ client.city }}</td>
@@ -374,10 +376,10 @@
     <section>
         <!-- Modal Ajout d'un service -->
         <div class="modal fade" id="addserviceonclient" tabindex="-1" aria-labelledby="addserviceonclient" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Crée un nouveau service</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Création du nouveau service.</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div id="ModalBodyaddonclient" class="modal-body">
@@ -386,6 +388,24 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
                         <a id="btnaddonclient" class="btn btn-sm btn-primary btnaddonclient" data-bs-dismiss="modal">Ajouter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Edition d'un service -->
+        <div class="modal fade" id="editserviceonclient" tabindex="-1" aria-labelledby="editserviceonclient" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Création du nouveau service.</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="ModalBodyeditonclient" class="modal-body">
+                        <p>Test</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <a id="btneditonclient" class="btn btn-sm btn-primary btneditonclient" data-bs-dismiss="modal">Ajouter</a>
                     </div>
                 </div>
             </div>
@@ -430,7 +450,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter une intervention</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Liste des interventions réalisées.</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div id="ModalBodyListintervonfiche" class="modal-body">

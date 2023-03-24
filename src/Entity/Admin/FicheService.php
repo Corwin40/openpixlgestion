@@ -38,14 +38,15 @@ class FicheService
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $echeance = null;
 
-    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
-    private ?int $time = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $price = null;
 
     #[ORM\OneToMany(mappedBy: 'ficheservice', targetEntity: Intervention::class)]
     private Collection $interventions;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $package = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateInterval $engagement = null;
 
 
     public function __construct()
@@ -147,29 +148,6 @@ class FicheService
         return $this;
     }
 
-    public function getTime(): ?int
-    {
-        return $this->time;
-    }
-
-    public function setTime(?int $time): self
-    {
-        $this->time = $time;
-
-        return $this;
-    }
-
-    public function getPrice(): ?int
-    {
-        return $this->price;
-    }
-
-    public function setPrice(?int $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Intervention>
@@ -197,6 +175,30 @@ class FicheService
                 $intervention->setFicheservice(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPackage(): ?int
+    {
+        return $this->package;
+    }
+
+    public function setPackage(?int $package): self
+    {
+        $this->package = $package;
+
+        return $this;
+    }
+
+    public function getEngagement(): ?\DateInterval
+    {
+        return $this->engagement;
+    }
+
+    public function setEngagement(?\DateInterval $engagement): self
+    {
+        $this->engagement = $engagement;
 
         return $this;
     }

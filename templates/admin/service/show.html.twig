@@ -2,7 +2,7 @@
 
 {% block title %}Service{% endblock %}
 
-{% block body %}
+{% block content %}
     <section id="client_show" class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -19,6 +19,10 @@
                         <p>
                             <i class="fa-solid fa-location-dot"></i> <b>Détails</b> :
                             <br>{{ service.description|raw }}
+                        </p>
+                        <p>
+                            <i class="fa-duotone fa-hourglass-start"></i> <b>Volume d'heure</b> :
+                            {{ service.duration|date('h:m') }}
                         </p>
                     </div>
                 </div>

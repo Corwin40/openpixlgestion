@@ -20,9 +20,29 @@
                     {{ form_widget(form.description, {'attr': {'class': 'form-control form-control-sm'}}) }}
                 </td>
             </tr>
+            <tr class="align-middle">
+                <td class="table-light">{{ form_label(form.duration) }}</td>
+                <td>
+                    <div class="row">
+                        <div class="col-2">{{ form_widget(form.duration, {'attr': {'class': 'form-control form-control-sm'}}) }}</div>
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+            <tr class="align-middle">
+                <td class="table-light">{{ form_label(form.typoServ) }}</td>
+                <td colspan="2">
+                    {{ form_widget(form.typoServ, {'attr': {'class': 'form-select form-select-sm'}}) }}
+                </td>
+            </tr>
+            <tr class="align-middle">
+                <td class="table-light">{{ form_label(form.isActive) }}</td>
+                <td colspan="2">
+                    {{ form_widget(form.isActive) }}
+                </td>
+            </tr>
         </table>
-        <button class="btn btn-sm btn-outline-success">{{ button_label|default('Enregistrer') }}</button>&nbsp;&nbsp;<a class="btn btn-sm btn-outline-dark" href="{{ path('app_admin_service_index') }}">Retour à la liste</a>
+        <button type="submit" class="btn btn-sm btn-outline-success">{{ button_label|default('Enregistrer') }}</button>&nbsp;&nbsp;<a class="btn btn-sm btn-outline-dark" href="{{ path('app_admin_service_index') }}">Retour à la liste</a>
     </div>
-</div>
 </div>
 {{ form_end(form) }}

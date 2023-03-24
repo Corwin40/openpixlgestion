@@ -28,6 +28,23 @@
                 <td>{{ form_widget(form.finishedAt, {'attr': {'class': 'form-control form-control-sm'}}) }}</td>
                 <td></td>
             </tr>
+            <tr class="align-middle">
+                <th colspan="4">{{ form_label(form.isRecurr) }} {{ form_widget(form.isRecurr) }}</th>
+            </tr>
+            <tr class="align-middle">
+                <td class="table-light">{{ form_label(form.recurrence) }} </td>
+                <td colspan="2">
+                    {{ form_widget(form.recurrence, {'attr': {'class': 'form-select form-select-sm'}}) }}
+                </td>
+                <td></td>
+            </tr>
+            <tr class="align-middle">
+                <td class="table-light">{{ form_label(form.multiple) }}</td>
+                <td>
+                    {{ form_widget(form.multiple, {'attr': {'class': 'form-select form-select-sm'}}) }}
+                </td>
+                <td colspan="2"></td>
+            </tr>
         </table>
         <button class="btn btn-sm btn-outline-success">{{ button_label|default('Enregistrer') }}</button>&nbsp;&nbsp<a class="btn btn-sm btn-outline-secondary" href="{{ path('app_admin_intervention_index') }}">Retour à la liste</a>
     </div>

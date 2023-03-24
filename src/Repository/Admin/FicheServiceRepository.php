@@ -49,7 +49,8 @@ class FicheServiceRepository extends ServiceEntityRepository
                 f.updatedAt,
                 f.statut,
                 f.createdAt,
-                f.price,
+                f.engagement,
+                f.package,
                 f.id AS id,
                 s.id AS idService,
                 s.name AS nameService
@@ -75,7 +76,8 @@ class FicheServiceRepository extends ServiceEntityRepository
                 f.updatedAt,
                 f.statut,
                 f.createdAt,
-                f.price,
+                f.engagement,
+                f.package,
                 f.id AS id,
                 s.id AS idService,
                 s.name AS nameService

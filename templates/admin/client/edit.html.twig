@@ -11,12 +11,14 @@
         let typeClientVal = document.getElementById('typeClientVal').value
         if(typeClientVal == 1)
         {
+            document.getElementById("nameStructure").removeAttribute('style')
             document.getElementById("logo").removeAttribute('style')
             document.getElementById("director").removeAttribute('style')
             document.getElementById("siret_siren").removeAttribute('style')
             document.getElementById("activity_pro").removeAttribute('style')
             document.getElementById("tva").removeAttribute('style')
         }else{
+            document.getElementById("nameStructure").style.display = "none"
             document.getElementById("logo").style.display = "none" // Insere dans le DOM, une balise Style sur l'éléments sélectionné qui injecte du CSS
             document.getElementById("director").style.display = "none"
             document.getElementById("siret_siren").style.display = "none"
@@ -54,7 +56,7 @@
 </script>
 {% endblock %}
 
-{% block body %}
+{% block content %}
 
     <section class="container-fluid">
         <div class="row title mt-4 mb-4">

@@ -43,6 +43,12 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Intervention::class)]
     private Collection $interventions;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $firstName = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $lastName = null;
+
     public function __construct()
     {
         $this->client = new ArrayCollection();
@@ -218,6 +224,35 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
                 $intervention->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->email;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(?string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }

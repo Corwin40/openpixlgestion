@@ -2,7 +2,7 @@
 
 {% block title %}Intervention index{% endblock %}
 
-{% block body %}
+{% block content %}
     <section id="client_index" class="container-fluid">
         <div class="row title mt-4 mb-4">
             <div class="col-12">
@@ -31,9 +31,9 @@
                             <td>{{ intervention.id }}</td>
                             <td>{{ intervention.name }}</td>
                             <td>{{ intervention.description|u.truncate(100, ' ...')|raw }}</td>
-                            <td>{{ intervention.startedAt ? intervention.startedAt|date('H:i:s') : '' }}</td>
-                            <td>{{ intervention.finishedAt ? intervention.finishedAt|date('H:i:s') : '' }}</td>
-                            <td>{{ diffHour|date('%Hh%i') }}</td>
+                            <td>{{ intervention.startedAt ? intervention.startedAt|date('H:i') : '' }}</td>
+                            <td>{{ intervention.finishedAt ? intervention.finishedAt|date('H:i') : '' }}</td>
+                            <td>{{ intervention.timelaps|date('%Hh%I') }}</td>
                             <td>{{ intervention.createdAt ? intervention.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                             <td>{{ intervention.updatedAt ? intervention.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                             <td>
@@ -52,7 +52,7 @@
                         {% set total = date(cumul|date('H:i')).diff(date('1900/01/01')) %}
                         <tr>
                             <th class="text-end" colspan="5">Temps réalisé :</th>
-                            <td>{{ total|date('%Hh%i') }}</td>
+                            <td>{{ total|date('%Hh%I') }}</td>
                             <td colspan="3"></td>
 
                         </tr>
