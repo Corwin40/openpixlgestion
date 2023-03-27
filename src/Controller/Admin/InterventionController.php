@@ -136,9 +136,9 @@ class InterventionController extends AbstractController
                 //->bcc('bcc@example.com')
                 //->replyTo('fabien@example.com')
                 //->priority(Email::PRIORITY_HIGH)
-                ->subject('[OpenPixl] - Mise à jour de votre service')
+                ->subject('[OpenPixl] - Mise à jour de votre service : '.$nameserv)
                 ->text('Sending emails is fun again!')
-                ->html('<p>See Twig integration for better HTML integration!</p>');
+                ->html('fichier twig + Variable objet à transmettre');
 
             $mailer->send($email);
 
