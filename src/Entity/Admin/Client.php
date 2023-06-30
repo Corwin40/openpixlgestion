@@ -91,6 +91,9 @@ class Client
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $nameStructure = null;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $surnameStructure = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -440,6 +443,18 @@ class Client
     public function setNameStructure(?string $nameStructure): self
     {
         $this->nameStructure = $nameStructure;
+
+        return $this;
+    }
+
+    public function getSurnameStructure(): ?string
+    {
+        return $this->surnameStructure;
+    }
+
+    public function setSurnameStructure(?string $surnameStructure): self
+    {
+        $this->surnameStructure = $surnameStructure;
 
         return $this;
     }

@@ -3,7 +3,7 @@
 <div id="showfavoris" class="col-2">
     <div class="card">
         {% if client.logoName is not empty %}
-            <img class="card-img-top img-fluid" src="{{ asset('/images/logos/'~client.logoName) }}" alt="{{ client.logoName }}">
+            <img class="card-img-top img-fluid" src="{{ asset('/images/logos/'~client.logoName)|imagine_filter('client_card') }}" alt="{{ client.logoName }}">
         {% else %}
             <img class="card-img-top img-fluid" src="{{ asset('images/logo_openpixl_bleu.jpg') }}" alt="OpenPixl">
         {% endif %}
@@ -14,7 +14,7 @@
             {% if client.typeclient.isFormCompleted == 0 %}
             <p class="text-center mb-0">{{ client.firstname }} {{ client.lastname }}</p>
             {% else %}
-            <p class="text-center mb-0">{{ client.nameStructure }}</p>
+            <p class="text-center mb-0">{{ client.surnameStructure }}</p>
             {% endif %}
         </div>
     </div>

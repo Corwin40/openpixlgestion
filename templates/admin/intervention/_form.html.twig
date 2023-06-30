@@ -1,5 +1,4 @@
 {{ form_start(form, {'attr': {'id': 'FormInterventionliste'}}) }}
-
         <table class="table table-sm">
             <tr>
                 <td class="col-sm-3"></td>
@@ -44,6 +43,12 @@
                 </td>
                 <td colspan="2"></td>
             </tr>
+            {% if app.request.attributes.get('_route') == 'app_admin_intervention_edit' %}
+            <tr>
+                <td></td>
+                <td><button type="submit" class="btn btn-sm btn-outline-secondary">Modifier</button></td>
+            </tr>
+            {% endif %}
         </table>
 
 {{ form_end(form) }}

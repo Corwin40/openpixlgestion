@@ -117,6 +117,13 @@ class ClientType extends AbstractType
                     'placeholder' => 'Nom de la société'
                 ]
             ])
+            ->add('surnameStructure', TextType::class,[
+                'label'=>'Nom court de la société',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Nom de la société'
+                ]
+            ])
             ->add('director', TextType::class,[
                 'label'=>'Directeur',
                 'required' => false,
