@@ -10,6 +10,12 @@
             <td class="col-md-4">{{ form_widget(form.engagement) }}</td>
         </tr>
         <tr class="align-middle">
+            <td>{{ form_label(form.choicePrice) }}</td>
+            <td>
+                {{ form_widget(form.choicePrice) }}
+            </td>
+        </tr>
+        <tr class="align-middle">
             <td class="col-md-4 table-light">{{ form_label(form.package) }}</td>
             <td class="col-md-4">{{ form_widget(form.package, {'attr': {'class': 'form-select form-select-sm'}}) }}</td>
         </tr>

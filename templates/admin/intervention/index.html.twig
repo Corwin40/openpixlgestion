@@ -27,7 +27,7 @@
                     {% set cumul = date('1900/01/01') %}
                     {% for intervention in interventions %}
                         {% set diffHour = date(intervention.finishedAt|date('H:i')).diff(date(intervention.startedAt|date('H:i'))) %}
-                        <tr>
+                        <tr class="align-middle">
                             <td>{{ intervention.id }}</td>
                             <td>{{ intervention.name }}</td>
                             <td>{{ intervention.description|u.truncate(100, ' ...')|raw }}</td>

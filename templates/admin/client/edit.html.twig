@@ -37,6 +37,7 @@
             if(document.getElementById('typeClientVal').value == 0)
             {
                 document.getElementById("nameStructure").removeAttribute('style')
+                document.getElementById("surnameStructure").removeAttribute('style')
                 document.getElementById("logo").removeAttribute('style')
                 document.getElementById("director").removeAttribute('style')
                 document.getElementById("siret_siren").removeAttribute('style')
@@ -44,6 +45,7 @@
                 document.getElementById("tva").removeAttribute('style')
             }else{
                 document.getElementById("nameStructure").style.display = "none"
+                document.getElementById("surnameStructure").style.display = "none"
                 document.getElementById("logo").style.display = "none" // Insere dans le DOM, une balise Style sur l'éléments sélectionné qui injecte du CSS
                 document.getElementById("director").style.display = "none"
                 document.getElementById("siret_siren").style.display = "none"

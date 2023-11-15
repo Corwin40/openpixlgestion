@@ -51,7 +51,19 @@ class FicheServiceType extends AbstractType
                     "service proche de l'échéance" => "service proche de l'échéance",
                     'service à échéance' => 'service à échéance',
                 ],
-
+            ])
+            ->add('choicePrice', ChoiceType::class, [
+                'label' => 'Mode de règlement',
+                'attr' => [
+                    'class' => 'radio-inline'
+                ],
+                'choices'  => [
+                    'Au forfait fixe' => 0,
+                    "Au forfait adaptée" => 1,
+                    "A l'heure" => 2
+                ],
+                'expanded' => true,
+                'multiple' => false
             ])
         ;
     }

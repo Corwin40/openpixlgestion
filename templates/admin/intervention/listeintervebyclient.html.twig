@@ -15,7 +15,7 @@
     {% set cumul = date('1900/01/01') %}
     {% for listeinterve in listeinterves %}
         {% set diffHour = date(listeinterve.finishedAt|date('H:i')).diff(date(listeinterve.startedAt|date('H:i'))) %}
-        <tr>
+        <tr class="align-middle">
             <td>{{ listeinterve.name }}</td>
             <td>{{ listeinterve.author.firstName }} {{ listeinterve.author.lastName }}</td>
             <td>{{ listeinterve.startedAt ? listeinterve.startedAt|date('H:i') : '' }}</td>

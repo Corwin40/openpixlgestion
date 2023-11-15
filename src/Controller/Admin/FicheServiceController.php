@@ -25,22 +25,57 @@ class FicheServiceController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_admin_fiche_service_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, FicheServiceRepository $ficheServiceRepository): Response
+    #[Route('/new/{idclient}', name: 'app_admin_fiche_service_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, FicheServiceRepository $ficheServiceRepository, $idclient, ClientRepository $clientRepository): Response
     {
+        $user = $this->getUser();
+        $client = $clientRepository->find($idclient);
+        //dd($user);
+
         $ficheService = new FicheService();
-        $form = $this->createForm(FicheServiceType::class, $ficheService);
+        $ficheService->setAuthor($user);
+        $ficheService->setClient($client);
+        $ficheService->setCreatedAt();
+        $ficheService->setUpdatedAt();
+
+        $form = $this->createForm(FicheServiceType::class, $ficheService, [
+            "action" => $this->generateUrl('app_admin_fiche_service_new', ['idclient' => $idclient]),
+            "method" => 'POST',
+            'attr' => [
+                'class' => 'formFiche'
+            ]
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $engagement = $form->get('engagement')->getData();
+            $inscription = new \DateTime('now');
+            $echeance = date_add($inscription, $engagement);
+
+            $ficheService->setEcheance($echeance);
             $ficheServiceRepository->save($ficheService, true);
 
-            return $this->redirectToRoute('app_admin_fiche_service_index', [], Response::HTTP_SEE_OTHER);
+            $fiches = $ficheServiceRepository->listByClient($idclient);
+
+            //return $this->redirectToRoute('app_admin_fiche_service_index', [], Response::HTTP_SEE_OTHER);
+            return $this->json([
+                'code' => 200,
+                'message' => 'La page a été crée avec success.',
+                'liste' => $this->renderView('admin/fiche_service/_listeficheservice.html.twig', [
+                    'listficheservices' => $fiches
+                ])
+            ], 200);
         }
 
-        return $this->renderForm('admin/fiche_service/new.html.twig', [
-            'fiche_service' => $ficheService,
-            'form' => $form,
+        $view = $this->render('admin/fiche_service/_form.html.twig', [
+            'ficheService' => $ficheService,
+            'form' => $form
+        ]);
+
+        return $this->json([
+            'code' => 200,
+            'message' => 'Le service a bien été ajouté sur le compte du client.',
+            'formView' => $view->getContent()
         ]);
     }
 
@@ -58,24 +93,33 @@ class FicheServiceController extends AbstractController
         $form = $this->createForm(FicheServiceType::class, $ficheService, [
             'action'=> $this->generateUrl('app_admin_fiche_service_edit', ['id'=> $ficheService->getId()]),
             'method'=>'POST',
-            'attr' => ['class'=>'formeditonclient']
+            'attr' => ['class' => 'formFiche']
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $client = $ficheService->getClient();
             $ficheServiceRepository->save($ficheService, true);
+            $fiches = $ficheServiceRepository->listByClient($client->getId());
 
-            return $this->redirectToRoute('app_admin_fiche_service_index', [], Response::HTTP_SEE_OTHER);
+            //return $this->redirectToRoute('app_admin_fiche_service_index', [], Response::HTTP_SEE_OTHER);
+            return $this->json([
+                'code' => 200,
+                'message' => 'La page a été crée avec success.',
+                'liste' => $this->renderView('admin/fiche_service/_listeficheservice.html.twig', [
+                    'listficheservices' => $fiches
+                ])
+            ], 200);
         }
 
-        $view = $this->renderForm('admin/fiche_service/_form.html.twig', [
+        $view = $this->render('admin/fiche_service/_form.html.twig', [
             'ficheservice' => $ficheService,
             'form' => $form
         ]);
 
         return $this->json([
             'code' => 200,
-            'message' => '',
+            'message' => 'Le service a été correctement modifié.',
             'form' => $view->getContent()
         ], 200);
 

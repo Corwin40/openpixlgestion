@@ -48,6 +48,9 @@ class FicheService
     #[ORM\Column(nullable: true)]
     private ?\DateInterval $engagement = null;
 
+    #[ORM\Column]
+    private ?int $choicePrice = 0;
+
 
     public function __construct()
     {
@@ -199,6 +202,18 @@ class FicheService
     public function setEngagement(?\DateInterval $engagement): self
     {
         $this->engagement = $engagement;
+
+        return $this;
+    }
+
+    public function getChoicePrice(): ?int
+    {
+        return $this->choicePrice;
+    }
+
+    public function setChoicePrice(int $choicePrice): self
+    {
+        $this->choicePrice = $choicePrice;
 
         return $this;
     }
