@@ -51,6 +51,9 @@ class FicheService
     #[ORM\Column]
     private ?int $choicePrice = 0;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $name = null;
+
 
     public function __construct()
     {
@@ -214,6 +217,18 @@ class FicheService
     public function setChoicePrice(int $choicePrice): self
     {
         $this->choicePrice = $choicePrice;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

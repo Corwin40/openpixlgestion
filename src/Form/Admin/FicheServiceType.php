@@ -17,9 +17,12 @@ class FicheServiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('name', TextType::class, [
+                'label' => 'Nom du service'
+            ])
             ->add('service', EntityType::class,[
                 'class' => Service::class,
-                'label'=>'Nom du service',
+                'label'=>'Service',
                 'required' => true,
             ])
             ->add('engagement', DateIntervalType::class, [

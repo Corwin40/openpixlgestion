@@ -1,11 +1,17 @@
 <div class="row">
     <div class="col-md-12">
         <table class="table">
-            <caption>{{ listficheservices|length }} enregistrement</caption>
+            <caption>
+                {% if listficheservices|length > 1 %}
+                    {{ listficheservices|length }} enregistrements
+                {% else %}
+                    {{ listficheservices|length }} enregistrement
+                {% endif %}
+            </caption>
             <thead>
             <tr>
                 <th></th>
-                <th class="col-3"><i class="fa-solid fa-tag"></i> Nom</th>
+                <th class="col-4"><i class="fa-solid fa-tag"></i> Nom</th>
                 <th class="col-1"><i class="fa-duotone fa-box-archive"></i> Durée</th>
                 <th class="col-1">Forfait</th>
                 <th>Etat</th>
@@ -17,7 +23,7 @@
             {% for ficheservice in listficheservices %}
                 <tr class="align-middle">
                     <td><input type="checkbox" value="{{ ficheservice.id }}" id="serv-id"></td>
-                    <td>{{ ficheservice.nameService }}</td>
+                    <td>{{ ficheservice.name }} - {{ ficheservice.nameService }}</td>
                     <td>{{ ficheservice.engagement|date('%y') }} {% if ficheservice.engagement|date('%y') > 2%}ans{% else %}an{% endif %}</td>
                     <td>{{ ficheservice.package }}</td>
                     <td>{{ ficheservice.statut }}</td>
