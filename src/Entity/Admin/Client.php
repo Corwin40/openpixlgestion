@@ -7,29 +7,47 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => 'client:item']),
+        new GetCollection(normalizationContext: ['groups' => 'client:list'])
+    ],
+    order: ['id'=> 'DESC'],
+    paginationEnabled: false,
+)]
 class Client
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['client:list', 'client:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['client:list', 'client:item'])]
     private ?string $address = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['client:list', 'client:item'])]
     private ?string $city = null;
 
     #[ORM\Column(length: 5)]
+    #[Groups(['client:list', 'client:item'])]
     private ?string $postalCode = null;
 
     #[ORM\Column(length: 14)]
+    #[Groups(['client:list', 'client:item'])]
     private ?string $phone = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['client:list', 'client:item'])]
     private ?string $email = null;
 
     #[ORM\Column(type: 'datetime')]
