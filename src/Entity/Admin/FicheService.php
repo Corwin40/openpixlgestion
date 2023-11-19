@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: FicheServiceRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -15,45 +16,60 @@ class FicheService
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['client:item'])]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $statut = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $updatedAt = null;
+    #[ORM\Column(length: 100, nullable: true)]
+    #[Groups(['client:item'])]
+    private ?string $name = null;
 
     #[ORM\ManyToOne]
+    #[Groups(['client:item'])]
+    private ?Service $service = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['client:item'])]
+    private ?string $statut = null;
+
+
+
+    #[ORM\ManyToOne]
+    #[Groups(['client:item'])]
     private ?Member $author = null;
 
     #[ORM\ManyToOne(inversedBy: 'ficheServices')]
     private ?Client $Client = null;
 
-    #[ORM\ManyToOne]
-    private ?Service $service = null;
+    #[ORM\Column(nullable: true)]
+    #[Groups(['client:item'])]
+    private ?\DateInterval $engagement = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['client:item'])]
     private ?\DateTimeInterface $echeance = null;
 
 
     #[ORM\OneToMany(mappedBy: 'ficheservice', targetEntity: Intervention::class)]
+    #[Groups(['client:item'])]
     private Collection $interventions;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['client:item'])]
     private ?int $package = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateInterval $engagement = null;
+
 
     #[ORM\Column]
+    #[Groups(['client:item'])]
     private ?int $choicePrice = 0;
 
-    #[ORM\Column(length: 100, nullable: true)]
-    private ?string $name = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['client:item'])]
+    private ?\DateTimeInterface $createdAt = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['client:item'])]
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {

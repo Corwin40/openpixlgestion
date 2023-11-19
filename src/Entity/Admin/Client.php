@@ -71,9 +71,11 @@ class Client
     private Collection $servicesClientChoice;
 
     #[ORM\OneToMany(mappedBy: 'Client', targetEntity: FicheService::class)]
+    #[Groups(['client:item'])]
     private Collection $ficheServices;
 
     #[ORM\Column(length: 10, nullable: true)]
+    #[Groups(['client:item'])]
     private ?string $siren = null;
 
     #[ORM\Column(length: 14, nullable: true)]
