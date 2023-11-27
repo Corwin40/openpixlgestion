@@ -23,6 +23,10 @@ class FicheService
     #[Groups(['client:item'])]
     private ?string $name = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['client:item'])]
+    private ?string $descriptif = null;
+
     #[ORM\ManyToOne]
     #[Groups(['client:item'])]
     private ?Service $service = null;
@@ -30,8 +34,6 @@ class FicheService
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['client:item'])]
     private ?string $statut = null;
-
-
 
     #[ORM\ManyToOne]
     #[Groups(['client:item'])]
@@ -245,6 +247,18 @@ class FicheService
     public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescriptif(): ?string
+    {
+        return $this->descriptif;
+    }
+
+    public function setDescriptif(?string $descriptif): self
+    {
+        $this->descriptif = $descriptif;
 
         return $this;
     }

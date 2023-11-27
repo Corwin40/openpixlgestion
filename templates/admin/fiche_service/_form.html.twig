@@ -6,6 +6,10 @@
             <td class="col-md-4">{{ form_widget(form.name, {'attr': {'class': 'form-control form-control-sm'}}) }}</td>
         </tr>
         <tr class="align-middle">
+            <td class="col-md-4 table-light">{{ form_label(form.descriptif) }}</td>
+            <td class="col-md-4">{{ form_widget(form.descriptif, {'attr': {'class': 'form-control form-control-sm'}}) }}</td>
+        </tr>
+        <tr class="align-middle">
             <td class="col-md-4 table-light">{{ form_label(form.service) }}</td>
             <td class="col-md-4">{{ form_widget(form.service, {'attr': {'class': 'form-select form-select-sm'}}) }}</td>
         </tr>
