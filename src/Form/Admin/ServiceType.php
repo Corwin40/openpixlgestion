@@ -3,13 +3,11 @@
 namespace App\Form\Admin;
 
 use App\Entity\Admin\Choice\TypoServ;
-use App\Entity\Admin\Service;
-use App\Entity\Admin\TypeClient;
+use App\Entity\gestapp\Service;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Service{% endblock %}
+
+{% block content %}
+    <section id="client_show" class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center">Service</h1>
+            </div>
+        </div>
+        <div class="row g-1">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">{{ service.name }}</h4>
+                    </div>
+                    <div class="card-body text-start">
+                        <p>
+                            <i class="fa-solid fa-location-dot"></i> <b>Détails</b> :
+                            <br>{{ service.description|raw }}
+                        </p>
+                        <p>
+                            <i class="fa-duotone fa-hourglass-start"></i> <b>Volume d'heure</b> :
+                            {{ service.duration|date('h:m') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Liste des services actifs</h4>
+                    </div>
+                    <div class="card-body text-start">
+                        {{ render(controller('App\\Controller\\Gestapp\\FicheServiceController::listservactifs', {'idserv': service.id})) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

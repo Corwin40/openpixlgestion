@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Repository\Admin\ClientRepository;
+use App\Repository\gestapp\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

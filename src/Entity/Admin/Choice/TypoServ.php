@@ -2,7 +2,7 @@
 
 namespace App\Entity\Admin\Choice;
 
-use App\Entity\Admin\Service;
+use App\Entity\gestapp\Service;
 use App\Repository\Admin\Choice\TypoServRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

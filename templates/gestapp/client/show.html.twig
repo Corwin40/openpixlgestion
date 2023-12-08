@@ -1,0 +1,574 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        window.onload = function(){
+            // Appel des éléments récurrents
+            // -----------------------------------------
+            const modalServiceonclient = document.getElementById('modalServiceonclient')
+            const editFicheservice = document.getElementById('editFicheservice')
+            // PARTIE Ajout/édition d'une fiche service en Javascript pour un client
+            // -----------------------------------------
+            //editFicheservice.
+            modalServiceonclient.addEventListener('show.bs.modal', function (event) {
+                // Button that triggered the modal
+                let button = event.relatedTarget
+                // extraction de la variable
+                let recipient = button.getAttribute('data-bs-whatever')
+                let crud = recipient.split('-')[0]
+                let contentTitle = recipient.split('-')[1]
+                let id = recipient.split('-')[2]
+                let namePage = recipient.split('-')[3]
+                if(crud === 'ADD'){
+                    // mise à jour du lien de soumission du formulaire.
+                    axios
+                        .get('/admin/ficheservice/new/' + id)
+                        .then(function (response) {
+                            const form = document.getElementById('ModalBodyServiceonclient').innerHTML = response.data.formView;
+                        })
+                    let modalHeaderH5 = modalServiceonclient.querySelector('.modal-title')
+                    modalHeaderH5.textContent = contentTitle
+                    let modalContent = modalServiceonclient.querySelector('.modal-footer')
+                    let modalSubmit = modalServiceonclient.querySelector('.modal-footer a')
+                }else if(crud === 'EDIT'){
+                    // mise à jour du lien de soumission du formulaire.
+                    axios
+                        .get('/admin/ficheservice/'+ id +'/edit')
+                        .then(function (response) {
+                            const form = document.getElementById('ModalBodyServiceonclient').innerHTML = response.data.form;
+                        })
+                    let modalHeaderH5 = modalServiceonclient.querySelector('.modal-title')
+                    modalHeaderH5.textContent = contentTitle
+                    let modalContent = modalServiceonclient.querySelector('.modal-footer')
+                    let modalSubmit = modalServiceonclient.querySelector('.modal-footer a')
+                    modalSubmit.innerHTML= '<i class="fa-duotone fa-pen-to-square"></i> Modifier'
+                }
+                else if(crud === 'DEL'){
+                    // mise à jour du lien de soumission du formulaire.
+                    let modalDialog = modalPage.querySelector('.modal-dialog')
+                    modalDialog.classList.remove("modal-xl")
+                    let modalHeader = modalPage.querySelector('.modal-header')
+                    modalHeader.innerHTML = '<h5 class="modal-title text-danger">'+contentTitle+'</h5>'
+                    let modalContent = modalPage.querySelector('.modal-body')
+                    modalContent.innerHTML =
+                        '<p>Vous êtes sur le point de supprimer la page : <b>'+namePage+'</b>.</p>' +
+                        '<p>En cliquant sur le bouton "Supprimer", la page sera difinitivement effacée. Est-vous sur de continuer ?</p>'
+                    let modalSubmit = modalPage.querySelector('.modal-footer a')
+                    modalSubmit.classList.remove("btn-primary")
+                    modalSubmit.removeEventListener('click', submitFormPage)
+                    modalSubmit.classList.add("btn-danger")
+                    modalSubmit.innerHTML= '<i class="fa-duotone fa-trash-can-check"></i> Supprimer'
+                    modalSubmit.removeAttribute('href')
+                    modalSubmit.href = '/webapp/page/'+id+'/del'
+                }
+            })
+            // fonction d'envoi de la fiche Client vers son controller
+            function submitFormFicheservice(event){
+                event.preventDefault()
+                let formFiche = document.querySelector('.formFiche')
+                let urlFicheController = formFiche.action
+                let dataFiche = new FormData(formFiche)
+                axios
+                    .post(urlFicheController, dataFiche)
+                    .then(function(response){
+                        const liste = document.getElementById('liste').innerHTML = response.data.liste
+                        // Code pour recharger les events
+                        // -----------------------------------------------------------
+                        // Ajout d'un évènement sur le click du selecteur EditCustomer
+                        document.querySelectorAll('a.submitFormService').forEach(function (link) {
+                            link.addEventListener('click', submitFormFicheservice);
+                        })
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }
+
+            // PARTIE Ajout d'une fiche service en Javascript pour un client
+            // -----------------------------------------
+            // I. Déclaration des éléments utile à la fonction
+            const modalAddonClient = document.getElementById('addserviceonclient')
+
+            // II. Ouverture de la modale d'édition
+            modalAddonClient.addEventListener('show.bs.modal', function (event) {
+                // Récupération du bouton cliqué et extraction de la variable transmise dans le data-bs-whatever
+                let button = event.relatedTarget
+                let idclient = button.getAttribute('data-bs-whatever')
+                // Chargement du Formulaire
+                let modalBody = modalAddonClient.querySelector('.modal-body')
+                // on va chercher le controlleur addonclient pour afficher le formulaire
+                axios
+                    .get('/admin/ficheservice/addonclient/' + idclient )
+                    .then(function (response) {
+                        const form = document.getElementById('ModalBodyaddonclient').innerHTML = response.data.form;
+                        // Ajout d'un évènement sur le click du selecteur ajout d'un service
+                        document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddonclient);
+                        })
+
+                        // Ajout d'un évènement sur le click de suppression service
+                        document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                            link.addEventListener('click', btnSupprService);
+                        })
+
+                        // Ajout d'un évènement sur le click du selecteur d'un statut
+                        document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddstatutonclient);
+                        })
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                // mise à jour du lien de soumission du formulaire.
+                let modalSubmit = modalAddonClient.querySelector('.modal-footer a')
+                modalSubmit.href = '/admin/ficheservice/addonclient/' + idclient
+            })
+
+            // III. Enregistrement de la fiche service sur la BDD
+            function btnaddonclient(event){
+                event.preventDefault()
+                let urlbtnaddonclient = this.href
+                let Formbtnaddonclient = document.querySelector('.formaddonclient')
+                let databtnaddonclient = new FormData(Formbtnaddonclient)
+                axios
+                    .post(urlbtnaddonclient, databtnaddonclient)
+                    .then(function(response){
+                        const liste = document.getElementById('listeficheservice').innerHTML = response.data.liste
+
+                        // Ajout d'un évènement sur le click du selecteur ajout d'un service
+                        document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddonclient);
+                        })
+
+                        // Ajout d'un évènement sur le click de suppression service
+                        document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                            link.addEventListener('click', btnSupprService);
+                        })
+
+                        // Ajout d'un évènement sur le click du selecteur d'un statut
+                        document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddstatutonclient);
+                        })
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }
+
+
+            // PARTIE suppression d'une fiche service en Javascript
+            // -----------------------------------------
+            // I. Déclaration des éléments utile à la fonction
+            const modalSupprService = document.getElementById('SupprService')
+
+            // II. Ouverture de la modale d'édition
+            modalSupprService.addEventListener('show.bs.modal', event => {
+                // Button that triggered the modal
+                const button = event.relatedTarget
+                // Extract info from data-bs-* attributes
+                const idfiche = button.getAttribute('data-bs-whatever')
+                // If necessary, you could initiate an AJAX request here
+                // and then do the updating in a callback.
+                //
+                // Update the modal's content.
+                const modalBody = modalSupprService.querySelector('.modal-body')
+                modalBody.innerHTML = "<p>Vous êtes sur le point de supprimer la fiche. <br> Etes-vous sur de vouloir continuer ?</p>"
+                let modalSubmit = modalSupprService.querySelector('.modal-footer a')
+                modalSubmit.href = '/admin/ficheservice/del/' + idfiche
+            })
+
+            // III. Suppression de la fiche service sur la BDD
+            function btnSupprService(event){
+                event.preventDefault
+                let url = this.href
+                axios
+                    .post(url)
+                    .then(function(response){
+                        const liste = document.getElementById('listeficheservice').innerHTML = response.data.liste
+
+                        // Ajout d'un évènement sur le click du selecteur ajout d'un service
+                        document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddonclient);
+                        })
+
+                        // Ajout d'un évènement sur le click de suppression service
+                        document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                            link.addEventListener('click', btnSupprService);
+                        })
+
+                        // Ajout d'un évènement sur le click du selecteur d'un statut
+                        document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddstatutonclient);
+                        })
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+
+            }
+
+
+            // PARTIE Ajout d'une intervention en Javascript
+            // -----------------------------------------
+            // I. Déclaration des éléments utile à la fonction
+            const modaladdstatutonClient = document.getElementById('addstatutonclient')
+            // II. Ouverture de la modale d'ajourt d'une intervention
+            modaladdstatutonClient.addEventListener('show.bs.modal', function (event) {
+                // Récupération du bouton cliqué et extraction de la variable transmise dans le data-bs-whatever
+                let button = event.relatedTarget
+                let idficheservice = button.getAttribute('data-bs-whatever')
+                // Chargement du Formulaire
+                let modalBody = modaladdstatutonClient.querySelector('.modal-body')
+                // on va chercher le controlleur addonclient pour afficher le formulaire
+                axios
+                    .get('/admin/intervention/addinterveonclient/' + idficheservice )
+                    .then(function (response) {
+                        const form = document.getElementById('ModalBodyaddstatutonclient').innerHTML = response.data.form;
+                        // Ajout d'un évènement sur le click du selecteur ajout d'un service
+                        document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddonclient);
+                        })
+
+                        // Ajout d'un évènement sur le click de suppression service
+                        document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                            link.addEventListener('click', btnSupprService);
+                        })
+
+                        // Ajout d'un évènement sur le click du selecteur d'un statut
+                        document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddstatutonclient);
+                        })
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                // mise à jour du lien de soumission du formulaire.
+                let modalSubmit = modaladdstatutonClient.querySelector('.modal-footer a')
+                modalSubmit.href = '/admin/intervention/addinterveonclient/' + idficheservice
+            })
+
+            // III.
+            function btnaddstatutonclient(event){
+                event.preventDefault()
+                let urlbtnaddstatutonclient = this.href
+                let Formbtnaddstatutonclient = document.getElementById('FormInterventionliste')
+                let databtnaddstatutonclient = new FormData(Formbtnaddstatutonclient)
+                axios
+                    .post(urlbtnaddstatutonclient, databtnaddstatutonclient)
+                    .then(function(response){
+                        // const liste = document.getElementById('addstatutonclient').innerHTML = response.data.liste
+                        // Ajout d'un évènement sur le click du selecteur ajout d'un service
+                        document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddonclient);
+                        })
+
+                        // Ajout d'un évènement sur le click de suppression service
+                        document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                            link.addEventListener('click', btnSupprService);
+                        })
+
+                        // Ajout d'un évènement sur le click du selecteur d'un statut
+                        document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddstatutonclient);
+                        })
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }
+
+            // PARTIE Liste des interventions selon la fiche service du client en Javascript
+            // -----------------------------------------
+            // I. Déclaration des éléments utile à la fonction
+            const modalListInterveonFiche = document.getElementById('Listintervonfiche')
+            // II. Ouverture de la modale listant les interventions
+            modalListInterveonFiche.addEventListener('show.bs.modal', function (event) {
+                // Récupération du bouton cliqué et extraction de la variable transmise dans le data-bs-whatever
+                let button = event.relatedTarget
+                let idficheservice = button.getAttribute('data-bs-whatever')
+                // Chargement du Formulaire
+                let modalBody = modalListInterveonFiche.querySelector('.modal-body')
+                // on va chercher le controlleur addonclient pour afficher le formulaire
+                axios
+                    .get('/admin/intervention/listeinterveonclient/' + idficheservice )
+                    .then(function (response) {
+                        let list = document.getElementById('ModalBodyListintervonfiche').innerHTML = response.data.list;
+                        // Ajout d'un évènement sur le click du selecteur ajout d'un service
+                        document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddonclient);
+                        })
+
+                        // Ajout d'un évènement sur le click de suppression service
+                        document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                            link.addEventListener('click', btnSupprService);
+                        })
+
+                        // Ajout d'un évènement sur le click du selecteur d'un statut
+                        document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddstatutonclient);
+                        })
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+            })
+
+
+            // Ajout d'un évènement sur le click du selecteur ajout d'un service
+            document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                link.addEventListener('click', btnaddonclient);
+            })
+
+            // Ajout d'un évènement sur le click de suppression service
+            document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                link.addEventListener('click', btnSupprService);
+            })
+
+            // Ajout d'un évènement sur le click du selecteur d'un statut
+            document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                link.addEventListener('click', btnaddstatutonclient);
+            })
+
+            // Ajout d'un évènement sur le click du selecteur EditCustomer
+            document.querySelectorAll('a.submitFormService').forEach(function (link) {
+                link.addEventListener('click', submitFormFicheservice);
+            })
+
+        }
+
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section id="client_show">
+        <div class="container-fluid">
+            <div class="row title mt-4 mb-4">
+                <div class="col-12">
+                    <h1  class="">Fiche de suivi Client</h1>
+                </div>
+            </div>
+            <div class="row g-1">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 id="client_typeclient" class="card-title">{{ client.typeclient|upper }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-sm">
+
+                                <thead>
+                                <tr>
+                                    <td class="col-sm-4"></td>
+                                    <td class="col-sm-3"></td>
+                                    <td class="col-sm-5"></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% if client.logoName is not null %}
+                                        <tr>
+                                            <td rowspan="9" class="align-middle"><img class="img-fluid" src="{{ asset('images/logos/' ~ client.logoName) }}" alt="{{ client.logoName }}"></td>
+                                            <th class="table-light"><i class="fa-solid fa-user"></i> Nom & Prénom :</th>
+                                            <td>{{ client.firstName }} {{ client.lastName }}</td>
+                                        </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td rowspan="9" class="align-middle"><img class="img-fluid" src="{{ asset('images/logo_openpixl_bleu.jpg') }}" alt="{{ client.logoName }}"></td>
+                                        <th class="table-light"><i class="fa-solid fa-user"></i> Nom & Prénom :</th>
+                                        <td>{{ client.firstName }} {{ client.lastName }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    <tr>
+                                        <th class="table-light"><i class="fa-solid fa-location-dot"></i> Adresse :</th>
+                                        <td>{{ client.address }}<br>{{ client.postalCode }} {{ client.city }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light"><i class="fa-solid fa-phone"></i> Contacts :</th>
+                                        <td>{{ client.phone }} / </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light"><i class="fa-solid fa-envelope"></i> Email :</th>
+                                        <td>{{ client.email }}</td>
+                                    </tr>
+                                    {#  on veut seulement afficher ces lignes si le type de client est organisation ou partenaire #}
+                                    {% if client.typeclient.isFormCompleted == 1 %}
+                                    <tr>
+                                        <th  class="table-light"><i class="fa-solid fa-envelope"></i> Nom structure :</th>
+                                        <td>{{ client.nameStructure }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th  class="table-light"><i class="fa-solid fa-envelope"></i> Directeur :</th>
+                                        <td>{{ client.director }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th  class="table-light"><i class="fa-solid fa-envelope"></i> N°Siren / N°Siret :</th>
+                                        <td>{{ client.siren }} / {{ client.siret }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light"><i class="fa-solid fa-envelope"></i> TVA :</th>
+                                        <td>{{ client.tva }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light"><i class="fa-solid fa-envelope"></i> Activité :</th>
+                                        <td>{{ client.activityPro }}</td>
+                                    </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="text-center"><i class="fa-duotone fa-clock"></i> <b>Crée le</b> : {{ client.createdAt ? client.createdAt|date('d-m-y') : '' }}</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="text-center"><i class="fa-duotone fa-clock"></i> <b>Mise à jour</b> : {{ client.updatedAt ? client.updatedAt|date('d-m-y') : '' }}</p>
+                                </div>
+                            </div>
+
+                            <p></p>
+                            <a class="btn btn-outline-info" href="{{ path('app_admin_client_edit', {'id': client.id}) }}"><i class="fa-duotone fa-pen-to-square"></i> Editer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 id="client_typeclient" class="card-title text-start">LISTE DES SERVICES</h4>
+                        </div>
+                        <div class="card-body">
+                            <button href="#" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalServiceonclient" data-bs-whatever="ADD-Création d'un nouveau service-{{ client.id }}"><i class="fa-light fa-file-lines"></i> Ajouter un service</button>
+                            {{ render(controller('App\\Controller\\Gestapp\\FicheServiceController::listServicesByClient', {'idclient': client.id})) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <br><br>
+                        <a class="btn" href="{{ path('op_admin_dashboard_home') }}"><i class="fa-solid fa-left-to-line"></i> Retour à la liste</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <!-- Modal Ajout/edit d'un service -->
+        <div class="modal fade" id="modalServiceonclient" tabindex="-1" aria-labelledby="modalServiceonclient" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Création du nouveau service.</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="ModalBodyServiceonclient" class="modal-body">
+                        <p>Test</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <a id="btnServiceonclient" class="btn btn-sm btn-primary submitFormService" data-bs-dismiss="modal">Ajouter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Ajout d'un service -->
+        <div class="modal fade" id="addserviceonclient" tabindex="-1" aria-labelledby="addserviceonclient" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Création du nouveau service.</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="ModalBodyaddonclient" class="modal-body">
+                        <p>Test</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <a id="btnaddonclient" class="btn btn-sm btn-primary btnaddonclient" data-bs-dismiss="modal">Ajouter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Edition d'un service -->
+        <div class="modal fade" id="editserviceonclient" tabindex="-1" aria-labelledby="editserviceonclient" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Création du nouveau service.</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="ModalBodyeditonclient" class="modal-body">
+                        <p>Test</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <a id="btneditonclient" class="btn btn-sm btn-primary btneditonclient" data-bs-dismiss="modal">Ajouter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal suppression de service-->
+        <div class="modal fade" id="SupprService" tabindex="-1" aria-labelledby="SupprService" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer un service</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="ModalBodySupprService" class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <a class="btn btn-sm btn-primary btnSupprService" data-bs-dismiss="modal">Supprimer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal ajout d'une intervention -->
+        <div class="modal fade modal-xl" id="addstatutonclient" tabindex="-1" aria-labelledby="addstatutonclient" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter une intervention</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="ModalBodyaddstatutonclient"class="modal-body">
+                        <p>Test</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="" id="btnaddstatutonclient" class="btn btn-sm btn-primary btnaddstatutonclient" data-bs-dismiss="modal">Enregistrer</a>
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal listes des interventions -->
+        <div class="modal modal-xl fade " id="Listintervonfiche" tabindex="-1" aria-labelledby="Listintervonfiche" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Liste des interventions réalisées.</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="ModalBodyListintervonfiche" class="modal-body">
+                        <p>Doit afficher la liste des interventions.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+{% endblock %}

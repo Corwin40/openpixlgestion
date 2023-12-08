@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau client{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        window.onload = function(){
+
+            // au chargement de la page
+            let typeClientVal = document.getElementById('typeClientVal').value
+            if(typeClientVal == 1)
+            {
+                document.getElementById("logo").removeAttribute('style')
+                document.getElementById("director").removeAttribute('style')
+                document.getElementById("siret_siren").removeAttribute('style')
+                document.getElementById("activity_pro").removeAttribute('style')
+                document.getElementById("tva").removeAttribute('style')
+            }else{
+                document.getElementById("logo").style.display = "none" // Insere dans le DOM, une balise Style sur l'éléments sélectionné qui injecte du CSS
+                document.getElementById("director").style.display = "none"
+                document.getElementById("siret_siren").style.display = "none"
+                document.getElementById("activity_pro").style.display = "none"
+                document.getElementById("tva").style.display = "none"
+            }
+            // I. On sélectionne le select
+            const clienttype = document.getElementById('client_typeclient')
+            // 2. Sur le select on récupère la valeur sur le "OnChange".
+            clienttype.addEventListener('change', function(event){
+                axios
+                    .get('/admin/client/getTypeClient/' + clienttype.value)
+                    .then(function(response){
+                        document.getElementById('typeClientVal').value = response.data.value
+                    })
+                if(document.getElementById('typeClientVal').value == 0)
+                {
+                    document.getElementById("nameStructure").removeAttribute('style')
+                    document.getElementById("logo").removeAttribute('style')
+                    document.getElementById("director").removeAttribute('style')
+                    document.getElementById("siret_siren").removeAttribute('style')
+                    document.getElementById("activity_pro").removeAttribute('style')
+                    document.getElementById("tva").removeAttribute('style')
+                }else{
+                    document.getElementById("nameStructure").style.display = "none"
+                    document.getElementById("logo").style.display = "none" // Insere dans le DOM, une balise Style sur l'éléments sélectionné qui injecte du CSS
+                    document.getElementById("director").style.display = "none"
+                    document.getElementById("siret_siren").style.display = "none"
+                    document.getElementById("activity_pro").style.display = "none"
+                    document.getElementById("tva").style.display = "none"
+                }
+            })
+
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <section class="container-fluid">
+        <div class="row title mt-4 mb-4">
+            <h1 class="text-start">Crée un client</h1>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-6 col-xl-4">
+                {{ include('gestapp/client/_form.html.twig') }}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
