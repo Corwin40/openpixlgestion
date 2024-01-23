@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Entity\gestapp;
+namespace App\Entity\Gestapp;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Entity\Admin\member;
-use App\Repository\gestapp\ClientRepository;
+use App\Repository\Gestapp\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

@@ -5,7 +5,7 @@ namespace App\Controller\Gestapp;
 use App\Entity\Admin\Statut;
 use App\Form\Admin\StatutType;
 use App\Repository\Admin\StatutRepository;
-use App\Repository\gestapp\FicheServiceRepository;
+use App\Repository\Gestapp\FicheServiceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

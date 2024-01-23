@@ -1,6 +1,7 @@
 <table class="table table-sm">
     <thead>
     <tr>
+        <th></th>
         <th>Nom de l'intervention</th>
         <th>Auteur</th>
         <th>Départ</th>
@@ -16,6 +17,7 @@
     {% for listeinterve in listeinterves %}
         {% set diffHour = date(listeinterve.finishedAt|date('H:i')).diff(date(listeinterve.startedAt|date('H:i'))) %}
         <tr class="align-middle">
+            <td><input type="checkbox" value="{{ listeinterve.id }}"></td>
             <td>{{ listeinterve.name }}</td>
             <td>{{ listeinterve.author.firstName }} {{ listeinterve.author.lastName }}</td>
             <td>{{ listeinterve.startedAt ? listeinterve.startedAt|date('H:i') : '' }}</td>

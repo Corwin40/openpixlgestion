@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Entity\gestapp;
+namespace App\Entity\Gestapp;
 
 use App\Entity\Admin\Member;
-use App\Repository\gestapp\InterventionRepository;
+use App\Repository\Gestapp\InterventionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 

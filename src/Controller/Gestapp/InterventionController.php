@@ -4,8 +4,8 @@ namespace App\Controller\Gestapp;
 
 use App\Entity\gestapp\Intervention;
 use App\Form\Admin\InterventionType;
-use App\Repository\gestapp\FicheServiceRepository;
-use App\Repository\gestapp\InterventionRepository;
+use App\Repository\Gestapp\FicheServiceRepository;
+use App\Repository\Gestapp\InterventionRepository;
 use Container5c9QE5J\getClientRepositoryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

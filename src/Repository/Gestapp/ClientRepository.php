@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository\gestapp;
+namespace App\Repository\Gestapp;
 
-use App\Entity\gestapp\Client;
+use App\Entity\Gestapp\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

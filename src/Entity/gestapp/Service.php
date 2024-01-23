@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Entity\gestapp;
+namespace App\Entity\Gestapp;
 
 use App\Entity\Admin\Choice\TypoServ;
 use App\Entity\Admin\member;
-use App\Repository\gestapp\ServiceRepository;
+use App\Repository\Gestapp\ServiceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;

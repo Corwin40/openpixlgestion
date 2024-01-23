@@ -2,9 +2,9 @@
 
 namespace App\Entity\Admin;
 
-use App\Entity\gestapp\Client;
-use App\Entity\gestapp\Intervention;
-use App\Entity\gestapp\Service;
+use App\Entity\Gestapp\Client;
+use App\Entity\Gestapp\Intervention;
+use App\Entity\Gestapp\Service;
 use App\Repository\Admin\MemberRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

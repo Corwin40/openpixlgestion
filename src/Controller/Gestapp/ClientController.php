@@ -5,7 +5,7 @@ namespace App\Controller\Gestapp;
 use App\Entity\gestapp\Client;
 use App\Entity\gestapp\TypeClient;
 use App\Form\Admin\ClientType;
-use App\Repository\gestapp\ClientRepository;
+use App\Repository\Gestapp\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

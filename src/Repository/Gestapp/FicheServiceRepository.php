@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository\gestapp;
+namespace App\Repository\Gestapp;
 
-use App\Entity\gestapp\FicheService;
+use App\Entity\Gestapp\FicheService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

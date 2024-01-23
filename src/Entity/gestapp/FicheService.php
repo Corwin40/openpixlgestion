@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Entity\gestapp;
+namespace App\Entity\Gestapp;
 
 use App\Entity\Admin\Member;
-use App\Repository\gestapp\FicheServiceRepository;
+use App\Repository\Gestapp\FicheServiceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;

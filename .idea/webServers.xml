@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="9a01a0af-8d98-449b-bfc9-9fe5be41078c" name="OVH - Cluster 3">
-        <fileTransfer rootFolder="/var/www/html/openpixlgestion" accessType="SFTP" host="51.210.149.29" port="22" sshConfigId="0133f338-7f28-49db-bcaa-9838a5c7a4d2" sshConfig="ubuntu@51.210.149.29:22 password">
+        <fileTransfer rootFolder="/var/www/html/gestion" accessType="SFTP" host="51.210.149.29" port="22" sshConfigId="0133f338-7f28-49db-bcaa-9838a5c7a4d2" sshConfig="ubuntu@51.210.149.29:22 password">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

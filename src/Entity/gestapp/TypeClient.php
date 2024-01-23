@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity\gestapp;
+namespace App\Entity\Gestapp;
 
-use App\Repository\gestapp\TypeClientRepository;
+use App\Repository\Gestapp\TypeClientRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TypeClientRepository::class)]

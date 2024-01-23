@@ -4,8 +4,8 @@ namespace App\Controller\Gestapp;
 
 use App\Entity\gestapp\Service;
 use App\Form\Admin\ServiceType;
-use App\Repository\gestapp\ClientRepository;
-use App\Repository\gestapp\ServiceRepository;
+use App\Repository\Gestapp\ClientRepository;
+use App\Repository\Gestapp\ServiceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
