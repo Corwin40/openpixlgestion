@@ -40,9 +40,6 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'members', targetEntity: Client::class)]
     private Collection $client;
 
-    #[ORM\OneToMany(mappedBy: 'members', targetEntity: Service::class)]
-    private Collection $service;
-
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Intervention::class)]
     private Collection $interventions;
 
@@ -55,7 +52,6 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->client = new ArrayCollection();
-        $this->service = new ArrayCollection();
         $this->interventions = new ArrayCollection();
     }
 
@@ -165,36 +161,6 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($client->getMembers() === $this) {
                 $client->setMembers(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Service>
-     */
-    public function getService(): Collection
-    {
-        return $this->service;
-    }
-
-    public function addService(Service $service): self
-    {
-        if (!$this->service->contains($service)) {
-            $this->service->add($service);
-            $service->setMembers($this);
-        }
-
-        return $this;
-    }
-
-    public function removeService(Service $service): self
-    {
-        if ($this->service->removeElement($service)) {
-            // set the owning side to null (unless already changed)
-            if ($service->getMembers() === $this) {
-                $service->setMembers(null);
             }
         }
 
