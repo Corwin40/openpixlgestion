@@ -4,7 +4,6 @@ namespace App\Entity\Admin;
 
 use App\Entity\Gestapp\Client;
 use App\Entity\Gestapp\Intervention;
-use App\Entity\Gestapp\Service;
 use App\Repository\Admin\MemberRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
