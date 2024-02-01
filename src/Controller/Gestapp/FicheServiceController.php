@@ -2,7 +2,6 @@
 
 namespace App\Controller\Gestapp;
 
-use App\Entity\Admin\Statut;
 use App\Entity\gestapp\FicheService;
 use App\Form\Admin\FicheServiceType;
 use App\Repository\Gestapp\ClientRepository;
@@ -10,7 +9,7 @@ use App\Repository\Gestapp\FicheServiceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/admin/ficheservice')]
 class FicheServiceController extends AbstractController
