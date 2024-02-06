@@ -28,6 +28,10 @@ class InvoiceController extends AbstractController
     #[Route('/new/{idFiche}', name: 'app_gestapp_invoice_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, $idFiche, InvoiceRepository $invoiceRepository, FicheServiceRepository $ficheServiceRepository): Response
     {   
+        $arrayCheckbox = json_decode($request->getContent(), true);
+
+        dd($arrayCheckbox);
+
         //recuperation de la fiche service
         $fiche = $ficheServiceRepository->find($idFiche);
         $descriptif = $fiche->getDescriptif();
