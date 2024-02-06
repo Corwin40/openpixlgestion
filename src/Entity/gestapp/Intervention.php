@@ -52,6 +52,9 @@ class Intervention
     #[ORM\Column(nullable: true)]
     private ?int $multiple = null;
 
+    #[ORM\Column]
+    private ?bool $isInvoiced = false;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -206,6 +209,18 @@ class Intervention
     public function setMultiple(?int $multiple): self
     {
         $this->multiple = $multiple;
+
+        return $this;
+    }
+
+    public function isIsInvoiced(): ?bool
+    {
+        return $this->isInvoiced;
+    }
+
+    public function setIsInvoiced(bool $isInvoiced): static
+    {
+        $this->isInvoiced = $isInvoiced;
 
         return $this;
     }

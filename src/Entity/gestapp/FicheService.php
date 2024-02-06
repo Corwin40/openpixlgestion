@@ -74,6 +74,12 @@ class FicheService
     #[Groups(['client:item'])]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column]
+    private ?int $priceHour = null;
+
+    #[ORM\Column]
+    private ?int $priceBundle = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -260,6 +266,30 @@ class FicheService
     public function setDescriptif(?string $descriptif): self
     {
         $this->descriptif = $descriptif;
+
+        return $this;
+    }
+
+    public function getPriceHour(): ?int
+    {
+        return $this->priceHour;
+    }
+
+    public function setPriceHour(int $priceHour): static
+    {
+        $this->priceHour = $priceHour;
+
+        return $this;
+    }
+
+    public function getPriceBundle(): ?int
+    {
+        return $this->priceBundle;
+    }
+
+    public function setPriceBundle(int $priceBundle): static
+    {
+        $this->priceBundle = $priceBundle;
 
         return $this;
     }

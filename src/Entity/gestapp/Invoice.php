@@ -4,6 +4,7 @@ namespace App\Entity\Gestapp;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\Gestapp\InvoiceRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InvoiceRepository::class)]
@@ -19,13 +20,16 @@ class Invoice
     private ?int $num = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $invoiceAt = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $relation = null;
+    private ?\DateTimeInterface $invoiceAt = null;
 
     #[ORM\ManyToOne]
     private ?Client $refCustomer = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $descriptif = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
     public function getId(): ?int
     {
@@ -44,26 +48,14 @@ class Invoice
         return $this;
     }
 
-    public function getInvoiceAt(): ?\DateTimeImmutable
+    public function getInvoiceAt(): ?\DateTimeInterface
     {
         return $this->invoiceAt;
     }
 
-    public function setInvoiceAt(\DateTimeImmutable $invoiceAt): static
+    public function setInvoiceAt(\DateTimeInterface $invoiceAt): static
     {
         $this->invoiceAt = $invoiceAt;
-
-        return $this;
-    }
-
-    public function getRelation(): ?string
-    {
-        return $this->relation;
-    }
-
-    public function setRelation(string $relation): static
-    {
-        $this->relation = $relation;
 
         return $this;
     }
@@ -76,6 +68,30 @@ class Invoice
     public function setRefCustomer(?Client $refCustomer): static
     {
         $this->refCustomer = $refCustomer;
+
+        return $this;
+    }
+
+    public function getDescriptif(): ?string
+    {
+        return $this->descriptif;
+    }
+
+    public function setDescriptif(string $descriptif): static
+    {
+        $this->descriptif = $descriptif;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

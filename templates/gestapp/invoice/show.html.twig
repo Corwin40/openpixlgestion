@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Invoice{% endblock %}
+
+{% block body %}
+    <h1>Invoice</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ invoice.id }}</td>
+            </tr>
+            <tr>
+                <th>Num</th>
+                <td>{{ invoice.num }}</td>
+            </tr>
+            <tr>
+                <th>InvoiceAt</th>
+                <td>{{ invoice.invoiceAt ? invoice.invoiceAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Relation</th>
+                <td>{{ invoice.relation }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_gestapp_invoice_index') }}">back to list</a>
+
+    <a href="{{ path('app_gestapp_invoice_edit', {'id': invoice.id}) }}">edit</a>
+
+    <a href="{{ path('app_admin_client_show', {'id': invoice.refCustomer.id}) }}">Retour</a>
+
+    {{ include('gestapp/invoice/_delete_form.html.twig') }}
+{% endblock %}

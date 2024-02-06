@@ -10,6 +10,8 @@
             // -----------------------------------------
             const modalServiceonclient = document.getElementById('modalServiceonclient')
             const editFicheservice = document.getElementById('editFicheservice')
+            const newInvoice = document.getElementById('newInvoice')
+            
             // PARTIE Ajout/édition d'une fiche service en Javascript pour un client
             // -----------------------------------------
             //editFicheservice.
@@ -322,6 +324,48 @@
                     })
             })
 
+            // II. Ouverture de la modale de creation d'une facture
+            newInvoice.addEventListener('show.bs.modal', event => {
+                // Button that triggered the modal
+                let button = event.relatedTarget
+                // Extract info from data-bs-* attributes
+                let url = button.href
+                // If necessary, you could initiate an AJAX request here
+                // and then do the updating in a callback.
+                //
+                // Update the modal's content.
+                let modalBody = newInvoice.querySelector('.modal-body')
+                axios
+                    .post(url)
+                    .then(function(response){
+                        modalBody.innerHTML = response.data.form
+                         // Ajout d'un évènement sur le click du selecteur ajout d'un service
+                        document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddonclient);
+                        })
+
+                        // Ajout d'un évènement sur le click de suppression service
+                        document.querySelectorAll('a.btnSupprService').forEach(function (link) {
+                            link.addEventListener('click', btnSupprService);
+                        })
+
+                        // Ajout d'un évènement sur le click du selecteur d'un statut
+                        document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
+                            link.addEventListener('click', btnaddstatutonclient);
+                        })
+
+                        // Ajout d'un évènement sur le click du selecteur EditCustomer
+                        document.querySelectorAll('a.submitFormService').forEach(function (link) {
+                            link.addEventListener('click', submitFormFicheservice);
+                        })
+                    })
+                    .catch(function(error){
+                        console.log(error)
+                    })
+                modalBody.innerHTML = "<p>Vous êtes sur le point de supprimer la fiche. <br> Etes-vous sur de vouloir continuer ?</p>"
+                
+            })
+
 
             // Ajout d'un évènement sur le click du selecteur ajout d'un service
             document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
@@ -561,6 +605,23 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal création nouvelle facture -->
+        <div class="modal modal-xl fade " id="newInvoice" tabindex="-1" aria-labelledby="newInvoice" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Nouvelle facture</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="ModalBodyListintervonfiche" class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <button class="btn btn-primary">{{ button_label|default('Sauvegarder') }}</button>
                     </div>
                 </div>
             </div>

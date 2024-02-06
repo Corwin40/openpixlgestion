@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Repository\Gestapp\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 class MaillerController extends AbstractController
 {

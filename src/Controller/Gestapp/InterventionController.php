@@ -173,6 +173,7 @@ class InterventionController extends AbstractController
             'message' => "OK",
             'list' => $this->renderView('gestapp/intervention/listeintervebyclient.html.twig', [
                 'listeinterves' => $listinterves,
+                'idficheservice' =>$idficheservice,
             ])
         ], 200);
     }
