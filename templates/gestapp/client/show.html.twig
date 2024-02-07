@@ -327,15 +327,14 @@
 
             // II. Ouverture de la modale de creation d'une facture
             newInvoice.addEventListener('show.bs.modal', event => {
-                let arrayCheckbox = []
+                let arrayCheckboxes = []
                 let checkboxes = document.getElementsByName('checkInterventions');
                 for (let checkbox of checkboxes) {
                     if(checkbox.checked){
-                        arrayCheckbox.push(parseInt(checkbox.value))
+                        arrayCheckboxes.push(parseInt(checkbox.value))
                     }
                     
                 }
-                console.log(arrayCheckbox)                
                 let button = event.relatedTarget
                 // Extract info from data-bs-* attributes
                 let url = button.href
@@ -345,7 +344,7 @@
                 // Update the modal's content.
                 let modalBody = newInvoice.querySelector('.modal-body')
                 axios
-                    .post(url,{'arrayCheckbox': arrayCheckbox})
+                    .post(url,{'arrayCheckboxes': arrayCheckboxes})
                     .then(function(response){
                         modalBody.innerHTML = response.data.form
                          // Ajout d'un évènement sur le click du selecteur ajout d'un service
@@ -374,18 +373,6 @@
                 modalBody.innerHTML = "<p>Vous êtes sur le point de supprimer la fiche. <br> Etes-vous sur de vouloir continuer ?</p>"
                 
             })
-
-            // PARTIE Récuperation des interventions pour facturation
-            // -----------------------------------------
-            let arrayCheckboxes = []
-            let checkboxes = document.getElementsByName('CheckProperty');
-            for (let checkbox of checkboxes) {
-                if(checkbox.checked){
-                    arrayCheckbox.push(parseInt(checkbox.value))
-                }
-                console.log(arrayCheckboxes)
-            }
-
 
             // Ajout d'un évènement sur le click du selecteur ajout d'un service
             document.querySelectorAll('a.btnaddonclient').forEach(function (link) {

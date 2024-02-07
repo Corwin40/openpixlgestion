@@ -37,7 +37,6 @@ class InvoiceController extends AbstractController
         InvoiceRepository $invoiceRepository, 
         FicheServiceRepository $ficheServiceRepository, 
         InterventionRepository $interventionRepository, 
-        InvoiceItem $invoiceItem,
         InvoiceItemRepository $invoiceItemRepository
         ): Response
     {   
@@ -46,8 +45,7 @@ class InvoiceController extends AbstractController
         $descriptif = $fiche->getDescriptif();
         $name = $fiche->getName();
         $client = $fiche->getClient();
-        
-        
+
         //creation du numéro de facture
         $invoices = $invoiceRepository->findAll();
         $num = 0;
@@ -64,20 +62,18 @@ class InvoiceController extends AbstractController
         //dd($name, $descriptif);
         $invoice->setInvoiceAt(new \DateTime('now'));
         $invoice->setNum($num);
-        $invoice->setDescriptif($descriptif);
-        $invoice->setName($name);
+        //$invoice->setDescriptif($descriptif);
+        //$invoice->setName($name);
         $invoice->setRefCustomer($client);
 
         // Création des items de la facture
-        $data = json_decode($request->getContent(), true);
-        $arrayCheckboxes = $data['arrayCheckbox'];
-
-        foreach ($arrayCheckboxes as $idIntervention) {
-            $intervention = $interventionRepository->find($idIntervention);
-            $invoiceItem = new InvoiceItem();
-            $invoiceItem->setName($intervention->getName());
-            $entityManager->persist($invoiceItem);
-        }
+        //$data = json_decode($request->getContent(), true);
+        //dd($data);
+        //foreach ($arrayCheckboxes as $idIntervention) {
+        //    $intervention = $interventionRepository->find($idIntervention);
+        //    //$invoiceItem = new InvoiceItem();
+        //     dd($intervention);
+        //}
                             
         $form = $this->createForm(InvoiceType::class, $invoice);
         $form->handleRequest($request);
