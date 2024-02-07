@@ -3,10 +3,13 @@
 namespace App\Controller\Gestapp;
 
 use App\Entity\Gestapp\FicheService;
+use App\Entity\Gestapp\Intervention;
 use App\Entity\Gestapp\Invoice;
+use App\Entity\Gestapp\InvoiceItem;
 use App\Form\Gestapp\InvoiceType;
 use App\Repository\Gestapp\ClientRepository;
 use App\Repository\Gestapp\FicheServiceRepository;
+use App\Repository\Gestapp\InterventionRepository;
 use App\Repository\Gestapp\InvoiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,11 +29,20 @@ class InvoiceController extends AbstractController
     }
 
     #[Route('/new/{idFiche}', name: 'app_gestapp_invoice_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, $idFiche, InvoiceRepository $invoiceRepository, FicheServiceRepository $ficheServiceRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, $idFiche, InvoiceRepository $invoiceRepository, FicheServiceRepository $ficheServiceRepository, InterventionRepository $interventionRepository, InvoiceItem $invoiceItem): Response
     {   
-        $arrayCheckbox = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), true);
+        $arrayCheckboxes = $data['arrayCheckbox'];
 
-        dd($arrayCheckbox);
+        // class intervention          
+        foreach ($arrayCheckboxes as $idIntervention) {
+            $intervention = $interventionRepository->find($idIntervention);
+            $invoiceItem = new InvoiceItem();
+            $invoiceItem->setName($intervention->getName());
+            $entityManager->persist($invoiceItem);
+        }
+        
+        $entityManager->flush();
 
         //recuperation de la fiche service
         $fiche = $ficheServiceRepository->find($idFiche);
@@ -82,7 +94,8 @@ class InvoiceController extends AbstractController
             'code'=> 200,
             'form' => $view->getContent()
         ], 200);
-    }
+    };
+}
 
     #[Route('/{id}', name: 'app_gestapp_invoice_show', methods: ['GET'])]
     public function show(Invoice $invoice): Response
