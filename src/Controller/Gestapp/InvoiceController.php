@@ -34,7 +34,6 @@ class InvoiceController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $arrayCheckboxes = $data['arrayCheckbox'];
 
-        // class intervention          
         foreach ($arrayCheckboxes as $idIntervention) {
             $intervention = $interventionRepository->find($idIntervention);
             $invoiceItem = new InvoiceItem();
@@ -94,8 +93,7 @@ class InvoiceController extends AbstractController
             'code'=> 200,
             'form' => $view->getContent()
         ], 200);
-    };
-}
+    }
 
     #[Route('/{id}', name: 'app_gestapp_invoice_show', methods: ['GET'])]
     public function show(Invoice $invoice): Response
