@@ -345,7 +345,7 @@
                 // Update the modal's content.
                 let modalBody = newInvoice.querySelector('.modal-body')
                 axios
-                    .post(url,arrayCheckbox)
+                    .post(url,{'arrayCheckbox': arrayCheckbox})
                     .then(function(response){
                         modalBody.innerHTML = response.data.form
                          // Ajout d'un évènement sur le click du selecteur ajout d'un service
