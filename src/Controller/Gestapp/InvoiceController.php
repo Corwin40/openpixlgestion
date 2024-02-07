@@ -10,6 +10,7 @@ use App\Form\Gestapp\InvoiceType;
 use App\Repository\Gestapp\ClientRepository;
 use App\Repository\Gestapp\FicheServiceRepository;
 use App\Repository\Gestapp\InterventionRepository;
+use App\Repository\Gestapp\InvoiceItemRepository;
 use App\Repository\Gestapp\InvoiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,20 +30,17 @@ class InvoiceController extends AbstractController
     }
 
     #[Route('/new/{idFiche}', name: 'app_gestapp_invoice_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, $idFiche, InvoiceRepository $invoiceRepository, FicheServiceRepository $ficheServiceRepository, InterventionRepository $interventionRepository, InvoiceItem $invoiceItem): Response
+    public function new(
+        Request $request, 
+        EntityManagerInterface $entityManager, 
+        $idFiche, 
+        InvoiceRepository $invoiceRepository, 
+        FicheServiceRepository $ficheServiceRepository, 
+        InterventionRepository $interventionRepository, 
+        InvoiceItem $invoiceItem,
+        InvoiceItemRepository $invoiceItemRepository
+        ): Response
     {   
-        $data = json_decode($request->getContent(), true);
-        $arrayCheckboxes = $data['arrayCheckbox'];
-
-        foreach ($arrayCheckboxes as $idIntervention) {
-            $intervention = $interventionRepository->find($idIntervention);
-            $invoiceItem = new InvoiceItem();
-            $invoiceItem->setName($intervention->getName());
-            $entityManager->persist($invoiceItem);
-        }
-        
-        $entityManager->flush();
-
         //recuperation de la fiche service
         $fiche = $ficheServiceRepository->find($idFiche);
         $descriptif = $fiche->getDescriptif();
@@ -69,6 +67,18 @@ class InvoiceController extends AbstractController
         $invoice->setDescriptif($descriptif);
         $invoice->setName($name);
         $invoice->setRefCustomer($client);
+
+        // Création des items de la facture
+        $data = json_decode($request->getContent(), true);
+        $arrayCheckboxes = $data['arrayCheckbox'];
+
+        foreach ($arrayCheckboxes as $idIntervention) {
+            $intervention = $interventionRepository->find($idIntervention);
+            $invoiceItem = new InvoiceItem();
+            $invoiceItem->setName($intervention->getName());
+            $entityManager->persist($invoiceItem);
+        }
+                            
         $form = $this->createForm(InvoiceType::class, $invoice);
         $form->handleRequest($request);
 
@@ -82,9 +92,12 @@ class InvoiceController extends AbstractController
             ], 200);
         }
 
+        $invoiceItems = $invoiceItemRepository->findby(['refInvoice' => $invoice, 'id' => 'ASC']);
+
         $view = $this->render('gestapp/invoice/new.html.twig', [
             'fiche' => $fiche,
             'invoice' => $invoice,
+            'items' => $invoiceItems,
             'form' => $form,
         ]);
 
