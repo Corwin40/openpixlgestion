@@ -24,7 +24,7 @@ class InvoiceType extends AbstractType
                 'html5' => false,
             ])
             ->add('num',TypeIntegerType::class,[
-                'label'=>'Numero de la facture',
+                'label'=>'Numero de facture',
             ]);
     }
 

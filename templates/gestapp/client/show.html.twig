@@ -318,11 +318,16 @@
                         document.querySelectorAll('a.btnaddstatutonclient').forEach(function (link) {
                             link.addEventListener('click', btnaddstatutonclient);
                         })
+                        let urlInvoice = document.getElementById('urlNewInvoice');
+                        if (urlInvoice !== null){
+                            document.getElementById('NewInvoice').href = urlInvoice.href;
+                        }
                     })
                     .catch(function (error) {
                         // handle error
                         console.log(error);
-                    })
+                    });
+                
             })
 
             // II. Ouverture de la modale de creation d'une facture
@@ -611,6 +616,7 @@
                         <p>Doit afficher la liste des interventions.</p>
                     </div>
                     <div class="modal-footer">
+                        <a id="NewInvoice" href="#" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#newInvoice" >Facture</a>
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fermer</button>
                     </div>
                 </div>
