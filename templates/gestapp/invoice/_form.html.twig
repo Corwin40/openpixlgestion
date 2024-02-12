@@ -57,7 +57,7 @@
                     </td>
                     <td>
                         {% if intervention.ficheservice.priceHour is not null%}
-                            {{ intervention.timelaps|date('%Hh%I') * intervention.ficheservice.priceHour }}
+                            {{ intervention.timelaps|number_format(2, '.', ',') }}
                         {% endif %}
                     </td>
                     <td>Test 3</td>

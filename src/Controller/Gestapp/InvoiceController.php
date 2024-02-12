@@ -46,6 +46,11 @@ class InvoiceController extends AbstractController
         $interventions = [];
         foreach ($arrayCheckboxes as $a) {
             $intervention = $interventionRepository->find($a);
+            $interval = strtotime($intervention->getTimelaps()->format('%H:%i:%s'));
+            //dd(gmdate("H:i:s", $interval));
+            $vol = gmdate($interval * $intervention->getFicheservice()->getPriceHour());
+
+            dd($vol);
             array_push($interventions, $intervention);
         }
 
