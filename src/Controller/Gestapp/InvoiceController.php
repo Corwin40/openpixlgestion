@@ -39,7 +39,16 @@ class InvoiceController extends AbstractController
         InterventionRepository $interventionRepository, 
         InvoiceItemRepository $invoiceItemRepository
         ): Response
-    {   
+    {
+        $data = json_decode($request->getContent(), true);
+        $arrayCheckboxes =$data['arrayCheckboxes'];
+        //dd($arrayCheckboxes);
+        $interventions = [];
+        foreach ($arrayCheckboxes as $a) {
+            $intervention = $interventionRepository->find($a);
+            array_push($interventions, $intervention);
+        }
+
         //recuperation de la fiche service
         $fiche = $ficheServiceRepository->find($idFiche);
         $descriptif = $fiche->getDescriptif();
@@ -94,6 +103,7 @@ class InvoiceController extends AbstractController
             'fiche' => $fiche,
             'invoice' => $invoice,
             'items' => $invoiceItems,
+            'interventions' => $interventions,
             'form' => $form,
         ]);
 

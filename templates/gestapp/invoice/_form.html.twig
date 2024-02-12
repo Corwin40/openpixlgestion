@@ -24,10 +24,12 @@
                 </div>
             </div>
     </div>
+{% for intervention in interventions %}
     <div class="row mt-4 justify-content-between custom-line">
         <hr>
         <div class="col-9">
             <h2>MONTANT DE LA FACTURE</h2>
+            <p>test id factrue : {{ invoice.id }}</p>
         </div>
         <div class="col-3">
             <h2>15 EUROS</h2>
@@ -46,10 +48,18 @@
                     <th>Montant TTC</th>
                 </tr>
                 <tr>
-                    <td>Test 1</td>
-                    <td>2</td>
-                    <td> </td>
-                    <td>Test 2</td>
+                    <td>{{ intervention.name }}</td>
+                    <td>{{ intervention.timelaps|date('%Hh%I') }}</td>
+                    <td>
+                        {% if intervention.ficheservice.priceHour is not null%}
+                        {{ intervention.ficheservice.priceHour }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if intervention.ficheservice.priceHour is not null%}
+                            {{ intervention.timelaps|date('%Hh%I') * intervention.ficheservice.priceHour }}
+                        {% endif %}
+                    </td>
                     <td>Test 3</td>
                 </tr>
                 <tr>
@@ -88,4 +98,8 @@
             <h5>Le paiement est dû dans 30 jours</h5>
         </div>
     </div>
+{% else %}
+    <p>Pas d'interventions réalisée sur ce service.</p>
+{% endfor %}
+
 {{ form_end(form) }}

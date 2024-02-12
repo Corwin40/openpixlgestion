@@ -59,9 +59,6 @@ class FicheService
     #[ORM\Column(nullable: true)]
     #[Groups(['client:item'])]
     private ?int $package = null;
-
-
-
     #[ORM\Column]
     #[Groups(['client:item'])]
     private ?int $choicePrice = 0;
