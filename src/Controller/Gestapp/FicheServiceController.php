@@ -29,7 +29,7 @@ class FicheServiceController extends AbstractController
         $user = $this->getUser();
         $client = $clientRepository->find($idclient);
         //dd($user);
-
+        
         $ficheService = new FicheService();
         $ficheService->setAuthor($user);
         $ficheService->setClient($client);

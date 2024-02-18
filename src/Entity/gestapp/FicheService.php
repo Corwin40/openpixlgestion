@@ -77,6 +77,9 @@ class FicheService
     #[ORM\Column]
     private ?int $priceBundle = null;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $tva = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -287,6 +290,18 @@ class FicheService
     public function setPriceBundle(int $priceBundle): static
     {
         $this->priceBundle = $priceBundle;
+
+        return $this;
+    }
+
+    public function getTva(): ?string
+    {
+        return $this->tva;
+    }
+
+    public function setTva(string $tva): static
+    {
+        $this->tva = $tva;
 
         return $this;
     }

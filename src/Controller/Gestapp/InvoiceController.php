@@ -44,16 +44,14 @@ class InvoiceController extends AbstractController
         $arrayCheckboxes =$data['arrayCheckboxes'];
         //dd($arrayCheckboxes);
         $interventions = [];
+        $total = 0;
         foreach ($arrayCheckboxes as $a) {
             $intervention = $interventionRepository->find($a);
-            $interval = strtotime($intervention->getTimelaps()->format('%H:%i:%s'));
-            //dd(gmdate("H:i:s", $interval));
-            $vol = gmdate($interval * $intervention->getFicheservice()->getPriceHour());
-
-            dd($vol);
+            $price = $intervention->getVolume();
             array_push($interventions, $intervention);
+            $total = $total + $price;
         }
-
+        
         //recuperation de la fiche service
         $fiche = $ficheServiceRepository->find($idFiche);
         $descriptif = $fiche->getDescriptif();
@@ -89,19 +87,40 @@ class InvoiceController extends AbstractController
         //     dd($intervention);
         //}
                             
-        $form = $this->createForm(InvoiceType::class, $invoice);
+        $form = $this->createForm(InvoiceType::class, $invoice, [
+            'action' => 'app_gestapp_invoice_new',
+            'method' => 'POST',
+            'attr' => [
+                'id' => 'formInvoice'
+            ]
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Créez une nouvelle facture
+            $invoice = new Invoice();
+            foreach($interventions as $i){
+                $invoiceItem = new InvoiceItem();
+                $invoiceItem->setName($intervention->getName());
+                $invoiceItem->setHour($intervention->getTimelaps());
+                $invoiceItem->setRefInvoice($invoice);
+                // Définissez le total et la TVA de la facture
+                $invoiceItem->setMontantHt($intervention->getVolume());
+                $invoiceItem->setMontantTtc($intervention->getVolume()*$fiche->getTva());
+
+                //dd($invoiceItem);
+            }
+            
+        
+            // Persistez la facture
             $entityManager->persist($invoice);
             $entityManager->flush();
-
+        
             return $this->json([
                 'code'=> 200,
-                'message' => "l'intervention a bien été enregistrée.",
+                'message' => "L'intervention et les éléments de facture ont bien été enregistrés.",
             ], 200);
-        }
-
+        }        
         $invoiceItems = $invoiceItemRepository->findby(['refInvoice' => $invoice, 'id' => 'ASC']);
 
         $view = $this->render('gestapp/invoice/new.html.twig', [

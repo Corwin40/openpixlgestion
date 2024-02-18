@@ -23,6 +23,15 @@ class InvoiceItem
     #[ORM\ManyToOne(inversedBy: 'invoiceItems')]
     private ?Invoice $refInvoice = null;
 
+    #[ORM\Column]
+    private ?\DateInterval $hour = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
+    private ?string $montantHt = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
+    private ?string $montantTtc = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +69,42 @@ class InvoiceItem
     public function setRefInvoice(?Invoice $refInvoice): static
     {
         $this->refInvoice = $refInvoice;
+
+        return $this;
+    }
+
+    public function getHour(): ?\DateInterval
+    {
+        return $this->hour;
+    }
+
+    public function setHour(?\DateInterval $hour): static
+    {
+        $this->hour = $hour;
+
+        return $this;
+    }
+
+    public function getMontantHt(): ?string
+    {
+        return $this->montantHt;
+    }
+
+    public function setMontantHt(string $montantHt): static
+    {
+        $this->montantHt = $montantHt;
+
+        return $this;
+    }
+
+    public function getMontantTtc(): ?string
+    {
+        return $this->montantTtc;
+    }
+
+    public function setMontantTtc(string $montantTtc): static
+    {
+        $this->montantTtc = $montantTtc;
 
         return $this;
     }

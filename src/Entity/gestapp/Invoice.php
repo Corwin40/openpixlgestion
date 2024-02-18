@@ -36,6 +36,12 @@ class Invoice
     #[ORM\OneToMany(mappedBy: 'refInvoice', targetEntity: InvoiceItem::class)]
     private Collection $invoiceItems;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
+    private ?string $total = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
+    private ?string $tva = null;
+
     public function __construct()
     {
         $this->invoiceItems = new ArrayCollection();
@@ -132,6 +138,30 @@ class Invoice
                 $invoiceItem->setRefInvoice(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTotal(): ?string
+    {
+        return $this->total;
+    }
+
+    public function setTotal(string $total): static
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    public function getTva(): ?string
+    {
+        return $this->tva;
+    }
+
+    public function setTva(string $tva): static
+    {
+        $this->tva = $tva;
 
         return $this;
     }

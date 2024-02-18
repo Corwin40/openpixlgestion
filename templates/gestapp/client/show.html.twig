@@ -330,9 +330,31 @@
                 
             })
 
+            document.getElementById('btnSubmitInvoice').addEventListener('submit', submitInvoice)
+
+            // Fonction d'envoie de la facture
+            function submitInvoice(event){
+                let action = document.getElementById('formInvoice').action
+                let data = new Form(document.getElementById('formInvoice')) 
+                axios.post(action, data).then(function(response){}).catch(function(error){console.log(error)})
+            }
+
             // II. Ouverture de la modale de creation d'une facture
             newInvoice.addEventListener('show.bs.modal', event => {
                 let arrayCheckboxes = []
+                //selectionne toutes les checkboxes
+                document.getElementById('checkAll').onclick = function() {
+                let checkboxes = document.getElementsByName('checkInterventions');
+                for (let checkbox of checkboxes) {
+                    checkbox.checked = this.checked
+                    if(checkbox.checked){
+                        arrayCheckbox.push(parseInt(checkbox.value))
+                        arrayCheckbox = [... new Set(arrayCheckbox)]
+                    }
+                    console.log(arrayCheckbox)
+                }
+            }
+                //additioner les checkboxes
                 let checkboxes = document.getElementsByName('checkInterventions');
                 for (let checkbox of checkboxes) {
                     if(checkbox.checked){
@@ -376,7 +398,7 @@
                     .catch(function(error){
                         console.log(error)
                     })
-                modalBody.innerHTML = "<p>Vous êtes sur le point de supprimer la fiche. <br> Etes-vous sur de vouloir continuer ?</p>"
+                modalBody.innerHTML = `<div class="d-flex justify-content-center"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>`;
                 
             })
 
@@ -635,7 +657,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                        <button class="btn btn-primary">{{ button_label|default('Sauvegarder') }}</button>
+                        <button id="btnSubmitInvoice" type="submit" class="btn btn-primary">{{ button_label|default('Sauvegarder') }} <i class="fa-solid fa-floppy-disk"></i></button>
                     </div>
                 </div>
             </div>
