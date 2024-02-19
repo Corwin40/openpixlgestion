@@ -11,6 +11,8 @@
             const modalServiceonclient = document.getElementById('modalServiceonclient')
             const editFicheservice = document.getElementById('editFicheservice')
             const newInvoice = document.getElementById('newInvoice')
+
+            //document.getElementById('btnSubmitInvoice').addEventListener('submit', submitInvoice)
             
             // PARTIE Ajout/édition d'une fiche service en Javascript pour un client
             // -----------------------------------------
@@ -330,18 +332,28 @@
                 
             })
 
-            document.getElementById('btnSubmitInvoice').addEventListener('submit', submitInvoice)
-
+            document.getElementById('btnSubmitInvoice').onclick = submitInvoice;
+            let arrayCheckboxes = []
             // Fonction d'envoie de la facture
             function submitInvoice(event){
+                let form = document.getElementById('formInvoice')
                 let action = document.getElementById('formInvoice').action
-                let data = new Form(document.getElementById('formInvoice')) 
-                axios.post(action, data).then(function(response){}).catch(function(error){console.log(error)})
+                let data = new FormData(form)
+                data.append('arrayCheckboxes',arrayCheckboxes);
+                axios
+                    .post(action, data)
+                    .then(function(response){
+                        document.getElementById('newInvoice')
+                        newInvoice.addEventListener('hidden.bs.modal', function (event) {
+                        
+                        })
+                    })
+                    .catch(function(error){console.log(error)});
             }
 
             // II. Ouverture de la modale de creation d'une facture
             newInvoice.addEventListener('show.bs.modal', event => {
-                let arrayCheckboxes = []
+                
                 //selectionne toutes les checkboxes
                 document.getElementById('checkAll').onclick = function() {
                 let checkboxes = document.getElementsByName('checkInterventions');
@@ -350,10 +362,9 @@
                     if(checkbox.checked){
                         arrayCheckbox.push(parseInt(checkbox.value))
                         arrayCheckbox = [... new Set(arrayCheckbox)]
+                        }
                     }
-                    console.log(arrayCheckbox)
                 }
-            }
                 //additioner les checkboxes
                 let checkboxes = document.getElementsByName('checkInterventions');
                 for (let checkbox of checkboxes) {
@@ -362,7 +373,6 @@
                     }
                     
                 }
-                console.log(arrayCheckboxes)
                 let button = event.relatedTarget
                 // Extract info from data-bs-* attributes
                 let url = button.href

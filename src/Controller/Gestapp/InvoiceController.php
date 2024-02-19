@@ -39,9 +39,12 @@ class InvoiceController extends AbstractController
         InterventionRepository $interventionRepository, 
         InvoiceItemRepository $invoiceItemRepository
         ): Response
-    {
+    {   
+        
         $data = json_decode($request->getContent(), true);
-        $arrayCheckboxes =$data['arrayCheckboxes'];
+        $arrayCheckboxes = $request->request->get('arrayCheckboxes');
+        dd($request->request->get('arrayCheckboxes'));
+        $arrayCheckboxes = $data['arrayCheckboxes'];
         //dd($arrayCheckboxes);
         $interventions = [];
         $total = 0;
@@ -54,6 +57,7 @@ class InvoiceController extends AbstractController
         
         //recuperation de la fiche service
         $fiche = $ficheServiceRepository->find($idFiche);
+        //dd($fiche);
         $descriptif = $fiche->getDescriptif();
         $name = $fiche->getName();
         $client = $fiche->getClient();
@@ -88,7 +92,9 @@ class InvoiceController extends AbstractController
         //}
                             
         $form = $this->createForm(InvoiceType::class, $invoice, [
-            'action' => 'app_gestapp_invoice_new',
+            'action' => $this->generateUrl('app_gestapp_invoice_new', [
+                'idFiche' => $idFiche
+            ]),
             'method' => 'POST',
             'attr' => [
                 'id' => 'formInvoice'
