@@ -21,8 +21,8 @@ class Invoice
     #[ORM\Column]
     private ?int $num = null;
 
-    #[ORM\Column]
-    private ?\DateTimeInterface $invoiceAt = null;
+    #[ORM\Column(type: 'datetime')]
+    private $invoiceAt = null;
 
     #[ORM\ManyToOne]
     private ?Client $refCustomer = null;
@@ -41,7 +41,7 @@ class Invoice
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
     private ?string $tva = null;
-
+    
     public function __construct()
     {
         $this->invoiceItems = new ArrayCollection();

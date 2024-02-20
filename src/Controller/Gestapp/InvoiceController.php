@@ -42,19 +42,28 @@ class InvoiceController extends AbstractController
     {   
         
         $data = json_decode($request->getContent(), true);
-        $arrayCheckboxes = $request->request->get('arrayCheckboxes');
-        dd($request->request->get('arrayCheckboxes'));
-        $arrayCheckboxes = $data['arrayCheckboxes'];
-        //dd($arrayCheckboxes);
         $interventions = [];
         $total = 0;
-        foreach ($arrayCheckboxes as $a) {
-            $intervention = $interventionRepository->find($a);
-            $price = $intervention->getVolume();
-            array_push($interventions, $intervention);
-            $total = $total + $price;
+        //dd($arrayCheckboxes);
+        if ($data) {
+            $arrayCheckboxes = $data['arrayCheckboxes'];
+           //dd($arrayCheckboxes);
+            foreach ($arrayCheckboxes as $a){
+                $intervention = $interventionRepository->find($a);
+                $price = $intervention->getVolume();
+                array_push($interventions, $intervention);
+                $total = $total + $price;
+            }
+        } else {
+            $arrayCheckboxes = explode(',', $request->request->get('arrayCheckboxes'));
+            foreach ($arrayCheckboxes as $a) {
+                $intervention = $interventionRepository->find($a);
+                $price = $intervention->getVolume();
+                array_push($interventions, $intervention);
+                $total = $total + $price;
+            }
         }
-        
+
         //recuperation de la fiche service
         $fiche = $ficheServiceRepository->find($idFiche);
         //dd($fiche);
@@ -71,7 +80,6 @@ class InvoiceController extends AbstractController
             $lastInvoice = end($invoices);
             $lastNum = $lastInvoice->getNum();
             $num = ++$lastNum;
-            dd($num);
         }
 
         $invoice = new Invoice();
@@ -103,6 +111,8 @@ class InvoiceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $invoiceAt = $form->getData()->getInvoiceAt();
+            //dd($invoiceAt);
             // Créez une nouvelle facture
             $invoice = new Invoice();
             foreach($interventions as $i){
@@ -113,11 +123,14 @@ class InvoiceController extends AbstractController
                 // Définissez le total et la TVA de la facture
                 $invoiceItem->setMontantHt($intervention->getVolume());
                 $invoiceItem->setMontantTtc($intervention->getVolume()*$fiche->getTva());
-
-                //dd($invoiceItem);
+                $entityManager->persist($invoiceItem);
             }
-            
-        
+            $invoice->setTva($fiche->getTva());
+            $invoice->setTotal($total);
+            $invoice->setName($fiche->getName());
+            $invoice->setDescriptif($fiche->getDescriptif());
+            $invoice->setNum($num);
+            $invoice->setInvoiceAt($invoiceAt);
             // Persistez la facture
             $entityManager->persist($invoice);
             $entityManager->flush();

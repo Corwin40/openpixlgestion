@@ -17,9 +17,6 @@ class InvoiceItem
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $quantityHour = null;
-
     #[ORM\ManyToOne(inversedBy: 'invoiceItems')]
     private ?Invoice $refInvoice = null;
 
@@ -45,18 +42,6 @@ class InvoiceItem
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getQuantityHour(): ?\DateTimeInterface
-    {
-        return $this->quantityHour;
-    }
-
-    public function setQuantityHour(\DateTimeInterface $quantityHour): static
-    {
-        $this->quantityHour = $quantityHour;
 
         return $this;
     }
