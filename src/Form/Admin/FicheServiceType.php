@@ -43,7 +43,7 @@ class FicheServiceType extends AbstractType
                 'labels' => ['years' => 'Année']
             ])
             ->add('package', ChoiceType::class,[
-                'label'=>'Tarif de base',
+                'label'=>'Tarif du forfait',
                 'required' => false,
                 'choices'  => [
                     '100 €' => '100',
@@ -53,6 +53,23 @@ class FicheServiceType extends AbstractType
                     "500 €" => "500",
                 ]
             ])
+            ->add('priceBundle', TextType::class,[
+                'label'=>'Tarif du forfait adaptée',
+            ])
+            ->add('priceHour', TextType::class,[
+                'label'=>'Tarif à l heure',
+            ])
+            ->add('tva', ChoiceType::class,[
+                'label'=>'tva',
+                'required' => false,
+                'choices'  => [
+                    '0 %' => '1',
+                    "5 %" => "1.05",
+                    '15 %' => '1.15',
+                    "20 %" => "1.20",
+                ]
+            ])
+            
             ->add('statut', ChoiceType::class,[
                 'label'=>'Etat du service',
                 'required' => false,

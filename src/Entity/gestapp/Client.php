@@ -5,7 +5,7 @@ namespace App\Entity\Gestapp;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use App\Entity\Admin\member;
+use App\Entity\Admin\Member;
 use App\Repository\Gestapp\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -64,6 +64,12 @@ class Client
     #[ORM\JoinColumn(nullable: false)]
     private ?TypeClient $typeclient = null;
 
+    #[ORM\ManyToMany(targetEntity: Service::class, mappedBy: 'client')]
+    private Collection $services;
+
+    #[ORM\ManyToMany(targetEntity: Service::class, mappedBy: 'clientServiceChoise')]
+    private Collection $servicesClientChoice;
+
     #[ORM\OneToMany(mappedBy: 'Client', targetEntity: FicheService::class)]
     #[Groups(['client:item'])]
     private Collection $ficheServices;
@@ -112,6 +118,8 @@ class Client
     {
         $this->createdAt = new \DateTime('now');
         $this->updatedAt = new \DateTime('now');
+        $this->services = new ArrayCollection();
+        $this->servicesClientChoice = new ArrayCollection();
         $this->ficheServices = new ArrayCollection();
     }
 
@@ -227,6 +235,60 @@ class Client
     public function setTypeclient(?TypeClient $typeclient): self
     {
         $this->typeclient = $typeclient;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Service>
+     */
+    public function getServices(): Collection
+    {
+        return $this->services;
+    }
+
+    public function addService(Service $service): self
+    {
+        if (!$this->services->contains($service)) {
+            $this->services->add($service);
+            $service->addClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeService(Service $service): self
+    {
+        if ($this->services->removeElement($service)) {
+            $service->removeClient($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Service>
+     */
+    public function getServicesClientChoice(): Collection
+    {
+        return $this->servicesClientChoice;
+    }
+
+    public function addServicesClientChoice(Service $servicesClientChoice): self
+    {
+        if (!$this->servicesClientChoice->contains($servicesClientChoice)) {
+            $this->servicesClientChoice->add($servicesClientChoice);
+            $servicesClientChoice->addClientServiceChoise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeServicesClientChoice(Service $servicesClientChoice): self
+    {
+        if ($this->servicesClientChoice->removeElement($servicesClientChoice)) {
+            $servicesClientChoice->removeClientServiceChoise($this);
+        }
 
         return $this;
     }

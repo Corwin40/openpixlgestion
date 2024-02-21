@@ -28,6 +28,18 @@
             <td class="col-md-4">{{ form_widget(form.package, {'attr': {'class': 'form-select form-select-sm'}}) }}</td>
         </tr>
         <tr class="align-middle">
+            <td class="col-md-4 table-light">{{ form_label(form.priceBundle) }}</td>
+            <td class="col-md-4">{{ form_widget(form.priceBundle, {'attr': {'class': 'form-control form-control-sm'}}) }}</td>
+        </tr>
+        <tr class="align-middle">
+            <td class="col-md-4 table-light">{{ form_label(form.priceHour) }}</td>
+            <td class="col-md-4">{{ form_widget(form.priceHour, {'attr': {'class': 'form-control form-control-sm'}}) }}</td>
+        </tr>
+        <tr class="align-middle">
+            <td class="col-md-4 table-light">{{ form_label(form.tva) }}</td>
+            <td class="col-md-4">{{ form_widget(form.tva, {'attr': {'class': 'form-select form-select-sm'}}) }}</td>
+        </tr>
+        <tr class="align-middle">
             <td class="col-md-4 table-light">{{ form_label(form.statut) }}</td>
             <td class="col-md-4">{{ form_widget(form.statut, {'attr': {'class': 'form-select form-select-sm'}}) }}</td>
         </tr>

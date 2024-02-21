@@ -52,6 +52,12 @@ class Intervention
     #[ORM\Column(nullable: true)]
     private ?int $multiple = null;
 
+    #[ORM\Column]
+    private ?bool $isInvoiced = false;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+    private ?string $volume = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -206,6 +212,30 @@ class Intervention
     public function setMultiple(?int $multiple): self
     {
         $this->multiple = $multiple;
+
+        return $this;
+    }
+
+    public function isIsInvoiced(): ?bool
+    {
+        return $this->isInvoiced;
+    }
+
+    public function setIsInvoiced(bool $isInvoiced): static
+    {
+        $this->isInvoiced = $isInvoiced;
+
+        return $this;
+    }
+
+    public function getVolume(): ?string
+    {
+        return $this->volume;
+    }
+
+    public function setVolume(?string $volume): static
+    {
+        $this->volume = $volume;
 
         return $this;
     }

@@ -67,6 +67,10 @@ class InterventionController extends AbstractController
             $startedAt = $form->get('startedAt')->getData();
             $finishedAt = $form->get('finishedAt')->getData();
             $intervention->setTimelaps($delta = date_diff($startedAt, $finishedAt));
+            // calcul volume
+            $interval = strtotime("1970/01/01".$intervention->getTimelaps()->format('%H:%i:%s'));
+            $vol = $interval * ($intervention->getFicheservice()->getPriceHour() / 3600);
+            $intervention->setVolume($vol);
             $interventionRepository->save($intervention, true);
 
             return $this->redirectToRoute('app_admin_intervention_index', [], Response::HTTP_SEE_OTHER);
@@ -124,6 +128,10 @@ class InterventionController extends AbstractController
             $startedAt = $form->get('startedAt')->getData();
             $finishedAt = $form->get('finishedAt')->getData();
             $intervention->setTimelaps($delta = date_diff($startedAt, $finishedAt));
+            // calcul volume
+            $interval = strtotime("1970/01/01".$intervention->getTimelaps()->format('%H:%i:%s'));
+            $vol = $interval * ($intervention->getFicheservice()->getPriceHour() / 3600);
+            $intervention->setVolume($vol);
             $interventionRepository->save($intervention, true);
 
             // Fonction d'envoi mail
@@ -167,12 +175,12 @@ class InterventionController extends AbstractController
 
         $listinterves = $interventionRepository->listeintervebyclient($idficheservice);
         //dd($listinterves);
-
         return $this->json([
             'code'=> 200,
             'message' => "OK",
             'list' => $this->renderView('gestapp/intervention/listeintervebyclient.html.twig', [
                 'listeinterves' => $listinterves,
+                'idficheservice' =>$idficheservice,
             ])
         ], 200);
     }

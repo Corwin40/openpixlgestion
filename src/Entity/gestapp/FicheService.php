@@ -59,9 +59,6 @@ class FicheService
     #[ORM\Column(nullable: true)]
     #[Groups(['client:item'])]
     private ?int $package = null;
-
-
-
     #[ORM\Column]
     #[Groups(['client:item'])]
     private ?int $choicePrice = 0;
@@ -73,6 +70,15 @@ class FicheService
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Groups(['client:item'])]
     private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\Column]
+    private ?int $priceHour = null;
+
+    #[ORM\Column]
+    private ?int $priceBundle = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $tva = null;
 
     public function __construct()
     {
@@ -260,6 +266,42 @@ class FicheService
     public function setDescriptif(?string $descriptif): self
     {
         $this->descriptif = $descriptif;
+
+        return $this;
+    }
+
+    public function getPriceHour(): ?int
+    {
+        return $this->priceHour;
+    }
+
+    public function setPriceHour(int $priceHour): static
+    {
+        $this->priceHour = $priceHour;
+
+        return $this;
+    }
+
+    public function getPriceBundle(): ?int
+    {
+        return $this->priceBundle;
+    }
+
+    public function setPriceBundle(int $priceBundle): static
+    {
+        $this->priceBundle = $priceBundle;
+
+        return $this;
+    }
+
+    public function getTva(): ?string
+    {
+        return $this->tva;
+    }
+
+    public function setTva(string $tva): static
+    {
+        $this->tva = $tva;
 
         return $this;
     }
