@@ -6,10 +6,15 @@
                     <h6 class="card-title"><i class="fa-regular fa-location-dot"></i> Adresse</h6>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">{{invoice.refCustomer.firstName}} {{invoice.refCustomer.lastName}} <br/>
-                    <a href="https://www.google.com/maps/search/?api=1&query={{invoice.refCustomer.address}},+{{invoice.refCustomer.postalCode}}+{{invoice.refCustomer.city}}">
-                        {{invoice.refCustomer.address}} <br/>{{invoice.refCustomer.postalCode}} {{invoice.refCustomer.city}}
-                    </a> <br/></p>
+                    <p class="card-text">
+                        <b>{{invoice.refCustomer.firstName}} {{invoice.refCustomer.lastName}}</b>
+                        <br/>
+                        <a href="https://www.google.com/maps/search/?api=1&query={{invoice.refCustomer.address}},+{{invoice.refCustomer.postalCode}}+{{invoice.refCustomer.city}}">
+                        {{invoice.refCustomer.address}}
+                            <br/>{{invoice.refCustomer.postalCode}} {{invoice.refCustomer.city}}
+                        </a>
+                        <br/>
+                    </p>
                 </div>
             </div>
             <div class="card">
@@ -28,25 +33,25 @@
             </div>
         
     </div>
-    <div class="row mt-5">
+    <div class="row mt-2">
         <div class="col-12">
-        <hr>
-        <h4><b>Objet:</b> {{fiche.name}}</h4>
-        <h4><b>Descriptif:</b> {{fiche.descriptif}}</h4>
-        <hr>
+        <h6><b>Objet :</b> {{fiche.name}}</h6>
+        <h6><b>Descriptif :</b> {{fiche.descriptif}}</h6>
     </div>
-        <div class="col-12 mt-5">
-            {% if interventions|length > 1 %}
-                <h3>Interventions réalisées</h3>
-            {% else %}
-                <h3>Intervention réalisée</h3>
-            {% endif %}
-            <table class="table table-striped table-hover">
+        <div class="col-12">
+
+            <table class="table table-sm">
                 {% set total_ht = 0 %}
                 {% set total_ttc = 0 %}
                 {% set total_heure = 0 %}
                 <tr>
-                    <th>Désignation</th>
+                    <th>
+                        {% if interventions|length > 1 %}
+                            Interventions réalisées
+                        {% else %}
+                            Intervention réalisée
+                        {% endif %}
+                    </th>
                     <th>Nombre d'heure</th>
                     <th>Quantité</th>
                     <th>Montant HT</th>
@@ -86,20 +91,19 @@
                 <tr>
                     <td class="text-end">TOTAL</td>
                     <td><b>{{ total|date('%Hh%I') }}</b></td>
-                    <td><i class="fa-solid fa-empty-set"></i></td>
+                    <td></td>
                     <td><b>{{ total_ht }}€</b></td>
                     <td><b>{{ total_ttc|round(2, 'ceil') }}€</b></td>
                 </tr>
                 </table>
                 <div class="col-md-4 text-right">
                 {% if fiche.tva is not null %}
-                <u>TVA: {{ (fiche.tva * 100 - 100)|round(0, 'floor') }} %</u>
+                Taux de TVA appliquée : {{ (fiche.tva * 100 - 100)|round(0, 'floor') }} %
                 {% endif %}
                 </div>
 
-        <div class="row justify-content-between custom-line">
+        <div class="row justify-content-between">
             <div class="col-12 mt-5 ">
-                <hr>
                 <div class="row">
                     <div class="col-10">
                         <h2>MONTANT DE LA FACTURE</h2>
@@ -108,7 +112,6 @@
                         <h2>{{ total_ttc|round(2, 'ceil') }} <i class="fa-regular fa-euro-sign"></i></h2>
                     </div>
                 </div>
-                <hr>
             </div>
         </div>
         </div>  

@@ -17,7 +17,7 @@ class InvoiceItem
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'invoiceItems')]
+    #[ORM\ManyToOne(inversedBy: 'invoiceItems', cascade:["persist"])]
     private ?Invoice $refInvoice = null;
 
     #[ORM\Column]

@@ -345,7 +345,7 @@
                     .then(function(response){
                         document.getElementById('newInvoice')
                         newInvoice.addEventListener('hidden.bs.modal', function (event) {
-                        
+                        arrayCheckboxes = []
                         })
                     })
                     .catch(function(error){console.log(error)});
@@ -353,7 +353,6 @@
 
             // II. Ouverture de la modale de creation d'une facture
             newInvoice.addEventListener('show.bs.modal', event => {
-                
                 //selectionne toutes les checkboxes
                 document.getElementById('checkAll').onclick = function() {
                 let checkboxes = document.getElementsByName('checkInterventions');
@@ -667,7 +666,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                        <button id="btnSubmitInvoice" type="submit" class="btn btn-primary">{{ button_label|default('Sauvegarder') }} <i class="fa-solid fa-floppy-disk"></i></button>
+                        <button id="btnSubmitInvoice" type="submit" class="btn btn-primary" data-bs-dismiss="modal">{{ button_label|default('Sauvegarder') }} <i class="fa-solid fa-floppy-disk"></i></button>
                     </div>
                 </div>
             </div>

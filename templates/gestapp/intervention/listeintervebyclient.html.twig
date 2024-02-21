@@ -8,8 +8,8 @@
         <th>Départ</th>
         <th>Fin</th>
         <th>Ecart</th>
-        <th>Crée le</th>
-        <th>Mise à jour</th>
+        <th>Coût HT</th>
+        <th>Coût TTC</th>
         <th>...</th>
     </tr>
     </thead>
@@ -18,14 +18,19 @@
     {% for listeinterve in listeinterves %}
         {% set diffHour = date(listeinterve.finishedAt|date('H:i')).diff(date(listeinterve.startedAt|date('H:i'))) %}
         <tr class="align-middle">
-            <td><input type="checkbox" value="{{ listeinterve.id }}" name="checkInterventions"></td>
-            <td>{{ listeinterve.name }}</td>
+            <td><input type="checkbox" value="{{ listeinterve.id }}" name="checkInterventions" {% if listeinterve.isInvoiced %}disabled{% endif%}></td>
+            <td>
+                <div class="d-flex justify-content-between">
+                    <p class="mb-0"> {{ listeinterve.name }}</p>
+                    {% if listeinterve.isInvoiced %}<p class="mb-0"><span class="badge text-bg-primary">facturée</span></p> {% endif%}
+                </div>
+            </td>
             <td>{{ listeinterve.author.firstName }} {{ listeinterve.author.lastName }}</td>
             <td>{{ listeinterve.startedAt ? listeinterve.startedAt|date('H:i') : '' }}</td>
             <td>{{ listeinterve.finishedAt ? listeinterve.finishedAt|date('H:i') : '' }}</td>
             <td>{{ listeinterve.timelaps|date('%Hh%I') }}</td>
-            <td>{{ listeinterve.createdAt ? listeinterve.createdAt|date('Y-m-d') : '' }}</td>
-            <td>{{ listeinterve.updatedAt ? listeinterve.updatedAt|date('Y-m-d') : '' }}</td>
+            <td>{{ listeinterve.volume }} €</td>
+            <td>{{ listeinterve.volume * 0}} €</td>
             <td>
                 <a href="{{ path('app_admin_intervention_show', {'id': listeinterve.id}) }}">show</a>
                 <a href="{{ path('app_admin_intervention_edit', {'id': listeinterve.id}) }}">edit</a>
@@ -34,7 +39,7 @@
         {% set cumul = cumul.sub(diffHour) %}
     {% else %}
         <tr>
-            <td colspan="8">Aucune intervention enregistré pour ce service</td>
+            <td colspan="9">Aucune intervention enregistré pour ce service</td>
         </tr>
     {% endfor %}
     </tbody>
@@ -43,8 +48,7 @@
         <tr>
             <th class="text-end" colspan="4">Temps réalisé sur le projet :</th>
             <td>{{ total|date('%Hh%I') }}</td>
-            <td colspan="3"></td>
-
+            <td colspan="4"></td>
         </tr>
     </tfoot>
 </table>

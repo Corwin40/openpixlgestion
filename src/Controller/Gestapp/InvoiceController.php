@@ -44,7 +44,6 @@ class InvoiceController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $interventions = [];
         $total = 0;
-        //dd($arrayCheckboxes);
         if ($data) {
             $arrayCheckboxes = $data['arrayCheckboxes'];
            //dd($arrayCheckboxes);
@@ -63,10 +62,8 @@ class InvoiceController extends AbstractController
                 $total = $total + $price;
             }
         }
-
         //recuperation de la fiche service
         $fiche = $ficheServiceRepository->find($idFiche);
-        //dd($fiche);
         $descriptif = $fiche->getDescriptif();
         $name = $fiche->getName();
         $client = $fiche->getClient();
@@ -83,21 +80,11 @@ class InvoiceController extends AbstractController
         }
 
         $invoice = new Invoice();
-        //dd($name, $descriptif);
         $invoice->setInvoiceAt(new \DateTime('now'));
         $invoice->setNum($num);
-        //$invoice->setDescriptif($descriptif);
-        //$invoice->setName($name);
+        $invoice->setDescriptif($descriptif);
+        $invoice->setName($name);
         $invoice->setRefCustomer($client);
-
-        // Création des items de la facture
-        //$data = json_decode($request->getContent(), true);
-        //dd($data);
-        //foreach ($arrayCheckboxes as $idIntervention) {
-        //    $intervention = $interventionRepository->find($idIntervention);
-        //    //$invoiceItem = new InvoiceItem();
-        //     dd($intervention);
-        //}
                             
         $form = $this->createForm(InvoiceType::class, $invoice, [
             'action' => $this->generateUrl('app_gestapp_invoice_new', [
@@ -111,29 +98,29 @@ class InvoiceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $invoiceAt = $form->getData()->getInvoiceAt();
-            //dd($invoiceAt);
             // Créez une nouvelle facture
             $invoice = new Invoice();
-            foreach($interventions as $i){
-                $invoiceItem = new InvoiceItem();
-                $invoiceItem->setName($intervention->getName());
-                $invoiceItem->setHour($intervention->getTimelaps());
-                $invoiceItem->setRefInvoice($invoice);
-                // Définissez le total et la TVA de la facture
-                $invoiceItem->setMontantHt($intervention->getVolume());
-                $invoiceItem->setMontantTtc($intervention->getVolume()*$fiche->getTva());
-                $entityManager->persist($invoiceItem);
-            }
+            $invoiceAt = $form->getData()->getInvoiceAt();
             $invoice->setTva($fiche->getTva());
             $invoice->setTotal($total);
-            $invoice->setName($fiche->getName());
-            $invoice->setDescriptif($fiche->getDescriptif());
+            $invoice->setName($name);
+            $invoice->setDescriptif($descriptif);
             $invoice->setNum($num);
             $invoice->setInvoiceAt($invoiceAt);
-            // Persistez la facture
             $entityManager->persist($invoice);
             $entityManager->flush();
+
+            foreach($interventions as $i){
+                $invoiceItem = new InvoiceItem();
+                $invoiceItem->setName($i->getName());
+                $invoiceItem->setHour($i->getTimelaps());
+                $invoiceItem->setRefInvoice($invoice);
+                $invoiceItem->setMontantHt($i->getVolume());
+                $invoiceItem->setMontantTtc($i->getVolume() * $fiche->getTva());
+                $i->setIsInvoiced(1);
+                $entityManager->persist($invoiceItem);
+                $entityManager->flush();
+            }
         
             return $this->json([
                 'code'=> 200,

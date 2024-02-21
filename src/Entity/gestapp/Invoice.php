@@ -18,6 +18,12 @@ class Invoice
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $descriptif = null;
+
     #[ORM\Column]
     private ?int $num = null;
 
@@ -27,20 +33,14 @@ class Invoice
     #[ORM\ManyToOne]
     private ?Client $refCustomer = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $descriptif = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
     #[ORM\OneToMany(mappedBy: 'refInvoice', targetEntity: InvoiceItem::class)]
     private Collection $invoiceItems;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
-    private ?string $total = null;
+    private ?string $total = '0';
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
-    private ?string $tva = null;
+    private ?string $tva = '0';
     
     public function __construct()
     {
