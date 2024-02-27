@@ -67,7 +67,7 @@ class FicheServiceType extends AbstractType
                     "5 %" => "1.05",
                     '15 %' => '1.15',
                     "20 %" => "1.20",
-                ]
+                ],
             ])
             
             ->add('statut', ChoiceType::class,[

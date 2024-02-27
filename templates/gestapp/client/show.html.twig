@@ -6,17 +6,17 @@
     {{ parent() }}
     <script>
         window.onload = function(){
-            // Appel des éléments récurrents
+            // Déclaration des éléments
             // -----------------------------------------
             const modalServiceonclient = document.getElementById('modalServiceonclient')
+            const modalAddonClient = document.getElementById('addserviceonclient')
             const editFicheservice = document.getElementById('editFicheservice')
             const newInvoice = document.getElementById('newInvoice')
+            let closedModalInvoice = document.getElementById('closedModalInvoice')
 
-            //document.getElementById('btnSubmitInvoice').addEventListener('submit', submitInvoice)
-            
             // PARTIE Ajout/édition d'une fiche service en Javascript pour un client
             // -----------------------------------------
-            //editFicheservice.
+
             modalServiceonclient.addEventListener('show.bs.modal', function (event) {
                 // Button that triggered the modal
                 let button = event.relatedTarget
@@ -94,8 +94,6 @@
 
             // PARTIE Ajout d'une fiche service en Javascript pour un client
             // -----------------------------------------
-            // I. Déclaration des éléments utile à la fonction
-            const modalAddonClient = document.getElementById('addserviceonclient')
 
             // II. Ouverture de la modale d'édition
             modalAddonClient.addEventListener('show.bs.modal', function (event) {
@@ -344,9 +342,7 @@
                     .post(action, data)
                     .then(function(response){
                         document.getElementById('newInvoice')
-                        newInvoice.addEventListener('hidden.bs.modal', function (event) {
                         arrayCheckboxes = []
-                        })
                     })
                     .catch(function(error){console.log(error)});
             }
@@ -410,6 +406,17 @@
                 modalBody.innerHTML = `<div class="d-flex justify-content-center"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>`;
                 
             })
+            newInvoice.addEventListener('hide.bs.modal', event => {
+                arrayCheckboxes = []
+            })
+
+            function emptyArrayCheckboxes(){
+                arrayCheckboxes = []
+            }
+
+            document.querySelectorAll('button.close').forEach(function(link){
+                link.addEventListener('click', emptyArrayCheckboxes)
+            })
 
             // Ajout d'un évènement sur le click du selecteur ajout d'un service
             document.querySelectorAll('a.btnaddonclient').forEach(function (link) {
@@ -430,6 +437,8 @@
             document.querySelectorAll('a.submitFormService').forEach(function (link) {
                 link.addEventListener('click', submitFormFicheservice);
             })
+
+            // Déclaration des fonctions
 
         }
 
@@ -660,13 +669,13 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Nouvelle facture</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div id="ModalBodyListintervonfiche" class="modal-body">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                        <button id="btnSubmitInvoice" type="submit" class="btn btn-primary" data-bs-dismiss="modal">{{ button_label|default('Sauvegarder') }} <i class="fa-solid fa-floppy-disk"></i></button>
+                        <button type="button" class="btn btn-sm btn-secondary close" data-bs-dismiss="modal">Fermer</button>
+                        <button id="btnSubmitInvoice" type="submit" class="btn btn-sm btn-primary" data-bs-dismiss="modal">{{ button_label|default('Sauvegarder') }} <i class="fa-solid fa-floppy-disk"></i></button>
                     </div>
                 </div>
             </div>

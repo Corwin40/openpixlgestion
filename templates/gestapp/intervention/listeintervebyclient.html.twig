@@ -30,7 +30,7 @@
             <td>{{ listeinterve.finishedAt ? listeinterve.finishedAt|date('H:i') : '' }}</td>
             <td>{{ listeinterve.timelaps|date('%Hh%I') }}</td>
             <td>{{ listeinterve.volume }} €</td>
-            <td>{{ listeinterve.volume * 0}} €</td>
+            <td>{{ listeinterve.volume * listeinterve.ficheservice.tva}} €</td>
             <td>
                 <a href="{{ path('app_admin_intervention_show', {'id': listeinterve.id}) }}">show</a>
                 <a href="{{ path('app_admin_intervention_edit', {'id': listeinterve.id}) }}">edit</a>

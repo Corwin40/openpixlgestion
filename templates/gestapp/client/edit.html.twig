@@ -8,50 +8,35 @@
     window.onload = function(){
 
         // au chargement de la page
-        let typeClientVal = document.getElementById('typeClientVal').value
-        if(typeClientVal == 1)
+        const typeClient = document.getElementById('client_typeclient')
+        console.log(typeClient.value)
+        if(typeClient.value === 1 || typeClient.value === 5)
         {
-            document.getElementById("nameStructure").removeAttribute('style')
-            document.getElementById("logo").removeAttribute('style')
-            document.getElementById("director").removeAttribute('style')
-            document.getElementById("siret_siren").removeAttribute('style')
-            document.getElementById("activity_pro").removeAttribute('style')
-            document.getElementById("tva").removeAttribute('style')
-        }else{
             document.getElementById("nameStructure").style.display = "none"
+            document.getElementById("surnameStructure").style.display = "none"
             document.getElementById("logo").style.display = "none" // Insere dans le DOM, une balise Style sur l'éléments sélectionné qui injecte du CSS
             document.getElementById("director").style.display = "none"
             document.getElementById("siret_siren").style.display = "none"
             document.getElementById("activity_pro").style.display = "none"
             document.getElementById("tva").style.display = "none"
-        }
-        // I. On sélectionne le select
-        const clienttype = document.getElementById('client_typeclient')
-        // 2. Sur le select on récupère la valeur sur le "OnChange".
-        clienttype.addEventListener('change', function(event){
-            let value = document.getElementById('typeClientVal')
-            axios
-                .get('/admin/client/getTypeClient/' + clienttype.value)
-                .then(function(response){
-                    value.value = response.data.value
-                    if(value.value == 1 ){
-                        document.getElementById("nameStructure").removeAttribute('style')
-                        document.getElementById("logo").removeAttribute('style')
-                        document.getElementById("director").removeAttribute('style')
-                        document.getElementById("siret_siren").removeAttribute('style')
-                        document.getElementById("activity_pro").removeAttribute('style')
-                        document.getElementById("tva").removeAttribute('style')
-                    }else{
-                        document.getElementById("nameStructure").style.display = "none"
-                        document.getElementById("logo").style.display = "none" // Insere dans le DOM, une balise Style sur l'éléments sélectionné qui injecte du CSS
-                        document.getElementById("director").style.display = "none"
-                        document.getElementById("siret_siren").style.display = "none"
-                        document.getElementById("activity_pro").style.display = "none"
-                        document.getElementById("tva").style.display = "none"
-                    }
-                })
+        }else{
+            document.getElementById("nameStructure").removeAttribute('style')
+            document.getElementById("surnameStructure").removeAttribute('style')
+            document.getElementById("logo").removeAttribute('style')
+            document.getElementById("director").removeAttribute('style')
+            document.getElementById("siret_siren").removeAttribute('style')
+            document.getElementById("activity_pro").removeAttribute('style')
+            document.getElementById("tva").removeAttribute('style')
 
-        })
+        }
+        typeClient.addEventListener('change', (event) => {
+            if(event.target.value === 1 || event.target.value === 5)
+            {
+                console.log(event.target.value);
+            }else{
+                console.log(event.target.value);
+            }
+        });
 
     }
 </script>

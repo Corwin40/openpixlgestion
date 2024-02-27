@@ -170,11 +170,8 @@ class InterventionController extends AbstractController
     #[Route('/listeinterveonclient/{idficheservice}', name: 'app_admin_intervention_listeinterveonclient', methods: ['GET', 'POST'])]
     public function listeinterveonclient(InterventionRepository $interventionRepository,$idficheservice, FicheServiceRepository $ficheServiceRepository, Request $request)
     {
-        // On récupère l'entité correspondante ficheservice
-        $fiche = $ficheServiceRepository->find($idficheservice);
-
         $listinterves = $interventionRepository->listeintervebyclient($idficheservice);
-        //dd($listinterves);
+
         return $this->json([
             'code'=> 200,
             'message' => "OK",
