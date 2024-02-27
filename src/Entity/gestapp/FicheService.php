@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-
 #[ORM\Entity(repositoryClass: FicheServiceRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class FicheService
