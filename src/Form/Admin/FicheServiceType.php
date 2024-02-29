@@ -46,6 +46,7 @@ class FicheServiceType extends AbstractType
                 'label'=>'Tarif du forfait',
                 'required' => false,
                 'choices'  => [
+                    '0 €' => '0',
                     '100 €' => '100',
                     "200 €" => "200",
                     '300 €' => '300',
@@ -72,11 +73,17 @@ class FicheServiceType extends AbstractType
             
             ->add('statut', ChoiceType::class,[
                 'label'=>'Etat du service',
-                'required' => false,
+                'required' => true,
                 'choices'  => [
-                    'service actif' => 'service actif',
-                    "service proche de l'échéance" => "service proche de l'échéance",
-                    'service à échéance' => 'service à échéance',
+                    'prestation' => [
+                        'prestation en cours' => 'prestation en cours',
+                        'prestation close' => 'prestation close',
+                    ],
+                    'Service' => [
+                        'service actif' => 'service actif',
+                        "service proche de l'échéance" => "service proche de l'échéance",
+                        'service à échéance' => 'service à échéance',
+                    ]
                 ],
             ])
             ->add('choicePrice', ChoiceType::class, [

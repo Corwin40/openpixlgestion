@@ -45,6 +45,8 @@ class FicheServiceRepository extends ServiceEntityRepository
             ->leftJoin('f.Client', 'c')
             ->leftJoin('f.service', 's')
             ->addSelect('
+                f.priceHour as priceHour,
+                f.priceBundle as priceBundle,
                 f.name as name,
                 f.echeance as echeance,
                 f.updatedAt,

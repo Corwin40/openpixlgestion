@@ -82,6 +82,19 @@ class InterventionController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/duplicate', name: 'app_admin_intervention_duplicate', methods: ['GET', 'POST'])]
+    public function duplicate(Request $request, Intervention $intervention, InterventionRepository $interventionRepository): Response
+    {
+        $name = $intervention->getName().'- copie';
+        $newIntervention = clone($intervention);
+        $newIntervention->setName($name);
+        $interventionRepository->save($newIntervention, true);
+        return $this->json([
+            'code' => 200,
+            'message' => 'ligne dupliquée'
+        ],200);
+    }
+
     #[Route('/{id}', name: 'app_admin_intervention_delete', methods: ['POST'])]
     public function delete(Request $request, Intervention $intervention, InterventionRepository $interventionRepository): Response
     {

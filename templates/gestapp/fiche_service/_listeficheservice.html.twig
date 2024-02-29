@@ -13,10 +13,10 @@
                 <th></th>
                 <th class="col-4"><i class="fa-solid fa-tag"></i> Nom</th>
                 <th class="col-2"><i class="fa-duotone fa-box-archive"></i> Engagement</th>
-                <th class="col-1">Forfait</th>
-                <th class="col-1">Etat</th>
+                <th class="col-1">Cout</th>
+                <th class="col-2">Etat</th>
                 <th class="col-1">Echeance</th>
-                <th class="">...</th>
+                <th class="col-1">...</th>
             </tr>
             </thead>
             <tbody>
@@ -25,7 +25,17 @@
                     <td><input type="checkbox" value="{{ ficheservice.id }}" id="serv-id"></td>
                     <td>{{ ficheservice.name }} - {{ ficheservice.nameService }}</td>
                     <td>{{ ficheservice.engagement|date('%y') }} {% if ficheservice.engagement|date('%y') > 2%}ans{% else %}an{% endif %}</td>
-                    <td>{{ ficheservice.package }}</td>
+                    <td>
+                        {% if ficheservice.package > 0 %}
+                            {{ ficheservice.package }}€
+                        {% endif %}
+                        {% if ficheservice.priceHour > 0 %}
+                            {{ ficheservice.priceHour }}€/heure
+                        {% endif %}
+                        {% if ficheservice.priceBundle > 0 %}
+                            {{ ficheservice.priceBundle }}€
+                        {% endif %}
+                    </td>
                     <td>{{ ficheservice.statut }}</td>
                     <td>{{ ficheservice.echeance |date('d-m-Y') }}</td>
                     <td>

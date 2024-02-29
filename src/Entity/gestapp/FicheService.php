@@ -35,42 +35,32 @@ class FicheService
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['client:item'])]
     private ?string $statut = null;
-
     #[ORM\ManyToOne]
     #[Groups(['client:item'])]
     private ?Member $author = null;
-
     #[ORM\ManyToOne(inversedBy: 'ficheServices')]
     private ?Client $Client = null;
-
     #[ORM\Column(nullable: true)]
     #[Groups(['client:item'])]
     private ?\DateInterval $engagement = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Groups(['client:item'])]
     private ?\DateTimeInterface $echeance = null;
-
-
     #[ORM\OneToMany(mappedBy: 'ficheservice', targetEntity: Intervention::class)]
     #[Groups(['client:item'])]
     private Collection $interventions;
-
     #[ORM\Column(nullable: true)]
     #[Groups(['client:item'])]
-    private ?int $package = null;
+    private ?int $package = 0;
     #[ORM\Column]
     #[Groups(['client:item'])]
     private ?int $choicePrice = 0;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Groups(['client:item'])]
     private ?\DateTimeInterface $createdAt = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Groups(['client:item'])]
     private ?\DateTimeInterface $updatedAt = null;
-
     #[ORM\Column(nullable: true)]
     private ?int $priceHour = 0;
 
@@ -78,7 +68,7 @@ class FicheService
     private ?int $priceBundle = 0;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $tva = null;
+    private ?string $tva = "0";
 
     public function __construct()
     {

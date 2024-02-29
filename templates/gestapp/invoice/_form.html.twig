@@ -2,10 +2,9 @@
     <div class="row justify-content-between custom-line">
         <div class="col-4">
             <div class="card">
-                <div class="card-header">
+                <div class="card-body p-2">
                     <h6 class="card-title"><i class="fa-regular fa-location-dot"></i> Adresse</h6>
-                </div>
-                <div class="card-body">
+                    <hr class="mt-0 mb-0">
                     <p class="card-text">
                         <b>{{invoice.refCustomer.firstName}} {{invoice.refCustomer.lastName}}</b>
                         <br/>
@@ -17,22 +16,23 @@
                     </p>
                 </div>
             </div>
+        </div>
+        <div class="col-4">
             <div class="card">
-                <div class="card-header">
+                <div class="card-body p-2">
                     <h6 class="card-title"><i class="fa-regular fa-address-book"></i> Contact</h6>
-                </div>
-                <div class="card-body">
-                    <i class="fa-regular fa-at"></i> <a href="mailto:{{invoice.refCustomer.email}}">{{invoice.refCustomer.email}}</a><br/><i class="fa-regular fa-phone"></i><a href="tel:{{invoice.refCustomer.phone}}">{{invoice.refCustomer.phone}}</a>
+                    <hr class="mt-0 mb-0">
+                    <i class="fa-regular fa-at"></i> : <a href="mailto:{{invoice.refCustomer.email}}">{{invoice.refCustomer.email}}</a><br/><i class="fa-regular fa-phone"></i> : <a href="tel:{{invoice.refCustomer.phone}}">{{invoice.refCustomer.phone}}</a>
                 </div>
             </div>
         </div>
-            <div class=" col-2">
-                <div class="form-group form-control-sm">
-                    {{ form_widget(form) }}                                   
-                </div>
+        <div class="offset-2 col-2">
+            <div class="form-group form-control-sm">
+                {{ form_widget(form) }}
             </div>
-        
+        </div>
     </div>
+
     <div class="row mt-2">
         <div class="col-12">
         <h6><b>Objet :</b> {{fiche.name}}</h6>

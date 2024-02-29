@@ -3,14 +3,14 @@
     <thead>
     <tr>
         <th><input type="checkbox" id="checkAll"></th>
-        <th>Nom de l'intervention</th>
+        <th class="col-3">Nom de l'intervention</th>
         <th>Auteur</th>
         <th>Départ</th>
         <th>Fin</th>
         <th>Ecart</th>
         <th>Coût HT</th>
         <th>Coût TTC</th>
-        <th>...</th>
+        <th class="col-2">...</th>
     </tr>
     </thead>
     <tbody>
@@ -32,8 +32,9 @@
             <td>{{ listeinterve.volume }} €</td>
             <td>{{ listeinterve.volume * listeinterve.ficheservice.tva}} €</td>
             <td>
-                <a href="{{ path('app_admin_intervention_show', {'id': listeinterve.id}) }}">show</a>
-                <a href="{{ path('app_admin_intervention_edit', {'id': listeinterve.id}) }}">edit</a>
+                <a href="{{ path('app_admin_intervention_show', {'id': listeinterve.id}) }}"><i class="fa-duotone fa-money-check"></i></a>
+                <a href="{{ path('app_admin_intervention_edit', {'id': listeinterve.id}) }}"><i class="fa-duotone fa-money-check-pen"></i></a>
+                <a href="{{ path('app_admin_intervention_duplicate', {'id': listeinterve.id}) }}"><i class="fa-duotone fa-clone"></i></a>
             </td>
         </tr>
         {% set cumul = cumul.sub(diffHour) %}
