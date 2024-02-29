@@ -2,7 +2,7 @@
 
 namespace App\Controller\Gestapp;
 
-use App\Entity\gestapp\Service;
+use App\Entity\Gestapp\Service;
 use App\Form\Admin\ServiceType;
 use App\Repository\Gestapp\ClientRepository;
 use App\Repository\Gestapp\ServiceRepository;

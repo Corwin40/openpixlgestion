@@ -2,8 +2,8 @@
 
 namespace App\Controller\Gestapp;
 
-use App\Entity\gestapp\Client;
-use App\Entity\gestapp\TypeClient;
+use App\Entity\Gestapp\Client;
+use App\Entity\Gestapp\TypeClient;
 use App\Form\Admin\ClientType;
 use App\Repository\Gestapp\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

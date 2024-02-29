@@ -2,7 +2,7 @@
 
 namespace App\Controller\Gestapp;
 
-use App\Entity\gestapp\Intervention;
+use App\Entity\Gestapp\Intervention;
 use App\Form\Admin\InterventionType;
 use App\Repository\Gestapp\FicheServiceRepository;
 use App\Repository\Gestapp\InterventionRepository;

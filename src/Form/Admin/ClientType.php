@@ -2,8 +2,8 @@
 
 namespace App\Form\Admin;
 
-use App\Entity\gestapp\Client;
-use App\Entity\gestapp\TypeClient;
+use App\Entity\Gestapp\Client;
+use App\Entity\Gestapp\TypeClient;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

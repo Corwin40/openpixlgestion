@@ -3,7 +3,7 @@
 namespace App\Form\Admin;
 
 use App\Entity\Gestapp\FicheService;
-use App\Entity\gestapp\Service;
+use App\Entity\Gestapp\Service;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

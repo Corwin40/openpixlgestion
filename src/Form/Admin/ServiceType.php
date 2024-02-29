@@ -3,7 +3,7 @@
 namespace App\Form\Admin;
 
 use App\Entity\Admin\Choice\TypoServ;
-use App\Entity\gestapp\Service;
+use App\Entity\Gestapp\Service;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
