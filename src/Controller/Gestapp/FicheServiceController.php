@@ -3,7 +3,7 @@
 namespace App\Controller\Gestapp;
 
 use App\Entity\Admin\Statut;
-use App\Entity\gestapp\FicheService;
+use App\Entity\Gestapp\FicheService;
 use App\Form\Admin\FicheServiceType;
 use App\Repository\Gestapp\ClientRepository;
 use App\Repository\Gestapp\FicheServiceRepository;

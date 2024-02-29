@@ -2,7 +2,7 @@
 
 namespace App\Form\Admin;
 
-use App\Entity\gestapp\FicheService;
+use App\Entity\Gestapp\FicheService;
 use App\Entity\gestapp\Service;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
