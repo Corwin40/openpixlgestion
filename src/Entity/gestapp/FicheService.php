@@ -70,11 +70,11 @@ class FicheService
     #[Groups(['client:item'])]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\Column]
-    private ?int $priceHour = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $priceHour = 0;
 
-    #[ORM\Column]
-    private ?int $priceBundle = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $priceBundle = 0;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $tva = null;

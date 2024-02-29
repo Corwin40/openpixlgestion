@@ -230,7 +230,7 @@ class Client
 
         return $this;
     }
-    
+
     /**
      * @return Collection<int, FicheService>
      */
