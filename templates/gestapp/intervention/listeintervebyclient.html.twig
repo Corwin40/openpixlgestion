@@ -1,16 +1,24 @@
-<a id="urlNewInvoice" href="{{path('app_gestapp_invoice_new', {'idFiche':idficheservice})}}"></a>
+<h6>{{ fiche.name }}</h6>
+<p>{{ fiche.descriptif }}</p>
 <table class="table table-sm">
+    <caption>
+        {% if listeinterves|length > 1 %}
+            {{ listeinterves|length }} enregistrements
+        {% else %}
+            {{ listeinterves|length }} enregistrement
+        {% endif %}
+    </caption>
     <thead>
     <tr>
         <th><input type="checkbox" id="checkAll"></th>
-        <th class="col-3">Nom de l'intervention</th>
-        <th>Auteur</th>
+        <th class="col-4">Nom de l'intervention</th>
+        <th class="col-3">Auteur</th>
         <th>Départ</th>
         <th>Fin</th>
         <th>Ecart</th>
         <th>Coût HT</th>
         <th>Coût TTC</th>
-        <th class="col-2">...</th>
+        <th class="col-1">...</th>
     </tr>
     </thead>
     <tbody>
@@ -21,7 +29,7 @@
             <td><input type="checkbox" value="{{ listeinterve.id }}" name="checkInterventions" {% if listeinterve.isInvoiced %}disabled{% endif%}></td>
             <td>
                 <div class="d-flex justify-content-between">
-                    <p class="mb-0"> {{ listeinterve.name }}</p>
+                    <p class="mb-0"> <a href="#">{{ listeinterve.name }}</a></p>
                     {% if listeinterve.isInvoiced %}<p class="mb-0"><span class="badge text-bg-primary">facturée</span></p> {% endif%}
                 </div>
             </td>
@@ -33,8 +41,8 @@
             <td>{{ listeinterve.volume * listeinterve.ficheservice.tva}} €</td>
             <td>
                 <a href="{{ path('app_admin_intervention_show', {'id': listeinterve.id}) }}"><i class="fa-duotone fa-money-check"></i></a>
-                <a href="{{ path('app_admin_intervention_edit', {'id': listeinterve.id}) }}"><i class="fa-duotone fa-money-check-pen"></i></a>
-                <a href="{{ path('app_admin_intervention_duplicate', {'id': listeinterve.id}) }}"><i class="fa-duotone fa-clone"></i></a>
+                <a id="btnEditIntervention" class="btnEditIntervention" href="{{ path('app_admin_intervention_edit', {'id': listeinterve.id}) }}" ><i class="fa-duotone fa-money-check-pen"></i></a>
+                <a id="btnDupliIntervention" href="{{ path('app_admin_intervention_duplicate', {'id': listeinterve.id}) }}"><i class="fa-duotone fa-clone"></i></a>
             </td>
         </tr>
         {% set cumul = cumul.sub(diffHour) %}

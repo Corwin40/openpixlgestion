@@ -179,11 +179,81 @@ class InterventionController extends AbstractController
 
     }
 
+    /**
+     * On ajoute une intervention au service d'un client
+     **/
+    #[Route('/editinterveonclient/{id}', name: 'app_admin_intervention_editinterveonclient', methods: ['GET', 'POST'])]
+    public function editinterveonclient(
+        Intervention $intervention,
+        InterventionRepository $interventionRepository,
+        FicheServiceRepository $ficheServiceRepository,
+                               $idficheservice,
+        Request $request,
+        MailerInterface $mailer
+    )
+    {
+        $user = $this->getUser();
+
+        $ficheservice = $ficheServiceRepository->find($idficheservice);
+        $nameserv = $ficheservice->getService()->getCode();
+        $emailClient = $ficheservice->getClient()->getEmail();
+
+        $form = $this->createForm(InterventionType::class, $intervention, [
+            'action'=> $this->generateUrl('app_admin_intervention_addinterveonclient', ['idficheservice'=> $idficheservice]),
+            'method'=>'POST',
+            'attr' => ['class'=>'formaddinterventiononclient']
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $startedAt = $form->get('startedAt')->getData();
+            $finishedAt = $form->get('finishedAt')->getData();
+            $intervention->setTimelaps($delta = date_diff($startedAt, $finishedAt));
+            // calcul volume
+            $interval = strtotime("1970/01/01".$intervention->getTimelaps()->format('%H:%i:%s'));
+            $vol = $interval * ($intervention->getFicheservice()->getPriceHour() / 3600);
+            $intervention->setVolume($vol);
+            $interventionRepository->save($intervention, true);
+
+            // Fonction d'envoi mail
+            $email = (new Email())
+                ->from('contact@openpixl.fr')
+                ->to($emailClient)
+                //->cc('cc@example.com')
+                //->bcc('bcc@example.com')
+                //->replyTo('fabien@example.com')
+                //->priority(Email::PRIORITY_HIGH)
+                ->subject('[OpenPixl] - Mise à jour de votre service : '.$nameserv)
+                ->text('Sending emails is fun again!')
+                ->html('fichier twig + Variable objet à transmettre');
+
+            $mailer->send($email);
+
+            return $this->json([
+                'code'=> 200,
+                'message' => "l'intervention a bien été enregistrée.",
+            ], 200);
+        }
+
+        $view = $this->render('gestapp/intervention/_form.html.twig', [
+            'intervention' => $intervention,
+            'form' => $form
+        ]);
+
+        //dd($view->getContent());
+        return $this->json([
+            'code'=> 200,
+            'form' => $view->getContent()
+        ], 200);
+
+    }
+
 
     #[Route('/listeinterveonclient/{idficheservice}', name: 'app_admin_intervention_listeinterveonclient', methods: ['GET', 'POST'])]
     public function listeinterveonclient(InterventionRepository $interventionRepository,$idficheservice, FicheServiceRepository $ficheServiceRepository, Request $request)
     {
         $listinterves = $interventionRepository->listeintervebyclient($idficheservice);
+        $ficheService = $ficheServiceRepository->find($idficheservice);
 
         return $this->json([
             'code'=> 200,
@@ -191,6 +261,7 @@ class InterventionController extends AbstractController
             'list' => $this->renderView('gestapp/intervention/listeintervebyclient.html.twig', [
                 'listeinterves' => $listinterves,
                 'idficheservice' =>$idficheservice,
+                'fiche' => $ficheService
             ])
         ], 200);
     }

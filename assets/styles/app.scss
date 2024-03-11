@@ -8,4 +8,6 @@ $color-btn : #4f97af;
 @import './node_modules/bootstrap/scss/bootstrap';
 @import './node_modules/bootstrap/scss/variables';
 //*** ------------- Import Variables of my theme ---------------- ***//
+
 @import "assets/styles/app/style";
+@import "assets/styles/app/table";
