@@ -23,8 +23,10 @@
     </thead>
     <tbody>
     {% set cumul = date('1900/01/01') %}
+    {% set TotalPrice = 0 %}
     {% for listeinterve in listeinterves %}
         {% set diffHour = date(listeinterve.finishedAt|date('H:i')).diff(date(listeinterve.startedAt|date('H:i'))) %}
+        {% set price = listeinterve.volume * listeinterve.ficheservice.tva %}
         <tr class="align-middle">
             <td><input type="checkbox" value="{{ listeinterve.id }}" name="checkInterventions" {% if listeinterve.isInvoiced %}disabled{% endif%}></td>
             <td>
@@ -37,14 +39,15 @@
             <td>{{ listeinterve.startedAt ? listeinterve.startedAt|date('H:i') : '' }}</td>
             <td>{{ listeinterve.finishedAt ? listeinterve.finishedAt|date('H:i') : '' }}</td>
             <td>{{ listeinterve.timelaps|date('%Hh%I') }}</td>
-            <td>{{ listeinterve.volume }} €</td>
-            <td>{{ listeinterve.volume * listeinterve.ficheservice.tva}} €</td>
+            <td>{{ listeinterve.volume }}€</td>
+            <td>{{ price }}€</td>
             <td>
                 <a href="{{ path('app_admin_intervention_show', {'id': listeinterve.id}) }}"><i class="fa-duotone fa-money-check"></i></a>
                 <a id="btnEditIntervention" class="btnEditIntervention" href="{{ path('app_admin_intervention_edit', {'id': listeinterve.id}) }}" ><i class="fa-duotone fa-money-check-pen"></i></a>
                 <a id="btnDupliIntervention" href="{{ path('app_admin_intervention_duplicate', {'id': listeinterve.id}) }}"><i class="fa-duotone fa-clone"></i></a>
             </td>
         </tr>
+        {% set TotalPrice = TotalPrice + price %}
         {% set cumul = cumul.sub(diffHour) %}
     {% else %}
         <tr>
@@ -57,7 +60,8 @@
         <tr>
             <th class="text-end" colspan="4">Temps réalisé sur le projet :</th>
             <td>{{ total|date('%Hh%I') }}</td>
-            <td colspan="4"></td>
+            <td colspan="2"></td>
+            <td colspan="2">{{ TotalPrice }}€</td>
         </tr>
     </tfoot>
 </table>

@@ -17,7 +17,6 @@
 
             // PARTIE Ajout/édition d'une fiche service en Javascript pour un client
             // -----------------------------------------
-
             modalServiceonclient.addEventListener('show.bs.modal', function (event) {
                 // Button that triggered the modal
                 let button = event.relatedTarget
@@ -499,7 +498,7 @@
                             <h4 id="client_typeclient" class="card-title text-start mb-0">LISTE DES SERVICES / PRESTATIONS</h4>
                         </div>
                         <div class="card-body">
-                            <button href="#" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalServiceonclient" data-bs-whatever="ADD-Création d'un nouveau service-{{ client.id }}"><i class="fa-light fa-file-lines"></i> Ajouter un service</button>
+                            <a id="btnAddService" href="{{ path('app_admin_fiche_service_new', {'idclient': client.id}) }}" class="btn btn-sm btn-outline-secondary" data-bs-whatever="ADD-Création d'un nouveau service-{{ client.id }}"><i class="fa-light fa-file-lines"></i> Ajouter un service</a>
                             {{ render(controller('App\\Controller\\Gestapp\\FicheServiceController::listServicesByClient', {'idclient': client.id})) }}
                         </div>
                     </div>
@@ -515,6 +514,30 @@
         </div>
     </section>
     <section>
+        <!-- Modal  -->
+        <div class="modal fade" id="modalServ" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex justify-content-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Modal Ajout/edit d'un service -->
         <div class="modal fade" id="modalServiceonclient" tabindex="-1" aria-labelledby="modalServiceonclient" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -605,7 +628,7 @@
             </div>
         </div>
         <!-- Modal listes des interventions -->
-        <div class="modal modal-xl fade " id="modalIntervention" tabindex="-1" aria-labelledby="Listintervonfiche" aria-hidden="true">
+        <div class="modal fade " id="modalIntervention" tabindex="-1" aria-labelledby="Listintervonfiche" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -620,7 +643,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a id="NewInvoice" href="#" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#newInvoice" >Facture</a>
+                        <a id="NewInvoice" href="#" class="btn btn-sm btn-secondary d-none" data-bs-toggle="modal" data-bs-target="#newInvoice" >Facture</a>
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fermer</button>
                     </div>
                 </div>
