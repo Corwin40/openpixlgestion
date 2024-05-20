@@ -145,7 +145,6 @@ class FicheServiceController extends AbstractController
     {
         // On récupère l'entité l'entité correspondante client
         $client = $clientRepository->find($idclient);
-
         $listficheservices = $ficheServiceRepository->listByClient($idclient);
 
         return $this->render('gestapp/fiche_service/listbyclient.html.twig', [
