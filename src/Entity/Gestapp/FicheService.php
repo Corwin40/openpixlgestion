@@ -77,8 +77,8 @@ class FicheService
     #[ORM\Column(nullable: true)]
     private ?int $priceBundle = 0;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $tva = "0";
+    #[ORM\Column(nullable: true)]
+    private ?int $tva = 0;
 
     public function __construct()
     {
@@ -294,12 +294,12 @@ class FicheService
         return $this;
     }
 
-    public function getTva(): ?string
+    public function getTva(): ?int
     {
         return $this->tva;
     }
 
-    public function setTva(string $tva): static
+    public function setTva(int $tva): static
     {
         $this->tva = $tva;
 

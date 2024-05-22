@@ -64,10 +64,10 @@ class FicheServiceType extends AbstractType
                 'label'=>'tva',
                 'required' => false,
                 'choices'  => [
-                    '0 %' => '1',
-                    "5 %" => "1.05",
-                    '15 %' => '1.15',
-                    "20 %" => "1.20",
+                    '0 %' => 0,
+                    "5 %" => 5,
+                    '15 %' => 15,
+                    "20 %" => 20,
                 ],
             ])
             

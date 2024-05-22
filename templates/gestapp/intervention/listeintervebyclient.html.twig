@@ -26,7 +26,7 @@
     {% set TotalPrice = 0 %}
     {% for listeinterve in listeinterves %}
         {% set diffHour = date(listeinterve.finishedAt|date('H:i')).diff(date(listeinterve.startedAt|date('H:i'))) %}
-        {% set price = listeinterve.volume * listeinterve.ficheservice.tva %}
+        {% set price = listeinterve.volume + (listeinterve.ficheservice.tva/100) %}
         <tr class="align-middle">
             <td><input type="checkbox" value="{{ listeinterve.id }}" name="checkInterventions" {% if listeinterve.isInvoiced %}disabled{% endif%}></td>
             <td>
@@ -43,7 +43,7 @@
             <td>{{ price }}€</td>
             <td>
                 <a href="{{ path('app_admin_intervention_show', {'id': listeinterve.id}) }}"><i class="fa-duotone fa-money-check"></i></a>
-                <a id="btnEditIntervention" class="btnEditIntervention" href="{{ path('app_admin_intervention_edit', {'id': listeinterve.id}) }}" ><i class="fa-duotone fa-money-check-pen"></i></a>
+                <a id="btnEditIntervention" class="btnEditIntervention" href="{{ path('app_admin_intervention_edit', {'id': listeinterve.id}) }}" data-bs-whatever="EDIT-Editer une intervention-{{ listeinterve.id }}" data-bs-dismiss="modal"><i class="fa-duotone fa-money-check-pen"></i></a>
                 <a id="btnDupliIntervention" href="{{ path('app_admin_intervention_duplicate', {'id': listeinterve.id}) }}"><i class="fa-duotone fa-clone"></i></a>
             </td>
         </tr>
