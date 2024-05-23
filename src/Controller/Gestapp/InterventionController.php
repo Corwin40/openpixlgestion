@@ -166,7 +166,7 @@ class InterventionController extends AbstractController
                 'message' => "l'intervention a bien été enregistrée.",
             ], 200);
         }
-        $view = $this->renderForm('gestapp/intervention/_form.html.twig', [
+        $view = $this->render('gestapp/intervention/_form.html.twig', [
             'intervention' => $intervention,
             'form' => $form
         ]);
@@ -182,12 +182,12 @@ class InterventionController extends AbstractController
     /**
      * On ajoute une intervention au service d'un client
      **/
-    #[Route('/editinterveonclient/{id}', name: 'app_admin_intervention_editinterveonclient', methods: ['GET', 'POST'])]
+    #[Route('/{id}/editinterveonclient/{idficheservice}', name: 'app_admin_intervention_editinterveonclient', methods: ['GET', 'POST'])]
     public function editinterveonclient(
         Intervention $intervention,
+        $idficheservice,
         InterventionRepository $interventionRepository,
         FicheServiceRepository $ficheServiceRepository,
-                               $idficheservice,
         Request $request,
         MailerInterface $mailer
     )

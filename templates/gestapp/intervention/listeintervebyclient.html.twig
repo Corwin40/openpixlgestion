@@ -43,7 +43,7 @@
             <td>{{ price }}€</td>
             <td>
                 <a href="{{ path('app_admin_intervention_show', {'id': listeinterve.id}) }}"><i class="fa-duotone fa-money-check"></i></a>
-                <a id="btnEditIntervention" class="btnEditIntervention" href="{{ path('app_admin_intervention_edit', {'id': listeinterve.id}) }}" data-bs-whatever="EDIT-Editer une intervention-{{ listeinterve.id }}" data-bs-dismiss="modal"><i class="fa-duotone fa-money-check-pen"></i></a>
+                <a id="btnEditIntervention" class="btnEditIntervention" href="{{ path('app_admin_intervention_editinterveonclient', {'id': listeinterve.id, 'idficheservice': listeinterve.ficheservice.id }) }}" data-bs-toggle="modal" data-bs-target="#modalIntervention" data-bs-whatever="EDIT-Editer une intervention-{{ listeinterve.id }}"><i class="fa-duotone fa-money-check-pen"></i></a>
                 <a id="btnDupliIntervention" href="{{ path('app_admin_intervention_duplicate', {'id': listeinterve.id}) }}"><i class="fa-duotone fa-clone"></i></a>
             </td>
         </tr>

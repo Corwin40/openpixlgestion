@@ -77,6 +77,34 @@ document.querySelectorAll('a.btnEditIntervention').forEach(function (link) {
 function editIntervention(event){
     event.preventDefault();
     modalInterventionBs.toggle();
+    let modal = new bootstrap.Modal(document.getElementById('modalIntervention2'));
+    modal.show();
+    let modalIntervention2 = document.getElementById('modalIntervention2')
+    // Button that triggered the modal
+    let a = event.currentTarget;
+    // extraction de la variable
+    let url = a.href
+    let recipient = a.getAttribute('data-bs-whatever')
+    let crud = recipient.split('-')[0]
+    let contentTitle = recipient.split('-')[1]
+    let id = recipient.split('-')[2]
+    let namePage = recipient.split('-')[3]
+    modalIntervention2.querySelector('.modal-footer a').href = url
+    if(crud === 'ADD'){
+        let modalHeaderH5 = modalIntervention2.querySelector('.modal-title');
+        modalHeaderH5.textContent = contentTitle;
+    }else if(crud === 'EDIT'){
+        let modalHeaderH5 = modalIntervention2.querySelector('.modal-title');
+        modalHeaderH5.textContent = contentTitle;
+        axios
+            .post(url)
+            .then(function(response){
+                modalIntervention2.querySelector('.modal-body').innerHTML = response.data.form;
+            })
+            .catch(function(error){
+                console.log(error)
+            })
+    }
 }
 
 function btnSupprService(event){
