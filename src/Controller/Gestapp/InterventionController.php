@@ -199,13 +199,17 @@ class InterventionController extends AbstractController
         $emailClient = $ficheservice->getClient()->getEmail();
 
         $form = $this->createForm(InterventionType::class, $intervention, [
-            'action'=> $this->generateUrl('app_admin_intervention_addinterveonclient', ['idficheservice'=> $idficheservice]),
+            'action'=> $this->generateUrl('app_admin_intervention_editinterveonclient', [
+                'id'=> $intervention->getId(),
+                'idficheservice'=> $idficheservice
+            ]),
             'method'=>'POST',
-            'attr' => ['class'=>'formaddinterventiononclient']
+            'attr' => ['class'=>'forminterventiononclient']
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd('dans la validation du form');
             $startedAt = $form->get('startedAt')->getData();
             $finishedAt = $form->get('finishedAt')->getData();
             $intervention->setTimelaps($delta = date_diff($startedAt, $finishedAt));
@@ -214,20 +218,6 @@ class InterventionController extends AbstractController
             $vol = $interval * ($intervention->getFicheservice()->getPriceHour() / 3600);
             $intervention->setVolume($vol);
             $interventionRepository->save($intervention, true);
-
-            // Fonction d'envoi mail
-            $email = (new Email())
-                ->from('contact@openpixl.fr')
-                ->to($emailClient)
-                //->cc('cc@example.com')
-                //->bcc('bcc@example.com')
-                //->replyTo('fabien@example.com')
-                //->priority(Email::PRIORITY_HIGH)
-                ->subject('[OpenPixl] - Mise à jour de votre service : '.$nameserv)
-                ->text('Sending emails is fun again!')
-                ->html('fichier twig + Variable objet à transmettre');
-
-            $mailer->send($email);
 
             return $this->json([
                 'code'=> 200,

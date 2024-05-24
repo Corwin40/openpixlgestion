@@ -107,6 +107,19 @@ function editIntervention(event){
     }
 }
 
+function submitEditIntervention(event){
+    event.preventDefault()
+    let a = event.currentTarget;
+    let form = a.href;
+    axios
+        .post(url)
+        .then(function(response){
+            let modal = new bootstrap.Modal(document.getElementById('modalIntervention2'));
+            modal.hide();
+        })
+        .catch()
+}
+
 function btnSupprService(event){
     event.preventDefault()
 }
@@ -131,6 +144,7 @@ function reloadInterventionEvent()
     if (urlInvoice !== null){
         document.getElementById('NewInvoice').href = urlInvoice.href;
     }
+    document.getElementById('SubmitEditIntervention').addEventListener('click', submitEditIntervention)
     document.querySelectorAll('a.btnEditIntervention').forEach(function (link) {
         link.addEventListener('click', editIntervention);
     })

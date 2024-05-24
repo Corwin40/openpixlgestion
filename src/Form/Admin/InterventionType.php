@@ -25,7 +25,7 @@ class InterventionType extends AbstractType
             ->add('description', TextareaType::class, [
                 'required' => false,
                 'attr' => [
-                    'placeholder' => "Description"
+                    'placeholder' => "Description",
                 ]
             ])
             ->add('startedAt', TimeType::class,[
