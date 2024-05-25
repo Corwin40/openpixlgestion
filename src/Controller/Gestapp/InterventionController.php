@@ -209,7 +209,6 @@ class InterventionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd('dans la validation du form');
             $startedAt = $form->get('startedAt')->getData();
             $finishedAt = $form->get('finishedAt')->getData();
             $intervention->setTimelaps($delta = date_diff($startedAt, $finishedAt));

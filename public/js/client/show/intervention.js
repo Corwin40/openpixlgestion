@@ -2,7 +2,6 @@
 // Appel des éléments liés aux interventions
 const modalInterventionBs = new bootstrap.Modal(document.getElementById('modalIntervention'));
 const modalIntervention = document.getElementById('modalIntervention');
-
 const btnEditIntervention = document.getElementById('btnEditIntervention')
 
 // --------------------------------------
@@ -109,16 +108,38 @@ function editIntervention(event){
 
 function submitEditIntervention(event){
     event.preventDefault()
-    let a = event.currentTarget;
-    let form = a.href;
+    let a = event.currentTarget.href.split('/');
+    let id = a[7];
+    let form = document.querySelector('#FormInterventionliste')
+    let action = form.action
+    let data = new FormData(form)
+    let modalIntervention2 = document.getElementById('modalIntervention2')
+    modalIntervention2.querySelector('.modal-body').innerHTML =
+        '<div class="d-flex justify-content-center">\n' +
+        '<div class="spinner-border text-primary" role="status">\n' +
+        '<span class="sr-only">Loading...</span>\n' +
+        '</div>\n' +
+        '</div>'
     axios
-        .post(url)
+        .post(action, data)
         .then(function(response){
             let modal = new bootstrap.Modal(document.getElementById('modalIntervention2'));
-            modal.hide();
+            modal.show();
+            modalIntervention2.querySelector('.modal-dialog').classList.add('modal-xl', 'modal-dialog-centered');
+            axios
+                .get('/admin/intervention/listeinterveonclient/' + id )
+                .then(function(response){
+                    modalIntervention2.querySelector('.modal-body').innerHTML = response.data.list;
+                    reloadInterventionEvent();
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
         })
         .catch()
 }
+
+function hideModalIntervention2(event){}
 
 function btnSupprService(event){
     event.preventDefault()
